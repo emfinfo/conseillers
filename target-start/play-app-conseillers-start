@@ -1,2 +1,0 @@
-target/universal/sans-gzip/bin/conseillers -Dhttp.port=9000
-target/universal/avec-gzip/bin/conseillers -Dhttp.port=9001
