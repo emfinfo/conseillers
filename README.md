@@ -6,7 +6,7 @@ A small Play! framework 2.4.6 application with a MySQL DB (Swiss parlament).
   * A running MySQL server (min 5.5)
   * MySQL Workbench application (or other) to mount the DB 
 
-* First mount wthe DB with the MySQL script in data folder.
+* Mount the DB with the MySQL script in data folder (adapt if necessary).
  
 * If you want modifiy the source project, download it and use NetBeans to open it. Some links are defect. This is because you must :
   * edit the file "nbproject/private/private.properties" and "models/nbproject/private/private.properties" to set the correct "user.home" information in your environment (MacOS, Windows or Linux).
