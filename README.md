@@ -8,6 +8,6 @@ You can download a runnable 1.05 distribution here :
 
 Unzip, give rights for the bin/conseillers or bin\conseillers.bat and execute with :<br>
     ./bin/conseillers (for Unix like OS)<br>
-    bin/conseillers.bat (for Windows OS)
+    bin/conseillers.bat (for Windows OS)<br>
 
 If you want use and modifiy the project, download it and use NetBeans to manage it. Some links are defect. This is because you must edit the file "nbproject/private/private.properties" and "models/nbproject/private/private.properties" to set the correct user.home for you in your environment (MacOS, Windows or Linux). 
