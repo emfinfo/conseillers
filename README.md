@@ -17,8 +17,8 @@ A small Play 2.4.6 application with a MySQL DB (Swiss parlament).
   * Unzip in 
       * c:\Play for Windows,
       * somewhere else for other OS
-  * In the console or terminal applciation and in the unzipped folder, execute the play application with :
-      * bin\conseillers.bat (for Windows OS)
-      * ./bin/conseillers (for Unix like OS, give execution rights for the script "conseillers")
+  * In the console or terminal, go to the unzipped folder and execute the play application with :
+      * bin\conseillers.bat (Windows OS)
+      * ./bin/conseillers (Unix like OS, give execution rights for the script "conseillers")
   * Test the application with :
     http://localhost:9000
