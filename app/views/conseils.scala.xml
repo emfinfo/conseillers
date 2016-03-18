@@ -1,0 +1,9 @@
+@(conseils: List[models.Conseil])
+<conseils>
+  @for(conseil <- conseils) {
+    <conseil>
+      <id>@conseil.getPkConseil()</id>
+      <abrev>@conseil.getAbrev()</abrev>
+    </conseil>
+  }
+</conseils>

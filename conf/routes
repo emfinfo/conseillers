@@ -1,0 +1,58 @@
+
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /       controllers.ApplicationCtrl.index()
+OPTIONS /*path  controllers.ApplicationCtrl.checkPreFlight(path)
+
+# version du serveur
+GET  /version   controllers.ApplicationCtrl.lireVersionServeur()
+
+# requêtes sur les "cantons"
+GET  /cantons        controllers.ConseillerCtrl.chargerCantons(fmt = "html")
+GET  /cantons.xml    controllers.ConseillerCtrl.chargerCantons(fmt = "xml")
+GET  /cantons.json   controllers.ConseillerCtrl.chargerCantons(fmt = "json")
+
+# requêtes sur les "conseils"
+GET  /conseils       controllers.ConseillerCtrl.chargerConseils(fmt = "html")
+GET  /conseils.xml   controllers.ConseillerCtrl.chargerConseils(fmt = "xml")
+GET  /conseils.json  controllers.ConseillerCtrl.chargerConseils(fmt = "json")
+
+# requêtes sur les "partis"
+GET  /partis         controllers.ConseillerCtrl.chargerPartis(fmt = "html")
+GET  /partis.xml     controllers.ConseillerCtrl.chargerPartis(fmt = "xml")
+GET  /partis.json    controllers.ConseillerCtrl.chargerPartis(fmt = "json")
+
+# requêtes sur les "conseillers"
+GET  /conseillers                                        controllers.ConseillerCtrl.chargerConseillers(fmt="html", canton="Suisse", conseil="", parti="", actuels="false")
+
+GET  /conseillers/:canton                                controllers.ConseillerCtrl.chargerConseillers(fmt="html", canton :String, conseil="", parti="", actuels="false")
+GET  /conseillers/:canton/:conseil                       controllers.ConseillerCtrl.chargerConseillers(fmt="html", canton :String, conseil :String, parti="", actuels="false")
+GET  /conseillers/:canton/:conseil/:parti                controllers.ConseillerCtrl.chargerConseillers(fmt="html", canton :String, conseil :String, parti :String, actuels="false")
+GET  /conseillers/:canton/:conseil/:parti/:actuels       controllers.ConseillerCtrl.chargerConseillers(fmt="html", canton :String, conseil :String, parti :String, actuels :String)
+
+GET  /conseillers.xml                                    controllers.ConseillerCtrl.chargerConseillers(fmt="xml", canton = "Suisse", conseil="", parti="", actuels="false")
+GET  /conseillers.xml/:canton                            controllers.ConseillerCtrl.chargerConseillers(fmt="xml", canton :String, conseil="", parti="", actuels="false")
+GET  /conseillers.xml/:canton/:conseil                   controllers.ConseillerCtrl.chargerConseillers(fmt="xml", canton :String, conseil :String, parti="", actuels="false")
+GET  /conseillers.xml/:canton/:conseil/:parti            controllers.ConseillerCtrl.chargerConseillers(fmt="xml", canton :String, conseil :String, parti :String, actuels="false")
+GET  /conseillers.xml/:canton/:conseil/:parti/:actuels   controllers.ConseillerCtrl.chargerConseillers(fmt="xml", canton :String, conseil :String, parti :String, actuels :String)
+
+GET  /conseillers.json                                   controllers.ConseillerCtrl.chargerConseillers(fmt="json", canton = "Suisse", conseil="", parti="", actuels="false")
+GET  /conseillers.json/:canton                           controllers.ConseillerCtrl.chargerConseillers(fmt="json", canton :String, conseil="", parti="", actuels="false")
+GET  /conseillers.json/:canton/:conseil                  controllers.ConseillerCtrl.chargerConseillers(fmt="json", canton :String, conseil :String, parti="", actuels="false")
+GET  /conseillers.json/:canton/:conseil/:parti           controllers.ConseillerCtrl.chargerConseillers(fmt="json", canton :String, conseil :String, parti :String, actuels="false")
+GET  /conseillers.json/:canton/:conseil/:parti/:actuels  controllers.ConseillerCtrl.chargerConseillers(fmt="json", canton :String, conseil :String, parti :String, actuels :String)
+
+# requêtes sur le login
+GET  /login/:loginName/:pwd  controllers.LoginCtrl.login(loginName :String, pwd :String)
+GET  /logout                 controllers.LoginCtrl.logout
+GET  /sessionStatus          controllers.LoginCtrl.sessionStatus
+POST /createLogin            controllers.LoginCtrl.createLogin
+GET  /unauthorizedAccess     controllers.LoginCtrl.unauthorizedAccess()
+
+# Map static resources from the /public folder to the /assets URL path
+GET  /assets/*file  controllers.Assets.at(path="/public", file)
+
+

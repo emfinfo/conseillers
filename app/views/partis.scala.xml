@@ -1,0 +1,9 @@
+@(partis: List[models.Parti])
+<partis>
+  @for(parti <- partis) {
+    <parti>
+      <id>@parti.getPkParti()</id>
+      <abrev>@parti.getNomParti()</abrev>
+    </parti>
+  }
+</partis>

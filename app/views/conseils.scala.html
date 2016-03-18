@@ -1,0 +1,12 @@
+
+@(conseils: List[models.Conseil])
+<style>
+  h1, li {color:green}
+</style>
+<h1>Liste des conseils</h1>
+<ul>
+	@for(conseil <- conseils) {
+    <li>@conseil.getAbrev()</li>
+	}
+</ul>
+

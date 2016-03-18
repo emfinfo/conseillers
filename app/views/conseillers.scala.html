@@ -1,0 +1,20 @@
+
+@(canton: String, conseillers: List[models.Conseiller])
+<style>
+  h1, li {color:green}
+</style>
+<h1>Liste des conseillers (@canton)</h1>
+<ol>
+  @for(conseiller <- conseillers) {
+  <li>
+    @conseiller.getNom() @conseiller.getPrenom() @conseiller.getCanton().getAbrev() 
+    (@if(conseiller.getDateNaissance()==null) {?} else {@conseiller.getDateNaissance().format("yyyy")}@if(conseiller.getDateDeces()!=null) {-@conseiller.getDateDeces().format("yyyy")}), @conseiller.getParti().getNomParti()
+    <ul>
+      @for(activite <- conseiller.getActivites()) {
+      <li style="color:gray">
+        @activite.getConseil().getAbrev(), @if(activite.getDateEntree()==null) {?} else {@activite.getDateEntree().format("yyyy")}-@if(activite.getDateSortie()==null) {...} else {@activite.getDateSortie().format("yyyy")}@if(activite.getGroupe()!=null) {, @activite.getGroupe().getNomGroupe() (@activite.getFonction().getNomFonction().toLowerCase())}
+      </li>}
+    </ul>
+  </li>}
+</ol>
+

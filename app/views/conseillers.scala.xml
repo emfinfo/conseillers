@@ -1,0 +1,43 @@
+
+@(conseillers: List[models.Conseiller])
+<conseillers>@for(conseiller <- conseillers) {
+  <conseiller>
+    <pkConseiller>@conseiller.getPkConseiller()</pkConseiller>
+    <nom>@conseiller.getNom()</nom>
+    <prenom>@conseiller.getPrenom()</prenom>
+    <sexe>@conseiller.getSexe()</sexe>
+    @if(conseiller.getOrigine==null) {<origine>null</origine>} else {<origine>@conseiller.getOrigine()</origine>}
+    @if(conseiller.getDateNaissance==null) {<dateNaissance>null</dateNaissance>} else {<dateNaissance>@conseiller.getDateNaissance.format("yyyy-MM-dd")</dateNaissance>}
+    @if(conseiller.getDateDeces==null) {<dateDeces>null</dateDeces>} else {<dateDeces>@conseiller.getDateDeces().format("yyyy-MM-dd")</dateDeces>}
+    <canton>
+      <pkCanton>@conseiller.getCanton().getPkCanton()</pkCanton>
+      <abrev>@conseiller.getCanton().getAbrev()</abrev>
+    </canton>    
+    <parti>
+      <pkParti>@conseiller.getParti().getPkParti()</pkParti>
+      <nomParti>@conseiller.getParti().getNomParti()</nomParti>
+    </parti>    
+    <activites>@for(activite <- conseiller.getActivites()) {
+      <activite>
+        <pkActivite>@activite.getPkActivite()</pkActivite>
+        <conseil>
+          <pkConseil>@activite.getConseil().getPkConseil()</pkConseil>
+          <abrev>@activite.getConseil().getAbrev()</abrev>
+        </conseil>
+        @if(activite.getDateEntree==null) {<dateEntree>null</dateEntree>} else {<dateEntree>@activite.getDateEntree.format("yyyy-MM-dd")</dateEntree>}
+        @if(activite.getDateSortie==null) {<dateSortie>null</dateSortie>} else {<dateSortie>@activite.getDateSortie().format("yyyy-MM-dd")</dateSortie>}
+        @if(activite.getGroupe()!=null) {<groupe>
+          <pkGroupe>@activite.getGroupe().getPkGroupe()</pkGroupe>
+          <nomGroupe>@activite.getGroupe().getNomGroupe()</nomGroupe>
+        </groupe>}
+        @if(activite.getFonction()!=null) {<fonction>
+          <pkFonction>@activite.getFonction().getPkFonction()</pkFonction>
+          <nomFonction>@activite.getFonction().getNomFonction()</nomFonction>
+        </fonction>}
+      </activite>}
+    </activites>
+  </conseiller>}
+</conseillers>
+
+
+

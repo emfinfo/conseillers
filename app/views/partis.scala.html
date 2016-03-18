@@ -1,0 +1,10 @@
+@(partis: List[models.Parti])
+<style>
+  h1, li {color:green}
+</style>
+<h1>Liste des partis</h1>
+<ul>
+	@for(parti <- partis) {
+    <li>@parti.getNomParti()</li>
+	}
+</ul>
