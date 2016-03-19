@@ -8,7 +8,7 @@ A small Play! framework 2.4.6 application with a MySQL DB (Swiss parlament).
 
 * Mount the DB with the MySQL script in data folder (adapt if necessary).
  
-* If you want modify the source project, download it and use NetBeans 8.1 to open it. It's a standard NetBeans project, but some links are defect when you open iot for the first time. This is because you must :
+* If you want modify the source project, download it and use NetBeans 8.1 to open it. It's a standard NetBeans project, but some links are defect when you open it for the first time. This is because you must :
   * edit the file "nbproject/private/private.properties" and "models/nbproject/private/private.properties" to set the correct "user.home" information in your environment (MacOS, Windows or Linux).
   * compile the project with the Play framework "activator compile" command. All links should now be ok.
 
