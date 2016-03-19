@@ -6,6 +6,8 @@ libraryDependencies += filters
 
 scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation")
 
+javacOptions += "-Xlint:unchecked"
+
 // pour récupérer basiclib et daolayer sur github
 resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/releases"
 
@@ -18,10 +20,10 @@ libraryDependencies ++= Seq(
 
 lazy val commonSettings = Seq(
   version := "1.05",
-  scalaVersion := "2.11.6",
-  javacOptions += "-Xlint:unchecked",
-  scalacOptions += "-deprecation"
+  scalaVersion := "2.11.6"
 )
+//  javacOptions += "-Xlint:unchecked"
+//  scalacOptions += "-unchecked", "-feature", "-deprecation""
 
 lazy val models = (project in file("models"))
     .enablePlugins(PlayJava)
