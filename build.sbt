@@ -22,8 +22,6 @@ lazy val commonSettings = Seq(
   version := "1.05",
   scalaVersion := "2.11.6"
 )
-//  javacOptions += "-Xlint:unchecked"
-//  scalacOptions += "-unchecked", "-feature", "-deprecation""
 
 lazy val models = (project in file("models"))
     .enablePlugins(PlayJava)

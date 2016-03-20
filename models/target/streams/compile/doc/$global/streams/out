@@ -1,0 +1,48 @@
+[0m[[0minfo[0m] [0mMain Java API documentation to /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api...[0m
+[0m[[0mdebug[0m] [0mAttempting to call javadoc directly...[0m
+[0m[[0mdebug[0m] [0mcom.sun.tools.javadoc.Main not found with appropriate method signature; forking javadoc instead[0m
+[0m[[0mdebug[0m] [0mForking javadoc: javadoc @/var/folders/2s/fnnt6vzj343f6r9b_57mtkd00000gn/T/sbt_15a2f51d/argfile[0m
+[0m[[0minfo[0m] [0mLoading source file /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/BasicDateLib.java...[0m
+[0m[[0minfo[0m] [0mLoading source file /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/CustomDateSerializer.java...[0m
+[0m[[0minfo[0m] [0mLoading source file /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java...[0m
+[0m[[0minfo[0m] [0mLoading source file /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Canton.java...[0m
+[0m[[0minfo[0m] [0mLoading source file /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseil.java...[0m
+[0m[[0minfo[0m] [0mLoading source file /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseiller.java...[0m
+[0m[[0minfo[0m] [0mLoading source file /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Fonction.java...[0m
+[0m[[0minfo[0m] [0mLoading source file /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Groupe.java...[0m
+[0m[[0minfo[0m] [0mLoading source file /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Login.java...[0m
+[0m[[0minfo[0m] [0mLoading source file /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Parti.java...[0m
+[0m[[0minfo[0m] [0mConstructing Javadoc information...[0m
+[0m[[0minfo[0m] [0mStandard Doclet version 1.8.0_45[0m
+[0m[[0minfo[0m] [0mBuilding tree for all the packages and classes...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/models/Activite.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/models/Canton.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/models/Conseil.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/models/Conseiller.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/models/Fonction.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/models/Groupe.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/models/Login.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/models/Parti.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/helpers/BasicDateLib.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/helpers/CustomDateSerializer.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/overview-frame.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/helpers/package-frame.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/helpers/package-summary.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/helpers/package-tree.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/models/package-frame.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/models/package-summary.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/models/package-tree.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/constant-values.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/serialized-form.html...[0m
+[0m[[0minfo[0m] [0mBuilding index for all the packages and classes...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/overview-tree.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/index-all.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/deprecated-list.html...[0m
+[0m[[0minfo[0m] [0mBuilding index for all classes...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/allclasses-frame.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/allclasses-noframe.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/index.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/overview-summary.html...[0m
+[0m[[0minfo[0m] [0mGenerating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/api/help-doc.html...[0m
+[0m[[0mdebug[0m] [0mjavadoc returned exit code: 0[0m
+[0m[[0minfo[0m] [0mMain Java API documentation successful.[0m
