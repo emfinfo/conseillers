@@ -134,8 +134,7 @@ public class Utils {
             "http://192.168.0.5:9000",
             "http://stritt-jean-claude.emfprod.ch",
             "http://code.emfprod.ch",
-            "http://homepage.hispeed.ch",
-            "https://stormy-atoll-68012.herokuapp.com");
+            "http://homepage.hispeed.ch");
     String origin = request.getHeader("Origin");
     if (origin != null && whiteList.contains(origin)) {
       response.setHeader("Access-Control-Allow-Origin", origin);
