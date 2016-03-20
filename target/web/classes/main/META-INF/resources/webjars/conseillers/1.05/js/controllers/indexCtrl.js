@@ -2,18 +2,22 @@
 
 var indexCtrl = (function () {
 
-  // valeurs par defaut
+  // valeurs globales par défaut
   var canton = 'FR';
   var conseil = 'tous';
   var parti = 'tous';
   var format = 'JSON';
   var actuels = true;
   var details = false;
+  
+  // pour mémoriser les conseillers de la dernière requête
+  var dernListeConseillers;
+  var dernFormat;
 
   /*
    * 1. METHODES D'AFFICHAGE
    */
-  function afficherConseiller(conseiller, compDOM) {
+  function afficherUnConseiller(conseiller, compDOM) {
     var couleur = 'dodgerblue';
     if (!conseiller.dateSortie && !conseiller.dateDeces) {
       couleur = 'green';
@@ -34,6 +38,113 @@ var indexCtrl = (function () {
     }
     compDOM.append('</li>');
   }
+  
+  function afficherLesConseillers(conseillers, format) {
+    
+    // on sauve (si détails demandés par la suite)
+    dernListeConseillers = conseillers;
+    dernFormat = format;
+    
+    // on récupère le composant du DOM
+    var divData = $('#data');
+    divData.html('');
+    divData.append('<ol>');
+
+    // si c'est du JSON
+    if (format === 'JSON') {
+
+      // on boucle pour ajouter chaque conseiller
+      $.each(conseillers, function (i, cons) {
+
+        // pour bénéficier du toString() et de la conversion de date de la pseudo-classe Conseiller
+        var conseiller = new Conseiller();
+        conseiller.setNom(cons.nom);
+        conseiller.setPrenom(cons.prenom);
+        conseiller.setOrigine(cons.origine);
+        conseiller.setDateNaissance(cons.dateNaissance);
+        conseiller.setDateDeces(cons.dateDeces);
+        conseiller.setCanton(cons.canton);
+        conseiller.setParti(cons.parti);
+        var activites = [];
+        $.each(cons.activites, function (j, act) {
+          var activite = new Activite();
+          activite.setConseil(act.conseil);
+          activite.setDateEntree(act.dateEntree);
+          activite.setDateSortie(act.dateSortie);
+          activite.setGroupe(act.groupe);
+          activite.setFonction(act.fonction);
+          activites.push(activite);
+        });
+        conseiller.setActivites(activites);
+        afficherUnConseiller(conseiller, divData);
+      });
+    } else { // si c'est du XML
+      
+      // on boucle sur chaque conseiller
+      $(conseillers).find('conseiller').each(function () {
+
+        // on crée un objet Conseiller
+        var conseiller = new Conseiller();
+        conseiller.setPkConseiller(Number($(this).find('pkConseiller').text()));
+        conseiller.setNom($(this).find('nom').text());
+        conseiller.setPrenom($(this).find('prenom').text());
+        conseiller.setOrigine($(this).find('origine').text());
+        conseiller.setDateNaissance($(this).find('dateNaissance').text());
+        conseiller.setDateDeces($(this).find('dateDeces').text());
+
+        // on gère un objet Canton
+        var xmlCanton = $(this).find('canton');
+        var canton = {pkCanton: Number(xmlCanton.find('pkCanton').text()),
+          abrev: xmlCanton.find('abrev').text()};
+        conseiller.setCanton(canton);
+
+        // on gère un objet Parti
+        var xmlParti = $(this).find('parti');
+        var parti = {pkParti: Number(xmlParti.find('pkParti').text()),
+          nomParti: xmlParti.find('nomParti').text()};
+        conseiller.setParti(parti);
+
+        // gère les activites
+        var activites = [];
+        $(this).find('activite').each(function () {
+
+          // on gère un objet Activite
+          var activite = new Activite();
+          activite.setPkActivite(Number($(this).find('pkActivite').text()));
+          activite.setDateEntree($(this).find('dateEntree').text());
+          activite.setDateSortie($(this).find('dateSortie').text());
+
+          // on gère un objet Conseil
+          var xmlConseil = $(this).find('conseil');
+          var conseil = {pkConseil: Number(xmlConseil.find('pkConseil').text()),
+            abrev: xmlConseil.find('abrev').text()};
+          activite.setConseil(conseil);
+
+          // on gère un objet Groupe
+          var xmlGroupe = $(this).find('groupe');
+          var groupe = {pkGroupe: Number(xmlGroupe.find('pkGroupe').text()),
+            nomGroupe: xmlGroupe.find('nomGroupe').text()};
+          activite.setGroupe(groupe.pkGroupe > 0 ? groupe : null);
+
+          // on gère un objet Fonction
+          var xmlFonction = $(this).find('fonction');
+          var fonction = {pkFonction: Number(xmlFonction.find('pkFonction').text()),
+            nomFonction: xmlFonction.find('nomFonction').text()};
+          activite.setFonction(fonction.pkFonction > 0 ? fonction : null);
+
+          // on ajoute une activite au tableau des activites
+          activites.push(activite);
+
+        });
+        conseiller.setActivites(activites);
+
+        // on affiche un conseiller
+        afficherUnConseiller(conseiller, divData);
+      });
+
+    }
+    divData.append('</ol>');
+  }  
 
   function afficherErreurHttp(jqXHR, textStatus, errorThrown) {
     var msg = textStatus + ": " + errorThrown + " " + jqXHR.responseText + " !";
@@ -78,102 +189,9 @@ var indexCtrl = (function () {
   }
   
   function okChargerConseillers(conseillers, text, jqXHR) {
-    var format = (jqXHR.responseXML) ? 'XML' : 'JSON';    
-    var divData = $('#data');
-    divData.html('');
-    divData.append('<ol>');
-
-    // si c'est du JSON
-    if (format === 'JSON') {
-      
-      $.each(conseillers, function (i, cons) {
-        
-        // pour bénéficier du toString() et de la conversion de date de la pseudo-classe Conseiller
-        var conseiller = new Conseiller();
-        conseiller.setNom(cons.nom);
-        conseiller.setPrenom(cons.prenom);
-        conseiller.setOrigine(cons.origine);
-        conseiller.setDateNaissance(cons.dateNaissance);
-        conseiller.setDateDeces(cons.dateDeces);
-        conseiller.setCanton(cons.canton);
-        conseiller.setParti(cons.parti);
-        var activites = [];
-        $.each(cons.activites, function (j, act) {
-          var activite = new Activite();
-          activite.setConseil(act.conseil);
-          activite.setDateEntree(act.dateEntree);
-          activite.setDateSortie(act.dateSortie);
-          activite.setGroupe(act.groupe);
-          activite.setFonction(act.fonction);
-          activites.push(activite);
-        });
-        conseiller.setActivites(activites);
-        afficherConseiller(conseiller, divData);
-      });
-    } else { // si c'est du XML
-      $(conseillers).find('conseiller').each(function () {
-        
-        // crée un objet Conseiller
-        var conseiller = new Conseiller();
-        conseiller.setPkConseiller(Number($(this).find('pkConseiller').text()));
-        conseiller.setNom($(this).find('nom').text());
-        conseiller.setPrenom($(this).find('prenom').text());
-        conseiller.setOrigine($(this).find('origine').text());
-        conseiller.setDateNaissance($(this).find('dateNaissance').text());
-        conseiller.setDateDeces($(this).find('dateDeces').text());
-
-        // gère un objet Canton
-        var xmlCanton = $(this).find('canton');
-        var canton = {pkCanton: Number(xmlCanton.find('pkCanton').text()),
-                      abrev:    xmlCanton.find('abrev').text()};
-        conseiller.setCanton(canton);
-        
-        // gère un objet Parti
-        var xmlParti = $(this).find('parti');
-        var parti = {pkParti:  Number(xmlParti.find('pkParti').text()),
-                     nomParti: xmlParti.find('nomParti').text()};
-        conseiller.setParti(parti);
-      
-        // gère les activites
-        var activites = [];
-        $(this).find('activite').each(function () {
-          
-          // gère un objet Activite
-          var activite = new Activite();
-          activite.setPkActivite(Number($(this).find('pkActivite').text()));
-          activite.setDateEntree($(this).find('dateEntree').text());
-          activite.setDateSortie($(this).find('dateSortie').text());
-          
-          // gère un objet Conseil
-          var xmlConseil = $(this).find('conseil');
-          var conseil = {pkConseil: Number(xmlConseil.find('pkConseil').text()),
-                        abrev:      xmlConseil.find('abrev').text()};
-          activite.setConseil(conseil);       
- 
-          // gère un objet Groupe
-          var xmlGroupe = $(this).find('groupe');
-          var groupe = {pkGroupe:  Number(xmlGroupe.find('pkGroupe').text()),
-                        nomGroupe: xmlGroupe.find('nomGroupe').text()};
-          activite.setGroupe(groupe.pkGroupe > 0 ? groupe : null);
-
-          // gère un objet Fonction
-          var xmlFonction = $(this).find('fonction');
-          var fonction = {pkFonction:  Number(xmlFonction.find('pkFonction').text()),
-                        nomFonction: xmlFonction.find('nomFonction').text()};
-          activite.setFonction(fonction.pkFonction > 0 ? fonction : null);
-
-          // ajoute une activite au tableau des activites
-          activites.push(activite);
-          
-        });
-        conseiller.setActivites(activites);
-
-        // affiche un conseiller
-        afficherConseiller(conseiller, divData);
-      });
-      
-    }
-    divData.append('</ol>');
+    var format = (jqXHR.responseXML) ? 'XML' : 'JSON';
+    dernListeConseillers = conseillers;
+    afficherLesConseillers(conseillers, format);
   }
 
 
@@ -229,46 +247,42 @@ var indexCtrl = (function () {
     /*
      * 4. ECOUTEURS SUR DES ACTIONS DE l'UTILISATEUR
      */
-    cmbCantons.change(function (event) {
-      canton = cmbCantons.val();
+    function effectuerRequeteServeur() {
+      var divData = $('#data');
+      divData.html('...');
       if (httpServ) {
         httpServ.chargerConseillers(format, canton, conseil, parti, actuels, okChargerConseillers, afficherErreurHttp);
-      }
+      }      
+    }
+    
+    cmbCantons.change(function (event) {
+      canton = cmbCantons.val();
+      effectuerRequeteServeur();
     });
 
     cmbConseils.change(function (event) {
       conseil = cmbConseils.val();
-      if (httpServ) {
-        httpServ.chargerConseillers(format, canton, conseil, parti, actuels, okChargerConseillers, afficherErreurHttp);
-      }
+      effectuerRequeteServeur();
     });
 
     cmbPartis.change(function (event) {
       parti = cmbPartis.val();
-      if (httpServ) {
-        httpServ.chargerConseillers(format, canton, conseil, parti, actuels, okChargerConseillers, afficherErreurHttp);
-      }
+      effectuerRequeteServeur();
     });
 
     cmbFormats.change(function (event) {
       format = cmbFormats.val();
-      if (httpServ) {
-        httpServ.chargerConseillers(format, canton, conseil, parti, actuels, okChargerConseillers, afficherErreurHttp);
-      }
+      effectuerRequeteServeur();
     });
 
     cbxActuels.change(function (event) {
       actuels = cbxActuels.is(':checked');
-      if (httpServ) {
-        httpServ.chargerConseillers(format, canton, conseil, parti, actuels, okChargerConseillers, afficherErreurHttp);
-      }
+      effectuerRequeteServeur();
     });
 
     cbxDetails.change(function (event) {
       details = cbxDetails.is(':checked');
-      if (httpServ) {
-        httpServ.chargerConseillers(format, canton, conseil, parti, actuels, okChargerConseillers, afficherErreurHttp);
-      }
+      afficherLesConseillers(dernListeConseillers, dernFormat);
     });
 
   });
