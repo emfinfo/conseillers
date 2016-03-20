@@ -13,7 +13,7 @@ var httpServ = (function() {
 //  var serverURL = 'http://192.168.0.4:9000'; // maison
 //  var serverURL = 'http://192.168.0.5:9000'; // raspberry pi2
 //  var serverURL = 'http://localhost:9000';
-  var serverURL = '//localhost:9000';
+  var serverURL = browser.Url.getBaseUrl();
   
   function _lireVersionServeur(successCallback, errorCallback) {
     var format = "json";

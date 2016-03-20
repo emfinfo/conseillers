@@ -97,6 +97,7 @@ var browser = {
     }
 
     return{
+      getUrlParts: _getUrlParts,
       getBaseUrl: _getBaseUrl,
       buildUrl:   _buildUrl,
       getLocalIP: _getLocalIP
