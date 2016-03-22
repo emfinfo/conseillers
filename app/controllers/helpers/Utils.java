@@ -127,15 +127,17 @@ public class Utils {
   }
 
   public static void validCrossDomainContext(Request request, Response response) {
-    Set<String> whiteList = Sets.newHashSet(
-            "http://localhost:8383",
-            "http://localhost:9000",
-            "http://192.168.0.4:9000",
-            "http://192.168.0.5:9000",
-            "http://jcstritt.emf-informatique.ch",
-            "http://homepage.hispeed.ch");
+//    Set<String> whiteList = Sets.newHashSet(
+//            "http://localhost:8383",
+//            "http://localhost:9000",
+//            "http://192.168.0.4:9000",
+//            "http://192.168.0.5:9000",
+//            "http://jcstritt.emf-informatique.ch",
+//            "http://homepage.hispeed.ch");
     String origin = request.getHeader("Origin");
-    if (origin != null && whiteList.contains(origin)) {
+//    if (origin != null && whiteList.contains(origin)) {
+    if (origin != null && (origin.contains("localhost") || origin.contains("192.168") 
+      || origin.contains("emf-informatique.ch") || origin.contains("homepage.hispeed.ch"))) {
       response.setHeader("Access-Control-Allow-Origin", origin);
       response.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT,OPTIONS");
       response.setHeader("Access-Control-Allow-Credentials", "true");
