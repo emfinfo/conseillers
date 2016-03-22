@@ -132,8 +132,7 @@ public class Utils {
             "http://localhost:9000",
             "http://192.168.0.4:9000",
             "http://192.168.0.5:9000",
-            "http://stritt-jean-claude.emfprod.ch",
-            "http://code.emfprod.ch",
+            "http://jcstritt.emf-informatique.ch",
             "http://homepage.hispeed.ch");
     String origin = request.getHeader("Origin");
     if (origin != null && whiteList.contains(origin)) {
