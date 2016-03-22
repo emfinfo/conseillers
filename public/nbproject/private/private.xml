@@ -15,9 +15,7 @@
         </group>
         <group name="Play">
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/index.html</file>
-            <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/js/models/conseiller.js</file>
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/js/controllers/indexCtrl.js</file>
-            <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/libs/browser.js</file>
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/js/services/httpServ.js</file>
         </group>
     </open-files>

@@ -3,6 +3,7 @@
   <head>
     <title>Conseillers...</title>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="images/favicon.png" />    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css" />
   </head>
@@ -10,40 +11,59 @@
     <div id="conteneur" class="container">
       <div class="col-sm-12">
         <div class="panel panel-primary">
-          <div class="panel-heading"><h3 class="panel-title"><strong>Les conseillers nationaux ...</strong></h3></div>
+          <div class="panel-heading">
+            <h3 class="panel-title">Parlement Suisse (serveur <span id="versionServeur"></span>)</h3>
+          </div>
           <div class="panel-body" style="text-align:left">
-
-            <!--<p>Choisir le canton et le format pour charger en AJAX des données depuis un serveur</p>-->
-            <p>Filtrer par canton, conseil ou parti (données provenant d'un serveur <span id="versionServeur">&nbsp;</span>)</p>
-
-            <!-- une combobox pour sélectionner le canton -->
-            <select id="cmbCantons">
-            </select>
-
-            <!-- une combobox pour sélectionner le conseil -->
-            <select id="cmbConseils">
-            </select>
-
-            <!-- une combobox pour sélectionner le parti -->
-            <select id="cmbPartis" style="width: 200px">
-            </select>
-
-              &nbsp;  
-              <input type="checkbox" id="cbxActuels" name="cbxActuels" />&nbsp;actuels  
-
-              &nbsp;  
-              <input type="checkbox" id="cbxDetails" name="cbxDetails" />&nbsp;détails&nbsp;  
-
-              <!-- une combobox pour sélectionner le format XML ou JSON -->
-              <select id="cmbFormats">
-                <option>JSON</option>
-                <option>XML</option>
-              </select>
-
-            <!-- un calque vide pour afficher les données après un appel AJAX -->
-            <div id="data">
-              ...
-            </div>
+            <h4>Les routes (quelques exemples) ...</h4>
+            <ul>
+              <li><a href="http://conseillers.herokuapp.com/version" target="_blank">http://conseillers.herokuapp.com/version</a></li>
+            </ul>
+            <ul>
+              <li><a href="http://conseillers.herokuapp.com/cantons" target="_blank">http://conseillers.herokuapp.com/cantons</a></li>
+              <li><a href="http://conseillers.herokuapp.com/cantons.xml" target="_blank">http://conseillers.herokuapp.com/cantons.xml</a></li>
+              <li><a href="http://conseillers.herokuapp.com/cantons.json" target="_blank">http://conseillers.herokuapp.com/cantons.json</a></li>
+            </ul>
+            <ul>
+              <li><a href="http://conseillers.herokuapp.com/conseils" target="_blank">http://conseillers.herokuapp.com/conseils</a></li>
+              <li><a href="http://conseillers.herokuapp.com/conseils.xml" target="_blank">http://conseillers.herokuapp.com/conseils.xml</a></li>
+              <li><a href="http://conseillers.herokuapp.com/conseils.json" target="_blank">http://conseillers.herokuapp.com/conseils.json</a></li>
+            </ul>
+            <ul>
+              <li><a href="http://conseillers.herokuapp.com/partis" target="_blank">http://conseillers.herokuapp.com/partis</a></li>
+              <li><a href="http://conseillers.herokuapp.com/partis.xml" target="_blank">http://conseillers.herokuapp.com/partis.xml</a></li>
+              <li><a href="http://conseillers.herokuapp.com/partis.json" target="_blank">http://conseillers.herokuapp.com/partis.json</a></li>
+            </ul>
+            <ul>
+              <li><a href="http://conseillers.herokuapp.com/conseillers/FR/CE/tous/true" target="_blank">http://conseillers.herokuapp.com/conseillers/FR/CE/tous/true</a></li>
+              <li><a href="http://conseillers.herokuapp.com/conseillers.xml/FR/CE/tous/true" target="_blank">http://conseillers.herokuapp.com/conseillers.xml/FR/CE/tous/true</a></li>
+              <li><a href="http://conseillers.herokuapp.com/conseillers.json/FR/CE/tous/true" target="_blank">http://conseillers.herokuapp.com/conseillers.json/FR/CE/tous/true</a></li>
+            </ul>
+            <ul>
+              <li><a href="http://conseillers.herokuapp.com/conseillers/GE/CN/Parti Socialiste Suisse/true" target="_blank">http://conseillers.herokuapp.com/conseillers/GE/CN/Parti Socialiste Suisse/true</a></li>
+              <li><a href="http://conseillers.herokuapp.com/conseillers.xml/GE/CN/Parti Socialiste Suisse/true" target="_blank">http://conseillers.herokuapp.com/conseillers.xml/GE/CN/Parti Socialiste Suisse/true</a></li>
+              <li><a href="http://conseillers.herokuapp.com/conseillers.json/GE/CN/Parti Socialiste Suisse/true" target="_blank">http://conseillers.herokuapp.com/conseillers.json/GE/CN/Parti Socialiste Suisse/true</a></li>
+            </ul>
+            <ul>
+              <li><a href="http://conseillers.herokuapp.com/conseillers/Suisse/CF/tous/true" target="_blank">http://conseillers.herokuapp.com/conseillers/Suisse/CF/tous/true</a></li>
+              <li><a href="http://conseillers.herokuapp.com/conseillers.xml/Suisse/CF/tous/true" target="_blank">http://conseillers.herokuapp.com/conseillers.xml/Suisse/CF/tous/true</a></li>
+              <li><a href="http://conseillers.herokuapp.com/conseillers.json/Suisse/CF/tous/true" target="_blank">http://conseillers.herokuapp.com/conseillers.json/Suisse/CF/tous/true</a></li>
+            </ul>
+            <ul>
+              <li><a href="http://conseillers.herokuapp.com/login/mettrauxpa/Emf123" target="_blank">http://conseillers.herokuapp.com/login/mettrauxpa/Emf123</a></li>
+              <li><a href="http://conseillers.herokuapp.com/login/strittjc/Emf123" target="_blank">http://conseillers.herokuapp.com/login/strittjc/Emf123</a></li>
+              <li><a href="http://conseillers.herokuapp.com/login/user1/Emf123" target="_blank">http://conseillers.herokuapp.com/login/user1/Emf123</a></li>
+              <li><a href="http://conseillers.herokuapp.com/sessionStatus" target="_blank">http://conseillers.herokuapp.com/sessionStatus</a></li>
+              <li><a href="http://conseillers.herokuapp.com/logout" target="_blank">http://conseillers.herokuapp.com/logout</a></li>
+            </ul>
+            <ul>
+              <li>http://conseillers.herokuapp.com/createLogin<br>
+              createLogin utilise une méthode HTTP de type POST pour créer un nouvel utilisateur. 
+              Elle nécessite d'envoyer un objet JSON dans le corps (body) de la méthode, ex: {"nom":"TartampionJ", "motDePasse":"Emf123"}. 
+              D'autres champs peuvent être spécifiés: "domaine", "profil", "email", "initiales", "langue". 
+              Le retour est un objet "login" rempli ou avec le nom=null si la création n'a pas pu se faire (login existant).
+              </li>
+            </ul>
           </div>
         </div>
       </div>
