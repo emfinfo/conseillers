@@ -1,10 +1,39 @@
-/.settings/
-/target/
-/dist/
-/build/
-/nbbuild/
-/logs/
-/models/build/
-/models/nbbuild/
-/models/dist/
-/models/target/
+# general
+*~
+*.log
+tmp
+dump
+
+# Netbeans
+build
+nbbuild
+models/build
+models/nbbuild
+
+# Eclipse
+.settings
+.cache
+.project
+.classpath
+.scala_dependencies
+bin
+
+# SBT
+dist
+project/boot
+project/target
+project/plugins/target
+target
+.target
+
+models/dist
+models/project/boot
+models/project/target
+models/project/plugins/target
+models/target
+models/.target
+
+# Play
+logs
+RUNNING_PID
+
