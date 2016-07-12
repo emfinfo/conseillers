@@ -58,7 +58,7 @@ Seq[Any](format.raw/*1.30*/("""
 object partis extends partis_Scope0.partis
               /*
                   -- GENERATED --
-                  DATE: Tue Jul 12 17:36:34 CEST 2016
+                  DATE: Tue Jul 12 23:14:10 CEST 2016
                   SOURCE: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/app/views/partis.scala.xml
                   HASH: 34ee7224ab84741563681478746abf57bafc9aab
                   MATRIX: 753->1|875->29|902->30|939->42|974->62|1013->64|1044->69|1089->88|1102->93|1135->106|1181->126|1194->131|1228->145|1282->170|1309->171

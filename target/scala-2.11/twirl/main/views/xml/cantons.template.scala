@@ -59,7 +59,7 @@ Seq[Any](format.raw/*2.32*/("""
 object cantons extends cantons_Scope0.cantons
               /*
                   -- GENERATED --
-                  DATE: Tue Jul 12 17:36:34 CEST 2016
+                  DATE: Tue Jul 12 23:14:10 CEST 2016
                   SOURCE: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/app/views/cantons.scala.xml
                   HASH: 058948d5c03656cbdf33aa56d8119d5c15e6eb7a
                   MATRIX: 756->2|880->32|907->33|945->46|982->68|1021->70|1052->75|1098->95|1112->101|1146->115|1192->135|1206->141|1237->152|1292->178|1320->179

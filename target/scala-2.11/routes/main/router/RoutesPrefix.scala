@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/conf/routes
-// @DATE:Tue Jul 12 17:36:33 CEST 2016
+// @DATE:Tue Jul 12 23:14:10 CEST 2016
 
 
 package router {

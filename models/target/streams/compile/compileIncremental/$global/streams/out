@@ -1,15 +1,114 @@
 [0m[[0mdebug[0m] [0m[naha] [0m
 [0m[[0mdebug[0m] [0m[naha] Initial source changes: [0m
 [0m[[0mdebug[0m] [0m[naha] 	removed:Set()[0m
-[0m[[0mdebug[0m] [0m[naha] 	added: Set()[0m
+[0m[[0mdebug[0m] [0m[naha] 	added: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseiller.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Canton.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Login.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseil.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/BasicDateLib.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Groupe.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Parti.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/CustomDateSerializer.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Fonction.java)[0m
 [0m[[0mdebug[0m] [0m[naha] 	modified: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] Invalidated products: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] External API changes: API Changes: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] Modified binary dependencies: Set()[0m
-[0m[[0mdebug[0m] [0m[naha] Initial directly invalidated sources: Set()[0m
+[0m[[0mdebug[0m] [0m[naha] Initial directly invalidated sources: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseiller.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Canton.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Login.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseil.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/BasicDateLib.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Groupe.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Parti.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/CustomDateSerializer.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Fonction.java)[0m
 [0m[[0mdebug[0m] [0m[naha] [0m
 [0m[[0mdebug[0m] [0m[naha] Sources indirectly invalidated by:[0m
 [0m[[0mdebug[0m] [0m[naha] 	product: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] 	binary dep: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] 	external source: Set()[0m
-[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set()[0m
+[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseiller.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Canton.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Login.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseil.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/BasicDateLib.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Groupe.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Parti.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/CustomDateSerializer.java, /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Fonction.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Recompiling all 10 sources: invalidated sources (10) exceeded 50.0% of all sources[0m
+[0m[[0minfo[0m] [0mCompiling 10 Java sources to /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/classes...[0m
+[0m[[0mdebug[0m] [0mAttempting to call com.sun.tools.javac.api.JavacTool@30706874 directly...[0m
+[0m[[0mdebug[0m] [0mJava compilation took 1.257053377 s[0m
+[0m[[0mdebug[0m] [0mJava analysis took 0.202662262 s[0m
+[0m[[0mdebug[0m] [0mJava compile + analysis took 1.46305596 s[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Canton.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Canton.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Canton.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Canton.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Canton.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	notify, Canton, wait, equals, getAbrev, canEqual, notifyAll, setAbrev, <init>, toString, getClass, setPkCanton, getPkCanton, hashCode.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseiller.java[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Canton.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseiller.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseiller.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseiller.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseiller.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseiller.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	notify, getPkConseiller, wait, getNom, equals, setPrenom, getPrenom, isActif, setParti, setSexe, setNom, getDateDeces, canEqual, notifyAll, setDateNaissance, <init>, setActivites, getDateNaissance, setActif, setCanton, getCanton, setOrigine, toString, getClass, getActivites, Conseiller, getParti, setDateDeces, getOrigine, hashCode, getSexe, setPkConseiller.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseiller.java[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Parti.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Parti.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Parti.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Parti.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Parti.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	notify, getPkParti, wait, equals, canEqual, notifyAll, setNomParti, getNomParti, <init>, Parti, setPkParti, toString, getClass, hashCode.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseiller.java[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Parti.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/CustomDateSerializer.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/CustomDateSerializer.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/CustomDateSerializer.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/CustomDateSerializer.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/CustomDateSerializer.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	serializeWithType, withFilterId, notify, getDelegatee, wait, equals, JsonSerializer$None, handledType, notifyAll, acceptJsonFormatVisitor, replaceDelegatee, unwrappingSerializer, <init>, properties, isUnwrappingSerializer, usesObjectId, CustomDateSerializer, toString, getClass, isEmpty, serialize, hashCode.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/CustomDateSerializer.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Login.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Login.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Login.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Login.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Login.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	setEmail, setPkLogin, notify, wait, getNom, setDomaine, getMotDePasse, getInitiales, setInitiales, setProfil, equals, getProfil, getDomaine, setMotDePasse, getEmail, getLangue, setNom, canEqual, notifyAll, Login, <init>, getPkLogin, setLangue, toString, getClass, hashCode.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Login.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Fonction.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Fonction.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Fonction.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Fonction.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Fonction.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	notify, wait, setNomFonction, equals, Fonction, canEqual, notifyAll, <init>, getPkFonction, toString, getClass, setPkFonction, getNomFonction, hashCode.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Fonction.java[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	notify, wait, setPkActivite, equals, setDateSortie, setGroupe, setDateEntree, getFonction, setConseiller, canEqual, notifyAll, getPkActivite, setFonction, <init>, getGroupe, getDateEntree, getDateSortie, toString, getConseiller, getClass, Activite, getConseil, setConseil, hashCode.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/BasicDateLib.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/BasicDateLib.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/BasicDateLib.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/BasicDateLib.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/BasicDateLib.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	DATE_FORMAT_STANDARD, notify, wait, equals, BasicDateLib, notifyAll, <init>, toString, getClass, hashCode, dateToString.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/helpers/BasicDateLib.java[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseil.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseil.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseil.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseil.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseil.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	notify, wait, equals, getAbrev, getPkConseil, canEqual, notifyAll, setAbrev, <init>, toString, setPkConseil, getClass, Conseil, hashCode.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Conseil.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Groupe.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Groupe.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Groupe.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Groupe.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Groupe.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	notify, wait, equals, getPkGroupe, canEqual, notifyAll, <init>, getNomGroupe, setNomGroupe, Groupe, toString, getClass, setPkGroupe, hashCode.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Groupe.java[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/app/models/Activite.java[0m
+[0m[[0mdebug[0m] [0m[naha] New invalidations:[0m
+[0m[[0mdebug[0m] [0m[naha] 	Set()[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set()[0m
+[0m[[0mdebug[0m] [0m[naha] Previously invalidated, but (transitively) depend on new invalidations:[0m
+[0m[[0mdebug[0m] [0m[naha] 	Set()[0m
+[0m[[0mdebug[0m] [0m[naha] All newly invalidated sources after taking into account (previously) recompiled sources:Set()[0m

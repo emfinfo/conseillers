@@ -58,7 +58,7 @@ Seq[Any](format.raw/*1.34*/("""
 object conseils extends conseils_Scope0.conseils
               /*
                   -- GENERATED --
-                  DATE: Tue Jul 12 17:36:34 CEST 2016
+                  DATE: Tue Jul 12 23:14:10 CEST 2016
                   SOURCE: /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/app/views/conseils.scala.xml
                   HASH: 6fa6352ca980990fc2c9d517f667e77f9efd35cb
                   MATRIX: 759->1|885->33|912->34|951->48|990->72|1029->74|1060->79|1107->100|1122->107|1157->122|1203->142|1218->149|1249->160|1305->187|1332->188
