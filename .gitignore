@@ -1,3 +1,4 @@
+/.settings/
 /target/
 /dist/
 /build/
@@ -7,4 +8,3 @@
 /models/nbbuild/
 /models/dist/
 /models/target/
-.settings
