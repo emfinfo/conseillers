@@ -118,7 +118,7 @@ var indexCtrl = (function () {
 
 
   /*
-   * 2. CALLBACKS (RETOUR DE SERVICE)
+   * 3. CALLBACKS (RETOUR DE SERVICE)
    */
   function okLireVersionServeur(data, text, jqXHR) {
     var infoComponent = $("#versionServeur");
