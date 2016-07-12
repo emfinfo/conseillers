@@ -7,11 +7,21 @@
             <source-roots>
                 <root id="src.dir" name="app"/>
                 <root id="conf.dir"/>
+                <root id="resources.dir"/>
             </source-roots>
             <test-roots>
                 <root id="test.src.dir" name="test"/>
             </test-roots>
         </data>
-        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1"/>
+        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
+            <reference>
+                <foreign-project>Conseillers-models</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+        </references>
     </configuration>
 </project>

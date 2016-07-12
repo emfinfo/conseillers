@@ -22,7 +22,6 @@ import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -48,8 +47,7 @@ import lombok.EqualsAndHashCode;
         @ColumnResult(name = "dateDeces", type = Date.class),
         @ColumnResult(name = "actif", type = Boolean.class),
         @ColumnResult(name = "fkParti"),
-        @ColumnResult(name = "fkCanton"),
-      }
+        @ColumnResult(name = "fkCanton"),}
     )
   }
 )
@@ -83,12 +81,12 @@ public class Conseiller implements Serializable {
 
   @Column(name = "dateNaissance")
   @Temporal(TemporalType.DATE)
-  @JsonSerialize(using = CustomDateSerializer.class)  
+  @JsonSerialize(using = CustomDateSerializer.class)
   private Date dateNaissance;
 
   @Column(name = "dateDeces")
   @Temporal(TemporalType.DATE)
-  @JsonSerialize(using = CustomDateSerializer.class)  
+  @JsonSerialize(using = CustomDateSerializer.class)
   private Date dateDeces;
 
   @Basic(optional = false)
@@ -106,10 +104,10 @@ public class Conseiller implements Serializable {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "conseiller")
   @OrderBy("dateEntree ASC")
   private List<Activite> activites;
-    
+
   @Override
   public String toString() {
-    return nom + " " + prenom; 
+    return nom + " " + prenom;
 //      + " ("
 //      + ((dateNaissance != null) ? DateTimeLib.dateToString(dateNaissance) : "?")
 //      + ((dateDeces != null) ? " - " + DateTimeLib.dateToString(dateDeces) : "") + ")"

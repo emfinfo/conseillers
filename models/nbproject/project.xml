@@ -6,12 +6,8 @@
             <name>Conseillers-models</name>
             <source-roots>
                 <root id="src.dir" name="app"/>
-                <root id="src.conf.dir"/>
             </source-roots>
-            <test-roots>
-                <root id="test.test.dir"/>
-            </test-roots>
+            <test-roots/>
         </data>
-        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1"/>
     </configuration>
 </project>

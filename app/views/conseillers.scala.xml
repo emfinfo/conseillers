@@ -12,11 +12,11 @@
     <canton>
       <pkCanton>@conseiller.getCanton().getPkCanton()</pkCanton>
       <abrev>@conseiller.getCanton().getAbrev()</abrev>
-    </canton>    
+    </canton>
     <parti>
       <pkParti>@conseiller.getParti().getPkParti()</pkParti>
       <nomParti>@conseiller.getParti().getNomParti()</nomParti>
-    </parti>    
+    </parti>
     <activites>@for(activite <- conseiller.getActivites()) {
       <activite>
         <pkActivite>@activite.getPkActivite()</pkActivite>
@@ -38,6 +38,3 @@
     </activites>
   </conseiller>}
 </conseillers>
-
-
-

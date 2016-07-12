@@ -10,20 +10,21 @@ import static play.mvc.Results.redirect;
 
 public class ApplicationCtrl extends Controller {
 
-  public static Result index() {
-    Result httpResult;
-      httpResult = redirect("/assets/index.html");
-    return httpResult;
+  public Result index() {
+//    Result httpResult;
+//    httpResult = redirect("/assets/index.html");
+//    return httpResult;
+    return redirect("/assets/index.html");
   }
-  
-  public static Result checkPreFlight(String path) {
-    validCrossDomainContext(request(), response());
-    return ok();  
-  }  
 
-  public static Result lireVersionServeur() {
+  public Result checkPreFlight(String path) {
     validCrossDomainContext(request(), response());
-    return Utils.toJson ("versionServeur", "\"Play " + play.core.PlayVersion.current() + "\"");
+    return ok();
   }
-  
+
+  public Result lireVersionServeur() {
+//    validCrossDomainContext(request(), response());
+    return Utils.toJson("versionServeur", "\"Play " + play.core.PlayVersion.current() + "\"");
+  }
+
 }

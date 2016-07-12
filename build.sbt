@@ -1,6 +1,11 @@
 import com.jamesward.play.BrowserNotifierKeys
+import PlayKeys._
+import com.typesafe.config._
 
-name := "Conseillers"
+routesGenerator := InjectedRoutesGenerator
+// routesGenerator := StaticRoutesGenerator
+
+val conf = ConfigFactory.parseFile(new File("conf/application.conf")).resolve()
 
 libraryDependencies += filters
 
@@ -11,16 +16,19 @@ javacOptions += "-Xlint:unchecked"
 // pour récupérer basiclib et daolayer sur github
 resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/releases"
 
-// selon versions au 14.3.2016 sur http://mvnrepository.com/
+// dépendences (voir dernières versions sur http://mvnrepository.com)
 libraryDependencies ++= Seq(
   "ch.emf.info" % "basiclib" % "1.01",
-  "ch.emf.info" % "daolayer" % "5.34",  
-  "mysql" % "mysql-connector-java" % "5.1.38"
-)
+  "ch.emf.info" % "daolayer" % "5.35",
+  "mysql" % "mysql-connector-java" % "5.1.38").map(_.force())
+
+// à cause d'une "warning" : class path contains multiple SLF4J bindings
+libraryDependencies ~= { _.map(_.exclude("org.slf4j", "slf4j-log4j12")) }
 
 lazy val commonSettings = Seq(
-  version := "1.05",
-  scalaVersion := "2.11.6"
+  name := conf.getString("application.name"),
+  version := conf.getString("application.version"),
+  scalaVersion := "2.11.7"
 )
 
 lazy val models = (project in file("models"))
@@ -39,7 +47,7 @@ EclipseKeys.preTasks := Seq(compile in Compile)
 
 EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
 
-EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources) 
+EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)
 
 BrowserNotifierKeys.shouldOpenBrowser := true
 

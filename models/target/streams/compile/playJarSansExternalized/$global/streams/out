@@ -1,0 +1,27 @@
+[0m[[0minfo[0m] [0mPackaging /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/conseillers-models_2.11-1.07-sans-externalized.jar ...[0m
+[0m[[0mdebug[0m] [0mInput file mappings:[0m
+[0m[[0mdebug[0m] [0m	helpers[0m
+[0m[[0mdebug[0m] [0m	  /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/classes/helpers[0m
+[0m[[0mdebug[0m] [0m	models/Conseiller.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/classes/models/Conseiller.class[0m
+[0m[[0mdebug[0m] [0m	models/Login.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/classes/models/Login.class[0m
+[0m[[0mdebug[0m] [0m	helpers/CustomDateSerializer.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/classes/helpers/CustomDateSerializer.class[0m
+[0m[[0mdebug[0m] [0m	models/Activite.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/classes/models/Activite.class[0m
+[0m[[0mdebug[0m] [0m	models/Conseil.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/classes/models/Conseil.class[0m
+[0m[[0mdebug[0m] [0m	models[0m
+[0m[[0mdebug[0m] [0m	  /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/classes/models[0m
+[0m[[0mdebug[0m] [0m	models/Groupe.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/classes/models/Groupe.class[0m
+[0m[[0mdebug[0m] [0m	models/Canton.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/classes/models/Canton.class[0m
+[0m[[0mdebug[0m] [0m	models/Fonction.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/classes/models/Fonction.class[0m
+[0m[[0mdebug[0m] [0m	models/Parti.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/classes/models/Parti.class[0m
+[0m[[0mdebug[0m] [0m	helpers/BasicDateLib.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/models/target/scala-2.11/classes/helpers/BasicDateLib.class[0m
+[0m[[0minfo[0m] [0mDone packaging.[0m
