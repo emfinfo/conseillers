@@ -98,15 +98,6 @@ var indexCtrl = (function () {
     divData.append("Le retour est un objet " + '"login" rempli ou avec le nom=null si la création ' + "n'a pas pu se faire (login existant).");
     divData.append('<br>');
 
-//            <ul>
-//              <li>http://conseillers.herokuapp.com/createLogin<br>
-//              createLogin doit utiliser une méthode HTTP de type POST pour créer un nouvel utilisateur.
-//              Elle nécessite d'envoyer un objet JSON dans le corps (body) de la méthode, ex: {"nom":"TartampionJ", "motDePasse":"Emf123"}.
-//              D'autres champs peuvent être spécifiés: "domaine", "profil", "email", "initiales", "langue".
-//              Le retour est un objet "login" rempli ou avec le nom=null si la création n'a pas pu se faire (login existant).
-//              </li>
-//            </ul>
-
   }
 
 
