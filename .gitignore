@@ -2,6 +2,7 @@
 /dist/
 /build/
 /nbbuild/
+/logs/
 /models/build/
 /models/nbbuild/
 /models/dist/
