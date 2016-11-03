@@ -7,8 +7,9 @@
 GET     /       controllers.ApplicationCtrl.index()
 OPTIONS /*path  controllers.ApplicationCtrl.checkPreFlight(path)
 
-# version du serveur
-GET  /version   controllers.ApplicationCtrl.lireVersionServeur()
+# versions serveur et application
+GET  /version-app   controllers.ApplicationCtrl.lireVersionApplication()
+GET  /version-srv   controllers.ApplicationCtrl.lireVersionServeur()
 
 # requêtes sur les "cantons"
 GET  /cantons        controllers.ConseillerCtrl.chargerCantons(fmt = "html")

@@ -13,10 +13,10 @@ import play.Logger;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.*;
-import workers.DbWorker;
-import workers.DbWorkerAPI;
 import static play.mvc.Results.badRequest;
 import static play.mvc.Results.ok;
+import workers.DbWorker;
+import workers.DbWorkerAPI;
 
 /**
  * Contrôleur pour gérer les appels REST sur les conseillers nationaux.
@@ -30,7 +30,7 @@ public class ConseillerCtrl extends Controller {
   @Inject
   public ConseillerCtrl(Configuration configuration) {
     String appName = configuration.getString("application.name");
-    String appVersion = configuration.getString("application.version");;
+    String appVersion = configuration.getString("application.version");
     Logger.info(
       appName + " " + appVersion
       + " is starting now in Play " + play.core.PlayVersion.current()

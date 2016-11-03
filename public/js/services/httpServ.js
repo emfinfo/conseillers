@@ -15,9 +15,9 @@ var httpServ = (function () {
   var serverURL = browser.Url.getBaseUrl(); // si client et serveur au même endroit
 //  var serverURL = 'http://conseillers.herokuapp.com';
 
-  function _lireVersionServeur(successCallback, errorCallback) {
+  function _lireVersion(which, successCallback, errorCallback) {
     var format = "json";
-    var fullURL = serverURL + "/version";
+    var fullURL = serverURL + "/version-" + which;
     $.ajax({
       type: "GET",
       dataType: format,
@@ -33,7 +33,7 @@ var httpServ = (function () {
 
   // définition des noms de methodes publiques
   return {
-    lireVersionServeur: _lireVersionServeur,
+    lireVersion: _lireVersion,
     recuperNomServeur: _recupererNomServeur
   };
 

@@ -18,8 +18,8 @@ resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/release
 
 // dépendences (voir dernières versions sur http://mvnrepository.com)
 libraryDependencies ++= Seq(
-  "ch.emf.info" % "basiclib" % "1.01",
-  "ch.emf.info" % "daolayer" % "5.35",
+  "ch.emf.info" % "basiclib" % "1.0.5",
+  "ch.emf.info" % "daolayer" % "5.1.0",
   "mysql" % "mysql-connector-java" % "5.1.38").map(_.force())
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings

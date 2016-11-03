@@ -22,13 +22,13 @@ public class SessionManager {
   public final static String SESSION_LANG = "fr";
   public final static String SESSION_TIMESTAMP = "timestamp";
 
-  /** 
+  /**
    * Controle si une authentification est possible sur ActiveDirectory.
    *
    * @param userName un nom d'utilisateur unique
    * @param psw un mot de passe
    * @param domain un nom de domaine "Active Directory"
-   * 
+   *
    * @return TRUE si'laccès à ActiveDirectory a été un succès
    */
   @SuppressWarnings("UseOfObsoleteCollectionType")
@@ -67,14 +67,13 @@ public class SessionManager {
    * @return true si l'utilisateur est reconnu
    */
   @SuppressWarnings("null")
-  public static boolean createSession(
-          String userName, String pwd, String domain, Login login) {
+  public static boolean createSession(String userName, String pwd, String domain, Login login) {
     boolean ok = false;
     if (session().get(SESSION_LOGIN_ID) == null) {
 
       // teste si l'utilisateur a été trouvé auparavant
       if (login != null) {
-        
+
         // si password dans la table ...
         if (login.getMotDePasse() != null) {
 //          String result = ConvertLib.rehashKeyWithSalt(pwd, login.getMotDePasse());
@@ -126,10 +125,10 @@ public class SessionManager {
     }
     return ok;
   }
-  
+
   /**
    * Teste si un timeout de session doit intervenir.
-   * 
+   *
    * @param ms le temps en [ms] pour qu'un timeout intervienne
    * @return true si la session peut être fermée
    */
@@ -152,7 +151,7 @@ public class SessionManager {
 
   /**
    * Récupérer la langue de l'utilisateur logué.
-   * 
+   *
    * @return une langue sur 2 caractères (ex: "fr" pour le français)
    */
   public static String getSessionLang() {
@@ -162,7 +161,7 @@ public class SessionManager {
     }
     return lang;
   }
-  
+
   /**
    * Récupérer l'identifiant de la compta en cours.
    *
@@ -175,11 +174,11 @@ public class SessionManager {
 
   /**
    * Mémoriser l'identifiant de la compta en cours.
-   * 
+   *
    * @param comptaId un identifiant numérique
    */
   public static void setSessionComptaId(int comptaId) {
     session(SESSION_COMPTA_ID, "" + comptaId);
   }
-  
+
 }

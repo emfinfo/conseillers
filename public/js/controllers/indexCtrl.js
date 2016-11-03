@@ -11,8 +11,8 @@ var indexCtrl = (function () {
     // chargement de la couche de service et des premières données par HTTP
     $.getScript("js/services/httpServ.js", function () {
       console.log("httpServ.js chargé !");
-      httpServ.lireVersionServeur(okLireVersionServeur, afficherErreurHttp);
-
+      httpServ.lireVersion("app", okLireVersionApp, afficherErreurHttp);
+      httpServ.lireVersion("srv", okLireVersionSrv, afficherErreurHttp);
       _afficheListeRoutes();
     });
 
@@ -32,9 +32,10 @@ var indexCtrl = (function () {
     var divData = $('#data');
     divData.html('');
 
-    // version
+    // versions
     divData.append('<ul>');
-    _addLI(baseUrl + '/version');
+    _addLI(baseUrl + '/version-app');
+    _addLI(baseUrl + '/version-srv');
     divData.append('</ul>');
 
     // canton
@@ -111,9 +112,14 @@ var indexCtrl = (function () {
   /*
    * 3. CALLBACKS (RETOUR DE SERVICE)
    */
-  function okLireVersionServeur(data, text, jqXHR) {
-    var infoComponent = $("#versionServeur");
-    infoComponent.html(data.versionServeur);
+  function okLireVersionApp(data, text, jqXHR) {
+    var infoComponent = $("#version-app");
+    infoComponent.html(data["version-app"]);
+  }
+
+  function okLireVersionSrv(data, text, jqXHR) {
+    var infoComponent = $("#version-srv");
+    infoComponent.html(data["version-srv"]);
   }
 
 

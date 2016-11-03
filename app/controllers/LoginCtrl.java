@@ -9,11 +9,11 @@ import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.*;
 import static play.mvc.Controller.request;
+import static play.mvc.Results.ok;
 import session.SessionManager;
 import views.html.index;
 import workers.DbWorker;
 import workers.DbWorkerAPI;
-import static play.mvc.Results.ok;
 
 /**
  * Contrôleur pour gérer les logins.
@@ -65,8 +65,7 @@ public class LoginCtrl extends Controller {
     boolean ok = false;
 
     // on stocke dans un objet Login
-    Login login = Utils.toObject(request(), new TypeReference<Login>() {
-    });
+    Login login = Utils.toObject(request(), new TypeReference<Login>() {});
     login.setPkLogin(1);
 
     // si le loginName n'existe pas, on sauve dans la DB
