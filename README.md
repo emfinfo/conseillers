@@ -1,5 +1,5 @@
 # conseillers
-A small Play! framework 2.5.4 application with a MySQL DB (Swiss parliament).
+A small Play! framework 2.5.9 application with a MySQL DB (Swiss parliament).
 
 * Prerequisites :
   * Java 8 JRE or SDK
