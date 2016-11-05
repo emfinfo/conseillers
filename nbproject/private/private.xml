@@ -5,6 +5,7 @@
         <group name="Play">
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/app/controllers/LoginCtrl.java</file>
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/app/controllers/ApplicationCtrl.java</file>
+            <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/app/workers/DbWorkerAPI.java</file>
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/project/plugins.sbt</file>
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/README.md</file>
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/app/controllers/ConseillerCtrl.java</file>
