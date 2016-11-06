@@ -71,6 +71,12 @@ public class Utils {
     }
 
     // elapsed time
+//    Map<String, String> headers = ctx.response().getHeaders();
+//    for (Entry<String, String> e : headers.entrySet()) {
+//      String key = e.getKey();
+//      String value = e.getValue();
+//      System.out.println("key: "+key+", value="+value);
+//    }
     long startTime = Long.parseLong(ctx.response().getHeaders().get("logtimestamp"));
     if (startTime >= 0) {
       msg += ", " + (System.currentTimeMillis() - startTime) + " ms";
