@@ -54,17 +54,23 @@ public class Utils {
 
   public static void logInfo(Context ctx) {
     String msg = DateTimeLib.dateToString(DateTimeLib.getDate(), "dd.MM.yy HH:mm:ss");
+
+    // route
     String route = ctx.toString();
     route = route.substring(route.indexOf("(") + 1, route.indexOf(")"));
     if (route.contains("login/")) {
       route = route.substring(0, route.lastIndexOf("/"));
     }
-    msg += ", " + route;
 
+//    msg += ", " + route;
+    msg = route;
+
+    // user
     if (SessionManager.isSessionOpen()) {
       msg += " (USER: " + SessionManager.getSessionLoginId() + ")";
     }
 
+    // elapsed time
     long startTime = Long.parseLong(ctx.response().getHeaders().get("logtimestamp"));
     if (startTime >= 0) {
       msg += ", " + (System.currentTimeMillis() - startTime) + " ms";
@@ -100,7 +106,7 @@ public class Utils {
     BooleanResult bResult = new BooleanResult(ok, message);
     return ok(Json.toJson(bResult)).as("application/json");
   }
-  
+
   public static <T> T toObject(final Request req, final TypeReference<T> type) {
     T result = null;
     ObjectMapper om = new ObjectMapper();
@@ -134,7 +140,7 @@ public class Utils {
 //            "http://homepage.hispeed.ch");
     String origin = request.getHeader("Origin");
 //    if (origin != null && whiteList.contains(origin)) {
-    if (origin != null && (origin.contains("localhost") || origin.contains("192.168") 
+    if (origin != null && (origin.contains("localhost") || origin.contains("192.168")
       || origin.contains("emf-informatique.ch") || origin.contains("homepage.hispeed.ch"))) {
       response.setHeader("Access-Control-Allow-Origin", origin);
       response.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT,OPTIONS");
