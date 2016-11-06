@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.actions.BeforeAfterAction;
 import controllers.helpers.Utils;
 import static controllers.helpers.Utils.validCrossDomainContext;
 import javax.inject.Inject;
@@ -33,11 +34,13 @@ public class ApplicationCtrl extends Controller {
     return ok();
   }
 
+  @With(BeforeAfterAction.class)
   public Result lireVersionApplication() {
 //    validCrossDomainContext(request(), response());
     return Utils.toJson("version-app", appFullName);
   }
 
+  @With(BeforeAfterAction.class)
   public Result lireVersionServeur() {
 //    validCrossDomainContext(request(), response());
     return Utils.toJson("version-srv", "Play " + play.core.PlayVersion.current());
