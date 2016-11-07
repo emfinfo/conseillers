@@ -23,8 +23,8 @@ var indexCtrl = (function () {
    */
   function _addLI(url) {
     var divData = $('#data');
-    divData.append('<li><a href="' + url + '" target="_blank">' + url + '</a></li>');
-//    divData.append('<li><a href="' + url + '" >' + url + '</a></li>');
+//    divData.append('<li><a href="' + url + '" target="_blank">' + url + '</a></li>');
+    divData.append('<li><a href="' + url + '" >' + url + '</a></li>');
   }
 
   function _afficheListeRoutes() {
