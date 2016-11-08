@@ -1,6 +1,10 @@
-*.psd
-*.pdf
-/test
-/target
-/logs
+clean-all.*
+README.md
+/app
 /data
+/models
+/nbproject
+/target/resolution-cache
+/target/scala-2.11
+/target/web
+/target/universal/tmp
