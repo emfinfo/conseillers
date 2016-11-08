@@ -37,6 +37,7 @@ lazy val models = (project in file("models"))
 
 lazy val main = (project in file("."))
     .enablePlugins(PlayJava)
+    .enablePlugins(JavaServerAppPackaging)
     .dependsOn(models)
     .aggregate(models)
     .settings(commonSettings: _*)

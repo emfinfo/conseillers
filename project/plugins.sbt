@@ -12,3 +12,6 @@ addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "4.0.0")
 
 // pour auto-load d'un changement dans Google Chrome
 addSbtPlugin("com.jamesward" % "play-auto-refresh" % "0.0.15")
+
+// pour une meilleure distribution pour Heroku
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.1.4")
