@@ -1,6 +1,7 @@
 import com.jamesward.play.BrowserNotifierKeys
 import PlayKeys._
 import com.typesafe.config._
+import NativePackagerKeys._
 
 routesGenerator := InjectedRoutesGenerator
 // routesGenerator := StaticRoutesGenerator
