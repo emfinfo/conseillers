@@ -1,7 +1,5 @@
 clean-all.*
 README.md
-/app
-/models
 /data
 /nbproject
 /test
