@@ -41,16 +41,6 @@ lazy val main = (project in file("."))
     .aggregate(models)
     .settings(commonSettings: _*)
 
-val stage = taskKey[Unit]("Stage and clean task")
-
-stage := {
-  (stage in Universal).value
-  if (sys.env.getOrElse("POST_STAGE_CLEAN", "false").equals("true")) {
-    println("cleaning...")
-    sbt.IO.delete(baseDirectory.value / "models/target")
-  }
-}
-
 EclipseKeys.skipParents in ThisBuild := false
 
 EclipseKeys.preTasks := Seq(compile in Compile)
