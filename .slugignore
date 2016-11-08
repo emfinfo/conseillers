@@ -1,9 +1,7 @@
 clean-all.*
 README.md
+/app
+/models
 /data
 /nbproject
 /test
-/models/target
-/target/resolution-cache
-/target/scala-2.11
-/target/web
