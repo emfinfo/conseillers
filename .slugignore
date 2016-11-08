@@ -1,0 +1,6 @@
+*.psd
+*.pdf
+/test
+/target
+/logs
+/data

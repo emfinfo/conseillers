@@ -1,7 +1,6 @@
 import com.jamesward.play.BrowserNotifierKeys
 import PlayKeys._
 import com.typesafe.config._
-import NativePackagerKeys._
 
 routesGenerator := InjectedRoutesGenerator
 // routesGenerator := StaticRoutesGenerator
@@ -38,7 +37,6 @@ lazy val models = (project in file("models"))
 
 lazy val main = (project in file("."))
     .enablePlugins(PlayJava)
-    .enablePlugins(JavaServerAppPackaging)
     .dependsOn(models)
     .aggregate(models)
     .settings(commonSettings: _*)
