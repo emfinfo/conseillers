@@ -35,10 +35,6 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.11.7"
 )
 
-//lazy val models = (project in file("models"))
-//.enablePlugins(PlayJava)
-//.settings(commonSettings: _*)
-
 lazy val main = (project in file("."))
 .enablePlugins(PlayJava)
 .settings(commonSettings: _*)
@@ -53,6 +49,9 @@ EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClass
 
 BrowserNotifierKeys.shouldOpenBrowser := true
 
+//lazy val models = (project in file("models"))
+//.enablePlugins(PlayJava)
+//.settings(commonSettings: _*)
 //.dependsOn(models)
 //.aggregate(models)
 // fork in run := true
