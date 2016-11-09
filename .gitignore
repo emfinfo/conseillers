@@ -7,8 +7,6 @@ dump
 # Netbeans
 build
 nbbuild
-models/build
-models/nbbuild
 
 # Eclipse
 .settings
@@ -25,13 +23,6 @@ project/target
 project/plugins/target
 target
 .target
-
-models/dist
-models/project/boot
-models/project/target
-models/project/plugins/target
-models/target
-models/.target
 
 # Play
 logs
