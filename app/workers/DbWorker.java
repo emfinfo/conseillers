@@ -1,14 +1,14 @@
 package workers;
 
-import ch.emf.dao.JpaDaoAPI;
 import ch.emf.dao.JpaDao;
+import ch.emf.dao.JpaDaoAPI;
 import ch.emf.dao.filtering.Search2;
 import java.util.ArrayList;
 import java.util.List;
-import models.Conseiller;
 import javax.persistence.EntityManager;
 import models.Canton;
 import models.Conseil;
+import models.Conseiller;
 import models.Login;
 import models.Parti;
 

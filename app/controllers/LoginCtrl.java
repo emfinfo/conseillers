@@ -1,10 +1,10 @@
 package controllers;
 
+import models.Login;
 import com.fasterxml.jackson.core.type.TypeReference;
 import controllers.actions.BeforeAfterAction;
-import controllers.helpers.BooleanResult;
-import controllers.helpers.Utils;
-import models.Login;
+import helpers.BooleanResult;
+import helpers.Utils;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.*;

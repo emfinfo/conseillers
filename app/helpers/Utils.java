@@ -1,4 +1,4 @@
-package controllers.helpers;
+package helpers;
 
 import ch.jcsinfo.datetime.DateTimeLib;
 import ch.jcsinfo.system.StackTracer;
@@ -53,7 +53,7 @@ public class Utils {
   }
 
   public static void logInfo(Context ctx) {
-    String msg = DateTimeLib.dateToString(DateTimeLib.getDate(), "dd.MM.yy HH:mm:ss");
+    //String msg = DateTimeLib.dateToString(DateTimeLib.getDate(), "dd.MM.yy HH:mm:ss");
 
     // route
     String route = ctx.toString();
@@ -63,7 +63,7 @@ public class Utils {
     }
 
 //    msg += ", " + route;
-    msg = route;
+    String msg = route;
 
     // user
     if (SessionManager.isSessionOpen()) {

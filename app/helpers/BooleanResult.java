@@ -1,4 +1,4 @@
-package controllers.helpers;
+package helpers;
 
 import lombok.Data;
 

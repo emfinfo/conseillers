@@ -16,11 +16,15 @@ javacOptions += "-Xlint:unchecked"
 // pour récupérer basiclib et daolayer sur github
 resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/releases"
 
-// dépendences (voir dernières versions sur http://mvnrepository.com)
+// pour récupérer conseillers-models dans le dépôt local Maven
+resolvers += "Local Maven Repository" at "file:///" + Path.userHome.absolutePath + "/.m2/repository"
+
+// dépendences (voir dernières versions sur http://mvnrepository.com )
 libraryDependencies ++= Seq(
-  "ch.emf.info" % "basiclib" % "1.0.5",
+  javaJpa,
+  "ch.emf.info" % "conseillers-models" % "1.0.1",
   "ch.emf.info" % "daolayer" % "5.1.0",
-  "mysql" % "mysql-connector-java" % "5.1.38").map(_.force())
+"mysql" % "mysql-connector-java" % "5.1.38").map(_.force())
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings
 libraryDependencies ~= { _.map(_.exclude("org.slf4j", "slf4j-log4j12")) }
@@ -31,15 +35,13 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.11.7"
 )
 
-lazy val models = (project in file("models"))
-    .enablePlugins(PlayJava)
-    .settings(commonSettings: _*)
+//lazy val models = (project in file("models"))
+//.enablePlugins(PlayJava)
+//.settings(commonSettings: _*)
 
 lazy val main = (project in file("."))
-    .enablePlugins(PlayJava)
-    .dependsOn(models)
-    .aggregate(models)
-    .settings(commonSettings: _*)
+.enablePlugins(PlayJava)
+.settings(commonSettings: _*)
 
 EclipseKeys.skipParents in ThisBuild := false
 
@@ -51,6 +53,8 @@ EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClass
 
 BrowserNotifierKeys.shouldOpenBrowser := true
 
+//.dependsOn(models)
+//.aggregate(models)
 // fork in run := true
 //  scalacOptions += "-feature",
 //  scalacOptions += "-deprecation",

@@ -1,7 +1,7 @@
 package controllers;
 
-import controllers.helpers.Utils;
-import static controllers.helpers.Utils.validCrossDomainContext;
+import helpers.Utils;
+import static helpers.Utils.validCrossDomainContext;
 import javax.inject.Inject;
 import play.Configuration;
 import play.mvc.*;

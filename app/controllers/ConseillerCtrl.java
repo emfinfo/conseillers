@@ -1,7 +1,7 @@
 package controllers;
 
 import controllers.actions.BeforeAfterAction;
-import controllers.helpers.Utils;
+import helpers.Utils;
 import java.util.List;
 import javax.inject.Inject;
 import models.Canton;

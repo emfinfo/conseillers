@@ -20,7 +20,7 @@ public interface DbWorkerAPI {
   public List<Canton> chargerCantons();
   public List<Conseil> chargerConseils();
   public List<Parti> chargerPartis();
-  
+
   public List<Conseiller> chargerConseillers(String canton, String conseil, String parti, boolean actuels);
   public List<Conseiller> chargerConseillers(String nom, boolean actuels);
 

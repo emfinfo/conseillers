@@ -1,7 +1,8 @@
 package controllers.actions;
 
-import controllers.helpers.Utils;
+import helpers.Utils;
 import java.util.concurrent.CompletionStage;
+import play.mvc.Action.Simple;
 import play.mvc.Http;
 import play.mvc.Http.Context;
 import play.mvc.Result;
@@ -13,7 +14,7 @@ import play.mvc.Result;
  *
  * @author jcstritt
  */
-public class BeforeAfterAction extends play.mvc.Action.Simple {
+public class BeforeAfterAction extends Simple {
 
   private void before(Context ctx) {
     ctx.response().setHeader("logtimestamp", "" + System.currentTimeMillis());
@@ -23,6 +24,7 @@ public class BeforeAfterAction extends play.mvc.Action.Simple {
     Utils.logInfo(ctx);
   }
 
+  @Override
   public CompletionStage<Result> call(Http.Context ctx) {
     before(ctx);
     Utils.validCrossDomainContext(ctx);
