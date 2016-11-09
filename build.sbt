@@ -39,8 +39,6 @@ lazy val main = (project in file("."))
 .enablePlugins(PlayJava)
 .settings(commonSettings: _*)
 
-EclipseKeys.skipParents in ThisBuild := false
-
 EclipseKeys.preTasks := Seq(compile in Compile)
 
 EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
@@ -50,6 +48,8 @@ EclipseCreateSrc.ManagedResources)
 
 BrowserNotifierKeys.shouldOpenBrowser := true
 
+//EclipseKeys.skipParents in ThisBuild := false
+//
 //lazy val models = (project in file("models"))
 //.enablePlugins(PlayJava)
 //.settings(commonSettings: _*)
