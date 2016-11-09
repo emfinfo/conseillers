@@ -7,11 +7,12 @@ A small Play! framework 2.5.9 application with a MySQL DB (Swiss parliament).
   * A running MySQL server (min 5.5) for local database operations
   * MySQL Workbench application (or other) to mount a local DB
 
-* Mount the DB with the MySQL script in data folder (adapt if necessary).
+* A default db is installed on Heroku.
+  * If you want, mount a local DB with the MySQL script in data folder (adapt if necessary).
 
-* If you want modify the source project, download it and use NetBeans 8.1 to open it. It's a standard NetBeans project, but some links are defect when you open it for the first time. This is because you must :
-  * edit the file "nbproject/private/private.properties" and "models/nbproject/private/private.properties" to set the correct "user.home" information in your environment (MacOS, Windows or Linux).
-  * compile the project with the Play framework "activator compile" command. All links should now be ok.
+* Use and test in NetBeans 8.2
+  * If you want modify the source project, download it and use NetBeans 8.2 to open it (with « Pleasure Play Framework Plugin » installed).
+  * Run the application with standard F6 button.
 
 * You can test a runnable version on heroku
 http://conseillers.herokuapp.com/
@@ -24,6 +25,6 @@ http://conseillers.herokuapp.com/
   * In the console or terminal, go to the unzipped folder and execute the play application with :
       * bin\conseillers.bat (Windows OS)
       * ./bin/conseillers (Unix like OS, give execution rights for the script "conseillers")
-  * Test the application with :
+  * Test the application in a browser with :
     http://localhost:9000
 
