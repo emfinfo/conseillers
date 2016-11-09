@@ -1,10 +1,11 @@
-# conseillers
+# conseillers 1.0.8 (november 2016)
 A small Play! framework 2.5.9 application with a MySQL DB (Swiss parliament).
 
 * Prerequisites :
+  * Netbeans 8.2 and the « Pleasure Play Framework Plugin » installed
   * Java 8 JRE or SDK
-  * A running MySQL server (min 5.5)
-  * MySQL Workbench application (or other) to mount the DB
+  * A running MySQL server (min 5.5) for local database operations
+  * MySQL Workbench application (or other) to mount a local DB
 
 * Mount the DB with the MySQL script in data folder (adapt if necessary).
 
