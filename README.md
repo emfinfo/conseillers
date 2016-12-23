@@ -1,5 +1,5 @@
-# conseillers 1.0.8 (november 2016)
-A small Play! framework 2.5.9 application with a MySQL DB (Swiss parliament).
+# conseillers 1.0.9 (december 2016)
+A small Play! framework 2.5.10 application with a MySQL DB (Swiss parliament).
 
 * Prerequisites :
   * Netbeans 8.2 and the « Pleasure Play Framework Plugin » installed
