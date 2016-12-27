@@ -25,7 +25,7 @@ import workers.DbWorkerAPI;
  */
 public class ConseillerCtrl extends Controller {
 
-  private DbWorkerAPI wrk;
+  private DbWorkerAPI dbWrk;
 
   @Inject
   public ConseillerCtrl(Configuration configuration) {
@@ -53,23 +53,24 @@ public class ConseillerCtrl extends Controller {
   public Result chargerCantons(String fmt) {
     Result httpResult;
 
-    // on transforme le paramètre en majuscules
-    fmt = fmt.toUpperCase();
-
     // on crée un worker avec sa sous-couche dao
-    wrk = new DbWorker(JPA.em());
+    dbWrk = new DbWorker(JPA.em());
 
     // on récupère la liste des cantons
-    List<Canton> cantons = wrk.chargerCantons();
+    List<Canton> cantons = dbWrk.chargerCantons();
 
     // on fait le rendu en xml, json ou html
     try {
-      if (fmt.equals("XML")) {
-        httpResult = ok(views.xml.cantons.render(cantons)).as("application/xml");
-      } else if (fmt.equals("JSON")) {
-        httpResult = Utils.toJson(cantons);
-      } else {
-        httpResult = ok(views.html.cantons.render(cantons));
+      switch (fmt.toUpperCase()) {
+        case "XML":
+          httpResult = ok(views.xml.cantons.render(cantons)).as("application/xml");
+          break;
+        case "JSON":
+          httpResult = Utils.toJson(cantons);
+          break;
+        default:
+          httpResult = ok(views.html.cantons.render(cantons));
+          break;
       }
     } catch (Exception e) {
       httpResult = logError(e);
@@ -89,14 +90,14 @@ public class ConseillerCtrl extends Controller {
     fmt = fmt.toUpperCase();
 
     // on crée un worker avec sa sous-couche dao
-    wrk = new DbWorker(JPA.em());
+    dbWrk = new DbWorker(JPA.em());
 
     // on récupère la liste des conseils
-    List<Conseil> conseils = wrk.chargerConseils();
+    List<Conseil> conseils = dbWrk.chargerConseils();
 
     // on fait le rendu en xml, json ou html
     try {
-      switch (fmt) {
+      switch (fmt.toUpperCase()) {
         case "XML":
           httpResult = ok(views.xml.conseils.render(conseils)).as("application/xml");
           break;
@@ -121,18 +122,15 @@ public class ConseillerCtrl extends Controller {
   public Result chargerPartis(String fmt) {
     Result httpResult;
 
-    // on transforme le paramètre en majuscules
-    fmt = fmt.toUpperCase();
-
     // on crée un worker avec sa sous-couche dao
-    wrk = new DbWorker(JPA.em());
+    dbWrk = new DbWorker(JPA.em());
 
     // on récupère la liste des partis
-    List<Parti> partis = wrk.chargerPartis();
+    List<Parti> partis = dbWrk.chargerPartis();
 
     // on fait le rendu en xml, json ou html
     try {
-      switch (fmt) {
+      switch (fmt.toUpperCase()) {
         case "XML":
           httpResult = ok(views.xml.partis.render(partis)).as("application/xml");
           break;
@@ -180,17 +178,16 @@ public class ConseillerCtrl extends Controller {
 
     // on transforme les paramètres en majuscules
     canton = canton.toUpperCase();
-    fmt = fmt.toUpperCase(); // + ((fmt.length() == 3) ? " " : "");
 
     // on crée un worker avec sa sous-couche dao
-    wrk = new DbWorker(JPA.em());
+    dbWrk = new DbWorker(JPA.em());
 
     // on récupère la liste des conseillers (filtrée ou non)
-    List<Conseiller> conseillers = wrk.chargerConseillers(filtreCanton, filtreConseil, filtreParti, filtreActuels);
+    List<Conseiller> conseillers = dbWrk.chargerConseillers(filtreCanton, filtreConseil, filtreParti, filtreActuels);
 
     // on fait le rendu en xml, json ou html)
     try {
-      switch (fmt) {
+      switch (fmt.toUpperCase()) {
         case "XML":
           httpResult = ok(views.xml.conseillers.render(conseillers)).as("application/xml");
           break;

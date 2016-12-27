@@ -4,11 +4,13 @@ import ch.jcsinfo.util.ConvertLib;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+import javax.inject.Inject;
 import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import models.Login;
+import play.Configuration;
 import static play.mvc.Controller.session;
 
 /**
@@ -22,6 +24,7 @@ public class SessionManager {
   public final static String SESSION_LANG = "fr";
   public final static String SESSION_TIMESTAMP = "timestamp";
 
+
   /**
    * Controle si une authentification est possible sur ActiveDirectory.
    *
@@ -32,13 +35,16 @@ public class SessionManager {
    * @return TRUE si'laccès à ActiveDirectory a été un succès
    */
   @SuppressWarnings("UseOfObsoleteCollectionType")
-  private static boolean authenticateOnActiveDirectory(String userName, String psw, String domain) {
+  @Inject
+  private static boolean authenticateOnActiveDirectory(Configuration configuration, String userName, String psw, String domain) {
     final String AD_PROTOCOLE = "ldap://";
     final int AD_PORT = 389;
-    String contextFactory = play.Play.application().configuration().getString("ad.context_factory");
-    String adServer = AD_PROTOCOLE
-            + play.Play.application().configuration().getString("ad.server")
-            + ":" + AD_PORT;
+//    String contextFactory = play.Play.application().configuration().getString("ad.context_factory");
+//    String adServer = AD_PROTOCOLE
+//            + play.Play.application().configuration().getString("ad.server")
+//            + ":" + AD_PORT;
+    String contextFactory = configuration.getString("ad.context_factory");
+    String adServer = AD_PROTOCOLE + configuration.getString("ad.server") + ":" + AD_PORT;
 
     Map<String, String> env = new HashMap<>();
     env.put(Context.INITIAL_CONTEXT_FACTORY, contextFactory);
