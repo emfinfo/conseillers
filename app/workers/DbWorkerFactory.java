@@ -56,7 +56,7 @@ public class DbWorkerFactory  {
       JPAApi jpaApi = Play.current().injector().instanceOf(JPAApi.class);
 //      System.out.println("getDeclaringClass: " + method.getDeclaringClass().getSimpleName() + ", method: " + method.getName() + ", ok class: " + okClass + ", ok trans.: " + noAnn + ", jpaApi: " + jpaApi);
       if (okClass && noAnn && jpaApi != null) {
-        dao.open(jpaApi.em());
+        dao.setEntityManager(jpaApi.em());
         return method.invoke(this.dbWrk, args);
       } else {
         return null;
