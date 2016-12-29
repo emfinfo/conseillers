@@ -1,11 +1,12 @@
 package filters;
 
 import javax.inject.Inject;
-import play.mvc.EssentialFilter;
 import play.filters.gzip.GzipFilter;
 import play.http.HttpFilters;
+import play.mvc.EssentialFilter;
 
 /**
+ * Filtre Play pour utiliser GZip.
  *
  * @author jcstritt
  */

@@ -17,14 +17,14 @@ public interface DbWorkerAPI {
   Login rechercherLogin(String nom);
   Login ajouterLogin(Login login);
 
-  public List<Canton> chargerCantons();
-  public List<Conseil> chargerConseils();
-  public List<Parti> chargerPartis();
+  List<Canton> chargerCantons();
+  List<Conseil> chargerConseils();
+  List<Parti> chargerPartis();
 
-  public List<Conseiller> chargerConseillers(String canton, String conseil, String parti, boolean actuels);
-  public List<Conseiller> chargerConseillers(String nom, boolean actuels);
+  List<Conseiller> chargerConseillers(String canton, String conseil, String parti, boolean actuels);
+  List<Conseiller> chargerConseillers(String nom, boolean actuels);
 
-  public boolean bdOuverte();
+  boolean bdOuverte();
   boolean fermerBD();
 
 }

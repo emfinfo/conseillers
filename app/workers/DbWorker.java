@@ -5,12 +5,12 @@ import ch.emf.dao.JpaDaoAPI;
 import ch.emf.dao.filtering.Search2;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
 import models.Canton;
 import models.Conseil;
 import models.Conseiller;
 import models.Login;
 import models.Parti;
+import play.Logger;
 
 /**
  * Couche "métier" pour gérer les demandes vers la base de données.
@@ -19,12 +19,11 @@ import models.Parti;
  * @author Jean-Claude Stritt
  */
 public class DbWorker implements DbWorkerAPI {
-
   private final JpaDaoAPI dao;
 
-  public DbWorker(EntityManager em) {
-    dao = new JpaDao();
-    dao.open(em);
+  public DbWorker(JpaDaoAPI dao) {
+    Logger.debug("DbWorker is  loaded as a Singleton !");
+    this.dao = dao;
   }
 
   public DbWorker(String pu) {

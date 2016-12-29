@@ -1,11 +1,13 @@
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import play.Logger;
 import play.api.Play;
 import play.db.jpa.JPAApi;
 import static play.test.Helpers.fakeApplication;
+import static play.test.Helpers.running;
 import workers.DbWorker;
 import workers.DbWorkerAPI;
-import static play.test.Helpers.running;
+import workers.DbWorkerFactory;
 
 /**
  *
@@ -17,7 +19,7 @@ public class DbWorkerTest {
   public void testDb1() {
     DbWorkerAPI wrk = new DbWorker("ConseillersPU");
     boolean ok = wrk.bdOuverte();
-    System.out.println("bdOuverte1: " + ok);
+    Logger.info(">>> BD Ouverte (1): " + ok);
     assertTrue(ok);
   }
 
@@ -29,10 +31,10 @@ public class DbWorkerTest {
       public void run() {
         JPAApi jpa = Play.current().injector().instanceOf(JPAApi.class);
         jpa.withTransaction(() -> {
-          System.out.println("em: " + jpa.em());
-          DbWorkerAPI wrk = new DbWorker(jpa.em());
+//          System.out.println("em: " + jpa.em());
+          DbWorkerAPI wrk = DbWorkerFactory.getInstance().getDbWorker();
           boolean ok = wrk.bdOuverte();
-          System.out.println("bdOuverte2: " + ok);
+          Logger.info(">>> BD Ouverte (2): " + ok);
           assertTrue(ok);
         });
       }

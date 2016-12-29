@@ -1,19 +1,18 @@
 package controllers;
 
-import models.Login;
 import com.fasterxml.jackson.core.type.TypeReference;
 import controllers.actions.BeforeAfterAction;
 import helpers.BooleanResult;
 import helpers.Utils;
-import play.db.jpa.JPA;
+import models.Login;
 import play.db.jpa.Transactional;
 import play.mvc.*;
 import static play.mvc.Controller.request;
 import static play.mvc.Results.ok;
 import session.SessionManager;
 import views.html.index;
-import workers.DbWorker;
 import workers.DbWorkerAPI;
+import workers.DbWorkerFactory;
 
 /**
  * Contrôleur pour gérer les logins.
@@ -21,6 +20,11 @@ import workers.DbWorkerAPI;
  * @author jcstritt
  */
 public class LoginCtrl extends Controller {
+  private DbWorkerAPI dbWrk;
+
+  public LoginCtrl() {
+    this.dbWrk = DbWorkerFactory.getInstance().getDbWorker();
+  }
 
   public Result index() {
     return ok(index.render("Vous devez vous loguer !"));
@@ -35,8 +39,7 @@ public class LoginCtrl extends Controller {
   public Result login(String nom, String motDePasse) {
 
     // on exécute la requête demandée (recherche de l'utilisateur)
-    DbWorkerAPI wrk = new DbWorker(JPA.em());
-    Login login = wrk.rechercherLogin(nom);
+    Login login = dbWrk.rechercherLogin(nom);
 
     // on essaye d'ouvrir la session
     SessionManager.clearSession();
@@ -69,10 +72,9 @@ public class LoginCtrl extends Controller {
     login.setPkLogin(1);
 
     // si le loginName n'existe pas, on sauve dans la DB
-    DbWorkerAPI wrk = new DbWorker(JPA.em());
-    Login unLogin = wrk.rechercherLogin(login.getNom());
+    Login unLogin = dbWrk.rechercherLogin(login.getNom());
     if (unLogin == null) {
-      unLogin = wrk.ajouterLogin(login);
+      unLogin = dbWrk.ajouterLogin(login);
       ok = unLogin != null && unLogin.getPkLogin() > 0;
     }
     BooleanResult booleanResult = new BooleanResult(ok, login.getNom());

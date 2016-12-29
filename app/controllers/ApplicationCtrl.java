@@ -13,11 +13,10 @@ import static play.mvc.Results.redirect;
 public class ApplicationCtrl extends Controller {
   private String appFullName;
 
-
   @Inject
   public ApplicationCtrl(Configuration configuration) {
     appFullName = configuration.getString("application.name") + " "
-      + configuration.getString("application.version");
+                + configuration.getString("application.version");
   }
 
   public Result index() {

@@ -10,13 +10,12 @@ import models.Conseiller;
 import models.Parti;
 import play.Configuration;
 import play.Logger;
-import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.*;
 import static play.mvc.Results.badRequest;
 import static play.mvc.Results.ok;
-import workers.DbWorker;
 import workers.DbWorkerAPI;
+import workers.DbWorkerFactory;
 
 /**
  * Contrôleur pour gérer les appels REST sur les conseillers nationaux.
@@ -24,18 +23,21 @@ import workers.DbWorkerAPI;
  * @author jcstritt
  */
 public class ConseillerCtrl extends Controller {
-
   private DbWorkerAPI dbWrk;
 
   @Inject
   public ConseillerCtrl(Configuration configuration) {
+    this.dbWrk = DbWorkerFactory.getInstance().getDbWorker();
+
+    // on prepare un message pour le fichier de log
     String appName = configuration.getString("application.name");
     String appVersion = configuration.getString("application.version");
     Logger.info(
       appName + " " + appVersion
-      + " is starting now in Play " + play.core.PlayVersion.current()
+      + " is running on Play " + play.core.PlayVersion.current()
       + " with Java " + System.getProperty("java.version")
       + " (" + System.getProperty("sun.arch.data.model") + " bits)");
+
   }
 
   private Result logError(Exception e) {
@@ -52,9 +54,6 @@ public class ConseillerCtrl extends Controller {
   @With(BeforeAfterAction.class)
   public Result chargerCantons(String fmt) {
     Result httpResult;
-
-    // on crée un worker avec sa sous-couche dao
-    dbWrk = new DbWorker(JPA.em());
 
     // on récupère la liste des cantons
     List<Canton> cantons = dbWrk.chargerCantons();
@@ -86,12 +85,6 @@ public class ConseillerCtrl extends Controller {
   public Result chargerConseils(String fmt) {
     Result httpResult;
 
-    // on transforme le paramètre en majuscules
-    fmt = fmt.toUpperCase();
-
-    // on crée un worker avec sa sous-couche dao
-    dbWrk = new DbWorker(JPA.em());
-
     // on récupère la liste des conseils
     List<Conseil> conseils = dbWrk.chargerConseils();
 
@@ -121,9 +114,6 @@ public class ConseillerCtrl extends Controller {
   @With(BeforeAfterAction.class)
   public Result chargerPartis(String fmt) {
     Result httpResult;
-
-    // on crée un worker avec sa sous-couche dao
-    dbWrk = new DbWorker(JPA.em());
 
     // on récupère la liste des partis
     List<Parti> partis = dbWrk.chargerPartis();
@@ -176,12 +166,6 @@ public class ConseillerCtrl extends Controller {
     // on récupère le boolean "actuels"
     boolean filtreActuels = Boolean.parseBoolean(actuels);
 
-    // on transforme les paramètres en majuscules
-    canton = canton.toUpperCase();
-
-    // on crée un worker avec sa sous-couche dao
-    dbWrk = new DbWorker(JPA.em());
-
     // on récupère la liste des conseillers (filtrée ou non)
     List<Conseiller> conseillers = dbWrk.chargerConseillers(filtreCanton, filtreConseil, filtreParti, filtreActuels);
 
@@ -195,7 +179,7 @@ public class ConseillerCtrl extends Controller {
           httpResult = Utils.toJson(conseillers);
           break;
         default:
-          httpResult = ok(views.html.conseillers.render(canton, conseillers));
+          httpResult = ok(views.html.conseillers.render(canton.toUpperCase(), conseillers));
           break;
       }
     } catch (Exception e) {
