@@ -17,8 +17,8 @@ public class DbWorkerTest {
 
   @Test
   public void testDb1() {
-    DbWorkerAPI wrk = new DbWorker("ConseillersPU");
-    boolean ok = wrk.bdOuverte();
+    DbWorkerAPI dbWrk = new DbWorker("ConseillersPU");
+    boolean ok = dbWrk.bdOuverte();
     Logger.info(">>> BD Ouverte (1): " + ok);
     assertTrue(ok);
   }
@@ -32,8 +32,8 @@ public class DbWorkerTest {
         JPAApi jpa = Play.current().injector().instanceOf(JPAApi.class);
         jpa.withTransaction(() -> {
 //          System.out.println("em: " + jpa.em());
-          DbWorkerAPI wrk = DbWorkerFactory.getInstance().getDbWorker();
-          boolean ok = wrk.bdOuverte();
+          DbWorkerAPI dbWrk = DbWorkerFactory.getInstance().getDbWorker();
+          boolean ok = dbWrk.bdOuverte();
           Logger.info(">>> BD Ouverte (2): " + ok);
           assertTrue(ok);
         });

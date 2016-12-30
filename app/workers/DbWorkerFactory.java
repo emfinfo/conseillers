@@ -2,6 +2,7 @@ package workers;
 
 import ch.emf.dao.JpaDao;
 import ch.emf.dao.JpaDaoAPI;
+import ch.emf.dao.NoJpaTransaction;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -52,9 +53,8 @@ public class DbWorkerFactory  {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
       boolean okClass = method.getDeclaringClass() == DbWorkerAPI.class;
-      boolean noAnn = !method.isAnnotationPresent(NoTransaction.class);
+      boolean noAnn = !method.isAnnotationPresent(NoJpaTransaction.class);
       JPAApi jpaApi = Play.current().injector().instanceOf(JPAApi.class);
-//      System.out.println("getDeclaringClass: " + method.getDeclaringClass().getSimpleName() + ", method: " + method.getName() + ", ok class: " + okClass + ", ok trans.: " + noAnn + ", jpaApi: " + jpaApi);
       if (okClass && noAnn && jpaApi != null) {
         dao.setEntityManager(jpaApi.em());
         return method.invoke(this.dbWrk, args);
@@ -64,5 +64,6 @@ public class DbWorkerFactory  {
     }
   }
 
+//      System.out.println("getDeclaringClass: " + method.getDeclaringClass().getSimpleName() + ", method: " + method.getName() + ", ok class: " + okClass + ", ok trans.: " + noAnn + ", jpaApi: " + jpaApi);
 
 }
