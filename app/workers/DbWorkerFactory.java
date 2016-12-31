@@ -12,7 +12,7 @@ import play.api.Play;
 import play.db.jpa.JPAApi;
 
 /**
- * Objet (usine) à créer le worker vers la BD. Cela permet d'injecter dans la couche dao
+ * Objet (usine) à créer le worker qui gère les accès à la BD. Cela permet d'injecter dans la couche dao
  * l'entity-manager géré par Play, ceci avant chaque appel de méthode.
  *
  * @author Jean-Claude Stritt
