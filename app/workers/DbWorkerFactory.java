@@ -6,8 +6,8 @@ import ch.emf.dao.NoJpaTransaction;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.persistence.EntityManager;
 import play.api.Play;
 import play.db.jpa.JPAApi;
 
@@ -45,7 +45,6 @@ public class DbWorkerFactory  {
   private class DbWorkerInvocationHandler implements InvocationHandler {
     private DbWorkerAPI dbWrk;
 
-    @Inject
     public DbWorkerInvocationHandler(DbWorker dbWrk) {
       this.dbWrk = dbWrk;
     }
@@ -56,14 +55,23 @@ public class DbWorkerFactory  {
       boolean noAnn = !method.isAnnotationPresent(NoJpaTransaction.class);
       JPAApi jpaApi = Play.current().injector().instanceOf(JPAApi.class);
       if (okClass && noAnn && jpaApi != null) {
-        dao.setEntityManager(jpaApi.em());
+        EntityManager em = jpaApi.em();
+
+        // multi-tenant example
+//        int loginId = SessionManager.getSessionLoginId();
+//        int comptaId = SessionManager.getSessionComptaId();
+//        if (loginId > 0 && comptaId > 0) {
+//          em.setProperty("eclipselink.session-name", "multitenant-session-" + loginId + "-" + comptaId);
+//          em.setProperty("eclipselink.tenant-id1", "" + loginId);
+//          em.setProperty("eclipselink.tenant-id2", "" + comptaId);
+//        }
+
+        dao.setEntityManager(em);
         return method.invoke(this.dbWrk, args);
       } else {
         return null;
       }
     }
   }
-
-//      System.out.println("getDeclaringClass: " + method.getDeclaringClass().getSimpleName() + ", method: " + method.getName() + ", ok class: " + okClass + ", ok trans.: " + noAnn + ", jpaApi: " + jpaApi);
 
 }
