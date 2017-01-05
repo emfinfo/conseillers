@@ -14,7 +14,7 @@ import play.Configuration;
 import static play.mvc.Controller.session;
 
 /**
- * Permet de complètement gérer une session utilisateur.
+ * Permet de gérer une session utilisateur.
  *
  * @author jcstritt
  */
