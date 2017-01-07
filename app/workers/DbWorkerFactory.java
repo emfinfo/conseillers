@@ -54,12 +54,14 @@ public class DbWorkerFactory  {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
       boolean okClass = method.getDeclaringClass() == DbWorkerAPI.class;
-      boolean noAnn = !method.isAnnotationPresent(NoJpaTransaction.class);
       JPAApi jpaApi = Play.current().injector().instanceOf(JPAApi.class);
-      if (okClass && noAnn && jpaApi != null) {
-        EntityManager em = jpaApi.em();
+      if (okClass && jpaApi != null) {
+        if (!method.isAnnotationPresent(NoJpaTransaction.class)) {
 
-        // multi-tenant example
+          // récupération de l'entity-manager de Play
+          EntityManager em = jpaApi.em();
+
+          // multi-tenant example
 //        int loginId = SessionManager.getSessionLoginId();
 //        int comptaId = SessionManager.getSessionComptaId();
 //        if (loginId > 0 && comptaId > 0) {
@@ -68,7 +70,9 @@ public class DbWorkerFactory  {
 //          em.setProperty("eclipselink.tenant-id2", "" + comptaId);
 //        }
 
-        dao.setEntityManager(em);
+          // injection de l'entity-manager de Play dans la couche dao
+          dao.setEntityManager(em);
+        }
         return method.invoke(this.dbWrk, args);
       } else {
         return null;

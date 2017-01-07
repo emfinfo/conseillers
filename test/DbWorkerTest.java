@@ -31,7 +31,6 @@ public class DbWorkerTest {
       public void run() {
         JPAApi jpa = Play.current().injector().instanceOf(JPAApi.class);
         jpa.withTransaction(() -> {
-//          System.out.println("em: " + jpa.em());
           DbWorkerAPI dbWrk = DbWorkerFactory.getInstance().getDbWorker();
           boolean ok = dbWrk.bdOuverte();
           Logger.info(">>> BD Ouverte (2): " + ok);

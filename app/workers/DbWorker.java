@@ -53,55 +53,35 @@ public class DbWorker implements DbWorkerAPI {
   @Override
   public List<EtatCivil> chargerEtatsCivils() {
     List<EtatCivil> etatsCivils = dao.getList(EtatCivil.class, "abrev");
-    EtatCivil ec = new EtatCivil();
-    ec.setPkEtatCivil(-1);
-    ec.setAbrev("tous");
-    ec.setNom("Tous les états civils");
-    etatsCivils.add(ec);
+    etatsCivils.add(new EtatCivil("tous", "Tous les états civils"));
     return etatsCivils;
   }
 
   @Override
   public List<Canton> chargerCantons() {
     List<Canton> cantons = dao.getList(Canton.class, "abrev");
-    Canton canton = new Canton();
-    canton.setPkCanton(-1);
-    canton.setAbrev("CH");
-    canton.setNom("Suisse");
-    cantons.add(canton);
+    cantons.add(new Canton("CH", "Suisse"));
     return cantons;
   }
 
   @Override
   public List<Parti> chargerPartis() {
     List<Parti> partis = dao.getList(Parti.class, "abrev");
-    Parti parti = new Parti();
-    parti.setPkParti(-1);
-    parti.setAbrev("tous");
-    parti.setNom("Tous les partis");
-    partis.add(parti);
+    partis.add(new Parti("tous", "Tous les partis"));
     return partis;
   }
 
   @Override
   public List<Conseil> chargerConseils() {
     List<Conseil> conseils = dao.getList(Conseil.class, "abrev");
-    Conseil conseil = new Conseil();
-    conseil.setPkConseil(-1);
-    conseil.setAbrev("tous");
-    conseil.setNom("Tous les conseils");
-    conseils.add(conseil);
+    conseils.add(new Conseil("tous", "Tous les conseils"));
     return conseils;
   }
 
   @Override
   public List<Groupe> chargerGroupes() {
     List<Groupe> groupes = dao.getList(Groupe.class, "abrev");
-    Groupe groupe = new Groupe();
-    groupe.setPkGroupe(-1);
-    groupe.setAbrev("tous");
-    groupe.setNom("Tous les groupes");
-    groupes.add(groupe);
+    groupes.add(new Groupe("tous", "Tous les groupes"));
     return groupes;
   }
 
