@@ -5,9 +5,9 @@
 </style>
 <h1>Liste des cantons</h1>
 <ul>
-	@for(canton <- cantons) {
-    <li>@canton.getAbrev()</li>
-	}
+  @for(canton <- cantons) {
+  <li>@canton.getAbrev() -&gt; @canton.getNom()</li>
+  }
 </ul>
 
 

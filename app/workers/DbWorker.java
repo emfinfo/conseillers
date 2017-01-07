@@ -8,6 +8,8 @@ import java.util.List;
 import models.Canton;
 import models.Conseil;
 import models.Conseiller;
+import models.EtatCivil;
+import models.Groupe;
 import models.Login;
 import models.Parti;
 import play.Logger;
@@ -49,19 +51,34 @@ public class DbWorker implements DbWorkerAPI {
   }
 
   @Override
+  public List<EtatCivil> chargerEtatsCivils() {
+    List<EtatCivil> etatsCivils = dao.getList(EtatCivil.class, "abrev");
+    EtatCivil ec = new EtatCivil();
+    ec.setPkEtatCivil(-1);
+    ec.setAbrev("tous");
+    ec.setNom("Tous les états civils");
+    etatsCivils.add(ec);
+    return etatsCivils;
+  }
+
+  @Override
   public List<Canton> chargerCantons() {
     List<Canton> cantons = dao.getList(Canton.class, "abrev");
     Canton canton = new Canton();
-    canton.setAbrev("Suisse");
+    canton.setPkCanton(-1);
+    canton.setAbrev("CH");
+    canton.setNom("Suisse");
     cantons.add(canton);
     return cantons;
   }
 
   @Override
   public List<Parti> chargerPartis() {
-    List<Parti> partis = dao.getList(Parti.class, "nomParti");
+    List<Parti> partis = dao.getList(Parti.class, "abrev");
     Parti parti = new Parti();
-    parti.setNomParti("tous");
+    parti.setPkParti(-1);
+    parti.setAbrev("tous");
+    parti.setNom("Tous les partis");
     partis.add(parti);
     return partis;
   }
@@ -70,9 +87,22 @@ public class DbWorker implements DbWorkerAPI {
   public List<Conseil> chargerConseils() {
     List<Conseil> conseils = dao.getList(Conseil.class, "abrev");
     Conseil conseil = new Conseil();
+    conseil.setPkConseil(-1);
     conseil.setAbrev("tous");
+    conseil.setNom("Tous les conseils");
     conseils.add(conseil);
     return conseils;
+  }
+
+  @Override
+  public List<Groupe> chargerGroupes() {
+    List<Groupe> groupes = dao.getList(Groupe.class, "abrev");
+    Groupe groupe = new Groupe();
+    groupe.setPkGroupe(-1);
+    groupe.setAbrev("tous");
+    groupe.setNom("Tous les groupes");
+    groupes.add(groupe);
+    return groupes;
   }
 
   @Override
@@ -88,7 +118,7 @@ public class DbWorker implements DbWorkerAPI {
       search.addFilterEqual("a.conseil", co);
     }
     if (!parti.isEmpty()) {
-      Parti pa = dao.getSingleResult(Parti.class, "nomParti", parti);
+      Parti pa = dao.getSingleResult(Parti.class, "abrev", parti);
       search.addFilterEqual("c.parti", pa);
     }
     if (actuels) {

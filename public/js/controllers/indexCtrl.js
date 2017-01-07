@@ -38,18 +38,18 @@ var indexCtrl = (function () {
     _addLI(baseUrl + '/version-srv');
     divData.append('</ul>');
 
+    // etat civil
+    divData.append('<ul>');
+    _addLI(baseUrl + '/etats-civils');
+    _addLI(baseUrl + '/etats-civils.xml');
+    _addLI(baseUrl + '/etats-civils.json');
+    divData.append('</ul>');
+
     // canton
     divData.append('<ul>');
     _addLI(baseUrl + '/cantons');
     _addLI(baseUrl + '/cantons.xml');
     _addLI(baseUrl + '/cantons.json');
-    divData.append('</ul>');
-
-    // conseils
-    divData.append('<ul>');
-    _addLI(baseUrl + '/conseils');
-    _addLI(baseUrl + '/conseils.xml');
-    _addLI(baseUrl + '/conseils.json');
     divData.append('</ul>');
 
     // partis
@@ -59,18 +59,32 @@ var indexCtrl = (function () {
     _addLI(baseUrl + '/partis.json');
     divData.append('</ul>');
 
+    // conseils
+    divData.append('<ul>');
+    _addLI(baseUrl + '/conseils');
+    _addLI(baseUrl + '/conseils.xml');
+    _addLI(baseUrl + '/conseils.json');
+    divData.append('</ul>');
+
+    // groupes
+    divData.append('<ul>');
+    _addLI(baseUrl + '/groupes');
+    _addLI(baseUrl + '/groupes.xml');
+    _addLI(baseUrl + '/groupes.json');
+    divData.append('</ul>');
+
     // conseillers fribourgeois
     divData.append('<ul>');
-    _addLI(baseUrl + '/conseillers/FR/CE/tous/true');
-    _addLI(baseUrl + '/conseillers.xml/FR/CE/tous/true');
-    _addLI(baseUrl + '/conseillers.json/FR/CE/tous/true');
+    _addLI(baseUrl + '/conseillers/FR/tous/tous/true');
+    _addLI(baseUrl + '/conseillers.xml/FR/tous/tous/true');
+    _addLI(baseUrl + '/conseillers.json/FR/tous/tous/true');
     divData.append('</ul>');
 
     // conseillers nationaux au parti socialiste genevois
     divData.append('<ul>');
-    _addLI(baseUrl + '/conseillers/GE/CN/Parti Socialiste Suisse/true');
-    _addLI(baseUrl + '/conseillers.xml/GE/CN/Parti Socialiste Suisse/true');
-    _addLI(baseUrl + '/conseillers.json/GE/CN/Parti Socialiste Suisse/true');
+    _addLI(baseUrl + '/conseillers/GE/CN/PSS/true');
+    _addLI(baseUrl + '/conseillers.xml/GE/CN/PSS/true');
+    _addLI(baseUrl + '/conseillers.json/GE/CN/PSS/true');
     divData.append('</ul>');
 
     // conseillers fédéraux

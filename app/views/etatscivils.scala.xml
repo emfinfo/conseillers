@@ -1,0 +1,10 @@
+@(etatscivils: List[models.EtatCivil])
+<etatscivils>
+  @for(ec <- etatscivils) {
+  <etatcivil>
+    <id>@ec.getPkEtatCivil()</id>
+    <abrev>@ec.getAbrev()</abrev>
+    <nom>@ec.getNom()</nom>
+  </etatcivil>
+  }
+</etatscivils>

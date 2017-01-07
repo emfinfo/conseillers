@@ -2,10 +2,11 @@
 @(cantons: List[models.Canton])
 <cantons>
   @for(canton <- cantons) {
-    <canton>
-      <id>@canton.getPkCanton()</id>
-      <abrev>@canton.getAbrev()</abrev>
-    </canton>
+  <canton>
+    <id>@canton.getPkCanton()</id>
+    <abrev>@canton.getAbrev()</abrev>
+    <nom>@canton.getNom()</nom>
+  </canton>
   }
 </cantons>
 

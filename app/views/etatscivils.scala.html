@@ -1,0 +1,13 @@
+
+@(etatscivils: List[models.EtatCivil])
+<style>
+  h1, li {color:green}
+</style>
+<h1>Liste des états civils</h1>
+<ul>
+  @for(ec <- etatscivils) {
+  <li>@ec.getAbrev() -&gt; @ec.getNom()</li>
+  }
+</ul>
+
+

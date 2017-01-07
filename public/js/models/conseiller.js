@@ -43,11 +43,11 @@ Conseiller.prototype.setActivites = function (activites) {
 };
 
 Conseiller.prototype.toString = function () {
-  return this.nom + ' ' + this.prenom + ', ' + this.canton.abrev 
-       + ((this.dateNaissance || this.dateDeces)?' (':'')
-       + ((this.dateNaissance) ? this.dateNaissance.format2('yyyy') : '')
-       + ((this.dateDeces) ? "-"+this.dateDeces.format2('yyyy') : '') 
-       + ((this.dateNaissance || this.dateDeces)?')':'')
-       + ', ' + this.parti.nomParti;
+  return this.nom + ' ' + this.prenom + ', ' + this.canton.abrev
+    + ((this.dateNaissance || this.dateDeces) ? ' (' : '')
+    + ((this.dateNaissance) ? this.dateNaissance.format2('yyyy') : '')
+    + ((this.dateDeces) ? "-" + this.dateDeces.format2('yyyy') : '')
+    + ((this.dateNaissance || this.dateDeces) ? ')' : '')
+    + ', ' + this.parti.nom;
 };
 

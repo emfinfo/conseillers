@@ -5,8 +5,8 @@
 </style>
 <h1>Liste des conseils</h1>
 <ul>
-	@for(conseil <- conseils) {
-    <li>@conseil.getAbrev()</li>
-	}
+  @for(conseil <- conseils) {
+  <li>@conseil.getAbrev() -&gt; @conseil.getNom()</li>
+  }
 </ul>
 

@@ -2,38 +2,40 @@
 @(conseillers: List[models.Conseiller])
 <conseillers>@for(conseiller <- conseillers) {
   <conseiller>
-    <pkConseiller>@conseiller.getPkConseiller()</pkConseiller>
+    <id>@conseiller.getPkConseiller()</id>
     <nom>@conseiller.getNom()</nom>
     <prenom>@conseiller.getPrenom()</prenom>
     <sexe>@conseiller.getSexe()</sexe>
-    @if(conseiller.getOrigine==null) {<origine>null</origine>} else {<origine>@conseiller.getOrigine()</origine>}
+    <etatcivil>@conseiller.getEtatCivil().getAbrev</etatcivil>
+    @if(conseiller.getCitoyennete==null) {<citoyennete>null</citoyennete>} else {<citoyennete>@conseiller.getCitoyennete()</citoyennete>}
+    @if(conseiller.getLieuNaissance==null) {<lieunaissance>null</lieunaissance>} else {<lieunaissance>@conseiller.getLieuNaissance()</lieunaissance>}
     @if(conseiller.getDateNaissance==null) {<dateNaissance>null</dateNaissance>} else {<dateNaissance>@conseiller.getDateNaissance.format("yyyy-MM-dd")</dateNaissance>}
     @if(conseiller.getDateDeces==null) {<dateDeces>null</dateDeces>} else {<dateDeces>@conseiller.getDateDeces().format("yyyy-MM-dd")</dateDeces>}
     <canton>
-      <pkCanton>@conseiller.getCanton().getPkCanton()</pkCanton>
+      <id>@conseiller.getCanton().getPkCanton()</id>
       <abrev>@conseiller.getCanton().getAbrev()</abrev>
+      <nom>@conseiller.getCanton().getNom()</nom>
     </canton>
     <parti>
-      <pkParti>@conseiller.getParti().getPkParti()</pkParti>
-      <nomParti>@conseiller.getParti().getNomParti()</nomParti>
+      <id>@conseiller.getParti().getPkParti()</id>
+      <abrev>@conseiller.getParti().getAbrev()</abrev>
+      <nom>@conseiller.getParti().getAbrev()</nom>
     </parti>
     <activites>@for(activite <- conseiller.getActivites()) {
       <activite>
-        <pkActivite>@activite.getPkActivite()</pkActivite>
+        <id>@activite.getPkActivite()</id>
         <conseil>
-          <pkConseil>@activite.getConseil().getPkConseil()</pkConseil>
+          <id>@activite.getConseil().getPkConseil()</id>
           <abrev>@activite.getConseil().getAbrev()</abrev>
+          <nom>@activite.getConseil().getAbrev()</nom>
         </conseil>
         @if(activite.getDateEntree==null) {<dateEntree>null</dateEntree>} else {<dateEntree>@activite.getDateEntree.format("yyyy-MM-dd")</dateEntree>}
         @if(activite.getDateSortie==null) {<dateSortie>null</dateSortie>} else {<dateSortie>@activite.getDateSortie().format("yyyy-MM-dd")</dateSortie>}
         @if(activite.getGroupe()!=null) {<groupe>
-          <pkGroupe>@activite.getGroupe().getPkGroupe()</pkGroupe>
-          <nomGroupe>@activite.getGroupe().getNomGroupe()</nomGroupe>
+          <id>@activite.getGroupe().getPkGroupe()</id>
+          <abrev>@activite.getGroupe().getAbrev()</abrev>
+          <nom>@activite.getGroupe().getNom()</nom>
         </groupe>}
-        @if(activite.getFonction()!=null) {<fonction>
-          <pkFonction>@activite.getFonction().getPkFonction()</pkFonction>
-          <nomFonction>@activite.getFonction().getNomFonction()</nomFonction>
-        </fonction>}
       </activite>}
     </activites>
   </conseiller>}

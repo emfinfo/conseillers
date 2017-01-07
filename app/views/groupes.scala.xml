@@ -1,0 +1,10 @@
+@(groupes: List[models.Groupe])
+<groupes>
+  @for(groupe <- groupes) {
+  <groupe>
+    <id>@groupe.getPkGroupe()</id>
+    <abrev>@groupe.getAbrev()</abrev>
+    <nom>@groupe.getNom()</nom>
+  </groupe>
+  }
+</groupes>

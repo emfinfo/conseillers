@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import models.Canton;
 import models.Conseil;
 import models.Conseiller;
+import models.EtatCivil;
+import models.Groupe;
 import models.Parti;
 import play.Configuration;
 import play.Logger;
@@ -48,6 +50,36 @@ public class ConseillerCtrl extends Controller {
   }
 
   /**
+   * Renvoyer une liste des états civils
+   */
+  @Transactional
+  @With(BeforeAfterAction.class)
+  public Result chargerEtatsCivils(String fmt) {
+    Result httpResult;
+
+    // on récupère la liste des cantons
+    List<EtatCivil> ec = dbWrk.chargerEtatsCivils();
+
+    // on fait le rendu en xml, json ou html
+    try {
+      switch (fmt.toUpperCase()) {
+        case "XML":
+          httpResult = ok(views.xml.etatscivils.render(ec)).as("application/xml");
+          break;
+        case "JSON":
+          httpResult = Utils.toJson(ec);
+          break;
+        default:
+          httpResult = ok(views.html.etatscivils.render(ec));
+          break;
+      }
+    } catch (Exception e) {
+      httpResult = logError(e);
+    }
+    return httpResult;
+  }
+
+  /**
    * Renvoyer une liste des cantons.
    */
   @Transactional
@@ -69,6 +101,35 @@ public class ConseillerCtrl extends Controller {
           break;
         default:
           httpResult = ok(views.html.cantons.render(cantons));
+          break;
+      }
+    } catch (Exception e) {
+      httpResult = logError(e);
+    }
+    return httpResult;
+  }
+  /**
+   * Renvoyer une liste des partis de Suisse.
+   */
+  @Transactional
+  @With(BeforeAfterAction.class)
+  public Result chargerPartis(String fmt) {
+    Result httpResult;
+
+    // on récupère la liste des partis
+    List<Parti> partis = dbWrk.chargerPartis();
+
+    // on fait le rendu en xml, json ou html
+    try {
+      switch (fmt.toUpperCase()) {
+        case "XML":
+          httpResult = ok(views.xml.partis.render(partis)).as("application/xml");
+          break;
+        case "JSON":
+          httpResult = Utils.toJson(partis);
+          break;
+        default:
+          httpResult = ok(views.html.partis.render(partis));
           break;
       }
     } catch (Exception e) {
@@ -108,27 +169,27 @@ public class ConseillerCtrl extends Controller {
   }
 
   /**
-   * Renvoyer une liste des partis de Suisse.
+   * Renvoyer une liste des groupes parlementaires.
    */
   @Transactional
   @With(BeforeAfterAction.class)
-  public Result chargerPartis(String fmt) {
+  public Result chargerGroupes(String fmt) {
     Result httpResult;
 
-    // on récupère la liste des partis
-    List<Parti> partis = dbWrk.chargerPartis();
+    // on récupère la liste des conseils
+    List<Groupe> groupes = dbWrk.chargerGroupes();
 
     // on fait le rendu en xml, json ou html
     try {
       switch (fmt.toUpperCase()) {
         case "XML":
-          httpResult = ok(views.xml.partis.render(partis)).as("application/xml");
+          httpResult = ok(views.xml.groupes.render(groupes)).as("application/xml");
           break;
         case "JSON":
-          httpResult = Utils.toJson(partis);
+          httpResult = Utils.toJson(groupes);
           break;
         default:
-          httpResult = ok(views.html.partis.render(partis));
+          httpResult = ok(views.html.groupes.render(groupes));
           break;
       }
     } catch (Exception e) {

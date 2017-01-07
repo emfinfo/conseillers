@@ -4,7 +4,7 @@
 </style>
 <h1>Liste des partis</h1>
 <ul>
-	@for(parti <- partis) {
-    <li>@parti.getNomParti()</li>
-	}
+  @for(parti <- partis) {
+  <li>@parti.getAbrev() -&gt; @parti.getNom()</li>
+  }
 </ul>
