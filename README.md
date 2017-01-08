@@ -1,6 +1,6 @@
-# conseillers 1.1.0 (januar 2017)
+# conseillers 1.1.0 (january 2017)
 A small Play! framework 2.5.x application with a MySQL DB (Swiss parliament).
-This release is now full adapted to Play 2.5.x. DbWorker if now build by a DbWorkerFactory.
+This release is now full adapted to Play 2.5.x. DbWorker if now build by a DbWorkerFactory (for JPA entity manager injection).
 
 * Prerequisites :
   * Netbeans 8.2 and the « Pleasure Play Framework Plugin » installed
@@ -8,8 +8,8 @@ This release is now full adapted to Play 2.5.x. DbWorker if now build by a DbWor
   * A running MySQL server (min 5.5) for local database operations
   * MySQL Workbench application (or other) to mount a local DB
 
-* A default db is installed on Heroku.
-  * If you want, mount a local DB with the MySQL script in data folder (adapt if necessary).
+* A default db is installed on the web (emf-informatique.ch).
+  * If you want, mount a local DB with the MySQL script in data folder.
 
 * Use and test in NetBeans 8.2
   * If you want modify the source project, download it and use NetBeans 8.2 to open it (with « Pleasure Play Framework Plugin » installed).
