@@ -23,7 +23,7 @@ resolvers += "Local Maven Repository" at "file:///" + Path.userHome.absolutePath
 libraryDependencies ++= Seq(
   javaJpa,
   "ch.emf.info" % "conseillers-models" % "1.0.3",
-  "ch.emf.info" % "daolayer" % "5.1.3",
+  "ch.emf.info" % "daolayer" % "5.1.4",
 "mysql" % "mysql-connector-java" % "5.1.38").map(_.force())
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings
