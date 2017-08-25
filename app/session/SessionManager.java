@@ -1,6 +1,7 @@
 package session;
 
 import ch.jcsinfo.util.ConvertLib;
+import com.typesafe.config.Config;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
@@ -10,17 +11,17 @@ import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import models.Login;
-import play.Configuration;
 import static play.mvc.Controller.session;
 
 /**
- * Permet de gérer une session utilisateur.
+ * Permet de gérer une session utilisateur. On utilise principalement 2 informations de session
+ * (login-id et db-id), ce qui permet une approche "multi-tenant" d'une base de données.
  *
  * @author jcstritt
  */
 public class SessionManager {
-  public final static String SESSION_LOGIN_ID = "login-id";
-  public final static String SESSION_COMPTA_ID = "compta-id";
+  public final static String SESSION_USER_ID = "user-id";
+  public final static String SESSION_DB_ID = "db-id";
   public final static String SESSION_LANG = "fr";
   public final static String SESSION_TIMESTAMP = "timestamp";
 
@@ -36,15 +37,15 @@ public class SessionManager {
    */
   @SuppressWarnings("UseOfObsoleteCollectionType")
   @Inject
-  private static boolean authenticateOnActiveDirectory(Configuration configuration, String userName, String psw, String domain) {
+  private static boolean authenticateOnActiveDirectory(Config config, String userName, String psw, String domain) {
     final String AD_PROTOCOLE = "ldap://";
     final int AD_PORT = 389;
 //    String contextFactory = play.Play.application().configuration().getString("ad.context_factory");
 //    String adServer = AD_PROTOCOLE
 //            + play.Play.application().configuration().getString("ad.server")
 //            + ":" + AD_PORT;
-    String contextFactory = configuration.getString("ad.context_factory");
-    String adServer = AD_PROTOCOLE + configuration.getString("ad.server") + ":" + AD_PORT;
+    String contextFactory = config.getString("ad.context_factory");
+    String adServer = AD_PROTOCOLE + config.getString("ad.server") + ":" + AD_PORT;
 
     Map<String, String> env = new HashMap<>();
     env.put(Context.INITIAL_CONTEXT_FACTORY, contextFactory);
@@ -75,7 +76,7 @@ public class SessionManager {
   @SuppressWarnings("null")
   public static boolean createSession(String userName, String pwd, String domain, Login login) {
     boolean ok = false;
-    if (session().get(SESSION_LOGIN_ID) == null) {
+    if (session().get(SESSION_USER_ID) == null) {
 
       // teste si l'utilisateur a été trouvé auparavant
       if (login != null) {
@@ -95,8 +96,8 @@ public class SessionManager {
       // enregistrement de la session si identification correcte
       if (ok) {
         long start = System.currentTimeMillis();
-        session(SESSION_LOGIN_ID, "" + login.getPkLogin());
-        session(SESSION_COMPTA_ID, "1");
+        session(SESSION_USER_ID, "" + login.getPkLogin());
+        session(SESSION_DB_ID, "1");
         session(SESSION_TIMESTAMP, "" + start);
       } else {
         session().clear();
@@ -111,7 +112,7 @@ public class SessionManager {
    * @return true si la session est maintenant vide
    */
   public static boolean clearSession() {
-    boolean ok = session().get(SESSION_LOGIN_ID) != null;
+    boolean ok = session().get(SESSION_USER_ID) != null;
     if (ok) {
       session().clear();
     }
@@ -125,7 +126,7 @@ public class SessionManager {
    * @return true si une session est ouverte
    */
   public static boolean isSessionOpen() {
-    boolean ok = session().get(SESSION_LOGIN_ID) != null;
+    boolean ok = session().get(SESSION_USER_ID) != null;
     if (ok) {
       session(SESSION_TIMESTAMP, "" + System.currentTimeMillis());
     }
@@ -150,8 +151,8 @@ public class SessionManager {
    *
    * @return l'identifiant de la personne loguée ou 0 si non trouvé
    */
-  public static int getSessionLoginId() {
-    String userId = session().get(SESSION_LOGIN_ID);
+  public static int getSessionUserId() {
+    String userId = session().get(SESSION_USER_ID);
     return ConvertLib.stringToInt(userId);
   }
 
@@ -169,22 +170,22 @@ public class SessionManager {
   }
 
   /**
-   * Récupérer l'identifiant de la compta en cours.
+   * Dans une approche "multi-tenants" de la BD, récupérer l'identifiant mémorisé de cette BD.
    *
-   * @return l'identifiant de la compta en cours ou 0 si non trouvé
+   * @return un identifiant de BD
    */
-  public static int getSessionComptaId() {
-    String tenantId = session().get(SESSION_COMPTA_ID);
-    return ConvertLib.stringToInt(tenantId);
+  public static int getSessionDbId() {
+    String dbId = session().get(SESSION_DB_ID);
+    return ConvertLib.stringToInt(dbId);
   }
 
   /**
-   * Mémoriser l'identifiant de la compta en cours.
+   * Dans une approche "multi-tenants" de la BD, mémoriser un identifiant de cette BD.
    *
-   * @param comptaId un identifiant numérique
+   * @param dbId un identifiant de BD
    */
-  public static void setSessionComptaId(int comptaId) {
-    session(SESSION_COMPTA_ID, "" + comptaId);
+  public static void setSessionDbId(int dbId) {
+    session(SESSION_DB_ID, "" + dbId);
   }
 
 }

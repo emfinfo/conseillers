@@ -1,27 +1,28 @@
 package session;
 
+import com.typesafe.config.Config;
 import javax.inject.Inject;
-import play.Configuration;
 import play.mvc.Http.Context;
 import play.mvc.Result;
 import play.mvc.Security;
 
 /**
+ * Classe pour gérer la sécurité des méthodes de contrôleurs appelées.
  *
  * @author jcstritt
  */
 public class MySecurityCtrl extends Security.Authenticator {
 
-  private final Configuration configuration;
+  private final Config config;
 
   @Inject
-  public MySecurityCtrl(Configuration configuration) {
-    this.configuration = configuration;
+  public MySecurityCtrl(Config config) {
+    this.config = config;
   }
 
   @Override
   public String getUsername(Context ctx) {
-    return ctx.session().get(SessionManager.SESSION_LOGIN_ID);
+    return ctx.session().get(SessionManager.SESSION_USER_ID);
   }
 
   @Override

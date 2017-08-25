@@ -11,8 +11,7 @@ var indexCtrl = (function () {
     // chargement de la couche de service et des premières données par HTTP
     $.getScript("js/services/httpServ.js", function () {
       console.log("httpServ.js chargé !");
-      httpServ.lireVersion("app", okLireVersionApp, afficherErreurHttp);
-      httpServ.lireVersion("srv", okLireVersionSrv, afficherErreurHttp);
+      httpServ.getVersion(afficherVersion, afficherErreurHttp);
       _afficheListeRoutes();
     });
 
@@ -28,14 +27,13 @@ var indexCtrl = (function () {
   }
 
   function _afficheListeRoutes() {
-    var baseUrl = httpServ.recuperNomServeur();
+    var baseUrl = httpServ.getBaseUrl();
     var divData = $('#data');
     divData.html('');
 
     // versions
     divData.append('<ul>');
-    _addLI(baseUrl + '/version-app');
-    _addLI(baseUrl + '/version-srv');
+    _addLI(baseUrl + '/version');
     divData.append('</ul>');
 
     // etat civil
@@ -96,46 +94,43 @@ var indexCtrl = (function () {
 
     // login-logout
     divData.append('<ul>');
-    _addLI(baseUrl + '/login/mettrauxpa/Emf123');
-    _addLI(baseUrl + '/login/strittjc/Emf123');
-    _addLI(baseUrl + '/login/user1/Emf123');
-    _addLI(baseUrl + '/sessionStatus');
-    _addLI(baseUrl + '/logout');
+    _addLI(baseUrl + '/session/login/mettrauxpa/Emf123');
+    _addLI(baseUrl + '/session/login/strittjc/Emf123');
+    _addLI(baseUrl + '/session/login/user1/Emf123');
+    _addLI(baseUrl + '/session/status');
+    _addLI(baseUrl + '/session/logout');
     divData.append('</ul>');
 
     // createLogin
     divData.append('<ul>');
     _addLI(baseUrl + '/createLogin');
     divData.append('</ul>');
-    divData.append('createLogin utilise une méthode HTTP de type POST pour créer un nouvel utilisateur. ');
-    divData.append("Elle nécessite d'envoyer un objet JSON dans le corps (body) de la méthode, ex: " + '{"nom":"TartampionJ", "motDePasse":"Emf123"}. ');
-    divData.append("D'autres champs peuvent être spécifiés: " + '"domaine", "profil", "email", "initiales", "langue". ');
-    divData.append("Le retour est un objet " + '"login" rempli ou avec le nom=null si la création ' + "n'a pas pu se faire (login existant).");
-    divData.append('<br>');
+//    divData.append('<p>createLogin utilise une méthode HTTP de type POST pour créer un nouvel utilisateur. ');
+//    divData.append("Elle nécessite d'envoyer un objet JSON dans le corps (body) de la méthode, ex: " + '{"nom":"TartampionJ", "motDePasse":"Emf123"}. ');
+//    divData.append("D'autres champs peuvent être spécifiés: " + '"domaine", "profil", "email", "initiales", "langue". ');
+//    divData.append("Le retour est un objet " + '"login" rempli ou avec le nom=null si la création ' + "n'a pas pu se faire (login existant).");
+//    divData.append('</p>');
 
   }
 
+
+
+
+  /*
+   * 3. CALLBACKS (RETOUR DE SERVICE)
+   */
+  function afficherVersion(data, text, jqXHR) {
+    var infoComponent1 = $("#version-app");
+    infoComponent1.html(data["version-app"]);
+    var infoComponent2 = $("#version-srv");
+    infoComponent2.html(data["version-srv"]);
+  }
 
   function afficherErreurHttp(jqXHR, textStatus, errorThrown) {
     var msg = textStatus + ": " + errorThrown + " " + jqXHR.responseText + " !";
     console.log(msg);
 //    alert(msg);
   }
-
-
-  /*
-   * 3. CALLBACKS (RETOUR DE SERVICE)
-   */
-  function okLireVersionApp(data, text, jqXHR) {
-    var infoComponent = $("#version-app");
-    infoComponent.html(data["version-app"]);
-  }
-
-  function okLireVersionSrv(data, text, jqXHR) {
-    var infoComponent = $("#version-srv");
-    infoComponent.html(data["version-srv"]);
-  }
-
 
 })();
 

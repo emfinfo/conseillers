@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.IOException;
+import java.util.Optional;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Http.Context;
@@ -27,7 +28,7 @@ public class Utils {
 
   public static void logInfo(long startTime, Object... params) {
     String threadId = String.valueOf(Thread.currentThread().getId());
-    String userId = (SessionManager.isSessionOpen()) ? "" + SessionManager.getSessionLoginId() : "?";
+    String userId = (SessionManager.isSessionOpen()) ? "" + SessionManager.getSessionUserId() : "?";
     String msg = DateTimeLib.dateToString(DateTimeLib.getNow(), "dd.MM.yy HH:mm:ss");
     msg += " - USER: " + userId + ", THREAD: " + threadId;
     msg += ", " + StackTracer.getParentMethod(-1);
@@ -67,7 +68,7 @@ public class Utils {
 
     // user
     if (SessionManager.isSessionOpen()) {
-      msg += " (USER: " + SessionManager.getSessionLoginId() + ")";
+      msg += " (USER: " + SessionManager.getSessionUserId() + ")";
     }
 
     // elapsed time
@@ -144,11 +145,11 @@ public class Utils {
 //            "http://192.168.0.5:9000",
 //            "http://jcstritt.emf-informatique.ch",
 //            "http://homepage.hispeed.ch");
-    String origin = request.getHeader("Origin");
+    Optional<String> origin = request.header("Origin");
 //    if (origin != null && whiteList.contains(origin)) {
-    if (origin != null && (origin.contains("localhost") || origin.contains("192.168")
-      || origin.contains("emf-informatique.ch") || origin.contains("homepage.hispeed.ch"))) {
-      response.setHeader("Access-Control-Allow-Origin", origin);
+    if (origin.isPresent() && (origin.get().contains("localhost") || origin.get().contains("192.168")
+      || origin.get().contains("emf-informatique.ch") || origin.get().contains("homepage.hispeed.ch"))) {
+      response.setHeader("Access-Control-Allow-Origin", origin.get());
       response.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT,OPTIONS");
       response.setHeader("Access-Control-Allow-Credentials", "true");
       response.setHeader("Access-Control-Allow-Headers", "Origin, Content-Type");

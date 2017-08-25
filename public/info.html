@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Conseillers...</title>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+  </head>
+  <body>
+    <div id="conteneur" class="container">
+      <div class="col-sm-12">
+        <div class="panel panel-primary">
+          <div class="panel-body" style="text-align:left">
+            <h4>Cette route doit s'utiliser en POST ...</h4>
+            <p style="padding: 1em" >
+              La route createLogin nécessite une méthode HTTP de type POST pour créer un nouveau compte d'utilisateur.
+              Cela nécessite d'envoyer un objet JSON dans le corps (body) de la méthode.
+              Exemple : {"nom": "TartampionJ", "motDePasse": "Emf123"}.
+              D'autres champs peuvent être spécifiés : "domaine", "profil", "email", "initiales" et "langue".
+              Si le compte utilisateur a pu être créé, le retour est un objet JSON rempli avec les propriétés
+              du compte. Dans le cas contraire, des valeurs null seront retournées dans les propriétés
+              de l'objet JSON.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

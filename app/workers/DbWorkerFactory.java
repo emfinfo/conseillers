@@ -6,74 +6,72 @@ import ch.emf.dao.NoJpaTransaction;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
-import play.api.Play;
 import play.db.jpa.JPAApi;
 
 /**
- * Usine pour créer le worker de la BD. Cela permet d'injecter dans la couche dao
- * l'entity-manager géré par Play, ceci avant chaque appel de méthode.
+ * Usine pour créer une seule fois le worker de la BD et sa couche dao.
  *
  * @author Jean-Claude Stritt
  */
 @Singleton
-public class DbWorkerFactory  {
-  private static DbWorkerFactory instance = null;
+public class DbWorkerFactory {
+
   private final JpaDaoAPI dao;
   private final DbWorkerAPI dbWrk;
 
-  private DbWorkerFactory() {
+  @Inject
+  private DbWorkerFactory(JPAApi jpaApi) {
+//    Logger.info("DbWorkerFactory started");
     dao = new JpaDao();
     dbWrk = (DbWorkerAPI) Proxy.newProxyInstance(
       this.getClass().getClassLoader(),
       new Class<?>[]{DbWorkerAPI.class},
-      new DbWorkerInvocationHandler(new DbWorker(dao)));
-  }
-
-  public synchronized static DbWorkerFactory getInstance() {
-    if (instance == null) {
-      instance = new DbWorkerFactory();
-    }
-    return instance;
+      new DbWorkerInvocationHandler(jpaApi, new DbWorker(dao)));
   }
 
   public DbWorkerAPI getDbWorker() {
     return dbWrk;
   }
 
-
-
+  /**
+   * Classe privée pour invoquer les méthodes de DBWorker tout y injectant l'entity manager géré par Play.
+   */
   private class DbWorkerInvocationHandler implements InvocationHandler {
+
+    private JPAApi jpa;
     private DbWorkerAPI dbWrk;
 
-    public DbWorkerInvocationHandler(DbWorker dbWrk) {
+    public DbWorkerInvocationHandler(JPAApi jpa, DbWorker dbWrk) {
+      this.jpa = jpa;
       this.dbWrk = dbWrk;
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
       boolean okClass = method.getDeclaringClass() == DbWorkerAPI.class;
-      JPAApi jpaApi = Play.current().injector().instanceOf(JPAApi.class);
-      if (okClass && jpaApi != null) {
+
+      if (okClass && jpa != null) {
         if (!method.isAnnotationPresent(NoJpaTransaction.class)) {
 
           // récupération de l'entity-manager de Play
-          EntityManager em = jpaApi.em();
+          EntityManager em = jpa.em();
 
           // multi-tenant example
-//        int loginId = SessionManager.getSessionLoginId();
-//        int comptaId = SessionManager.getSessionComptaId();
-//        if (loginId > 0 && comptaId > 0) {
-//          em.setProperty("eclipselink.session-name", "multitenant-session-" + loginId + "-" + comptaId);
-//          em.setProperty("eclipselink.tenant-id1", "" + loginId);
-//          em.setProperty("eclipselink.tenant-id2", "" + comptaId);
-//        }
+//          int loginId = SessionManager.getSessionLoginId();
+//          int comptaId = SessionManager.getSessionComptaId();
+//          if (loginId > 0 && comptaId > 0) {
+//            em.setProperty("eclipselink.session-name", "multitenant-session-" + loginId + "-" + comptaId);
+//            em.setProperty("eclipselink.tenant-id1", "" + loginId);
+//            em.setProperty("eclipselink.tenant-id2", "" + comptaId);
+//          }
 
           // injection de l'entity-manager de Play dans la couche dao
           dao.setEntityManager(em);
         }
-        return method.invoke(this.dbWrk, args);
+        return method.invoke(dbWrk, args);
       } else {
         return null;
       }

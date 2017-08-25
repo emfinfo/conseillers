@@ -29,6 +29,6 @@ public interface DbWorkerAPI {
   List<Conseiller> chargerConseillers(String nom, boolean actuels);
 
   boolean bdOuverte();
-  boolean fermerBD();
+  boolean fermerBd();
 
 }

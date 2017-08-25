@@ -12,11 +12,10 @@ import models.EtatCivil;
 import models.Groupe;
 import models.Login;
 import models.Parti;
-import play.Logger;
 
 /**
  * Couche "métier" pour gérer les demandes vers la base de données.
- * Utilise daolayer avec JPA.
+ * Utilise daolayer avec JPA comme sous-couche d'accès aux données.
  *
  * @author Jean-Claude Stritt
  */
@@ -24,7 +23,6 @@ public class DbWorker implements DbWorkerAPI {
   private final JpaDaoAPI dao;
 
   public DbWorker(JpaDaoAPI dao) {
-    Logger.debug("DbWorker is  loaded as a Singleton !");
     this.dao = dao;
   }
 
@@ -107,6 +105,7 @@ public class DbWorker implements DbWorkerAPI {
     }
     search.addSortFields("c.nom", "c.prenom");
     List<Conseiller> conseillers = dao.getList(search);
+//    System.out.println("Conseillers: "+search.getJpql()+", open=" +dao.isOpen());
     return conseillers;
   }
 
@@ -133,7 +132,7 @@ public class DbWorker implements DbWorkerAPI {
   }
 
   @Override
-  public boolean fermerBD() {
+  public boolean fermerBd() {
     dao.close();
     return !dao.isOpen();
   }

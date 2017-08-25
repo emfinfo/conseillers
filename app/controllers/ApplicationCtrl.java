@@ -1,22 +1,30 @@
 package controllers;
 
+import com.typesafe.config.Config;
+import controllers.actions.BeforeAfterAction;
 import helpers.Utils;
-import static helpers.Utils.validCrossDomainContext;
 import javax.inject.Inject;
-import play.Configuration;
+import play.Logger;
 import play.mvc.*;
-import static play.mvc.Controller.request;
-import static play.mvc.Controller.response;
-import static play.mvc.Results.ok;
-import static play.mvc.Results.redirect;
 
 public class ApplicationCtrl extends Controller {
   private String appFullName;
 
   @Inject
-  public ApplicationCtrl(Configuration configuration) {
-    appFullName = configuration.getString("application.name") + " "
-                + configuration.getString("application.version");
+  public ApplicationCtrl(Config config) {
+
+    // on prépare un message pour le fichier de log
+    String appName = config.getString("application.name");
+    String appVersion = config.getString("application.version");
+
+    appFullName = appName + " " + appVersion;
+
+    Logger.info(
+      appFullName
+      + " is running on Play " + play.core.PlayVersion.current()
+      + " with Java " + System.getProperty("java.version")
+      + " (" + System.getProperty("sun.arch.data.model") + " bits)");
+
   }
 
   public Result index() {
@@ -27,18 +35,13 @@ public class ApplicationCtrl extends Controller {
   }
 
   public Result checkPreFlight(String path) {
-    validCrossDomainContext(request(), response());
+    Utils.validCrossDomainContext(request(), response());
     return ok();
   }
 
-  public Result lireVersionApplication() {
-//    validCrossDomainContext(request(), response());
-    return Utils.toJson("version-app", appFullName);
-  }
-
-  public Result lireVersionServeur() {
-//    validCrossDomainContext(request(), response());
-    return Utils.toJson("version-srv", "Play " + play.core.PlayVersion.current());
+  @With(BeforeAfterAction.class)
+  public Result lireVersion() {
+    return Utils.toJson("version-app", appFullName, "version-srv", "Play " + play.core.PlayVersion.current());
   }
 
 }

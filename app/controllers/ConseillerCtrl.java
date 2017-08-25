@@ -10,7 +10,6 @@ import models.Conseiller;
 import models.EtatCivil;
 import models.Groupe;
 import models.Parti;
-import play.Configuration;
 import play.Logger;
 import play.db.jpa.Transactional;
 import play.mvc.*;
@@ -28,18 +27,8 @@ public class ConseillerCtrl extends Controller {
   private DbWorkerAPI dbWrk;
 
   @Inject
-  public ConseillerCtrl(Configuration configuration) {
-    this.dbWrk = DbWorkerFactory.getInstance().getDbWorker();
-
-    // on prepare un message pour le fichier de log
-    String appName = configuration.getString("application.name");
-    String appVersion = configuration.getString("application.version");
-    Logger.info(
-      appName + " " + appVersion
-      + " is running on Play " + play.core.PlayVersion.current()
-      + " with Java " + System.getProperty("java.version")
-      + " (" + System.getProperty("sun.arch.data.model") + " bits)");
-
+  public ConseillerCtrl(DbWorkerFactory factory) {
+    this.dbWrk = factory.getDbWorker();
   }
 
   private Result logError(Exception e) {

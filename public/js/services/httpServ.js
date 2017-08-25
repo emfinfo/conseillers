@@ -12,12 +12,16 @@ var httpServ = (function () {
 //  var serverURL = 'http://192.168.0.4:9000'; // maison
 //  var serverURL = 'http://192.168.0.5:9000'; // raspberry pi2
 //  var serverURL = 'http://localhost:9000'; // local
-  var serverURL = browser.Url.getBaseUrl(); // si client et serveur au même endroit
 //  var serverURL = 'http://conseillers.herokuapp.com';
+  var serverURL = browser.Url.getBaseUrl(); // si client et serveur au même endroit
 
-  function _lireVersion(which, successCallback, errorCallback) {
+  function _getBaseUrl() {
+    return serverURL;
+  }
+
+  function _getVersion(successCallback, errorCallback) {
     var format = "json";
-    var fullURL = serverURL + "/version-" + which;
+    var fullURL = serverURL + "/version";
     $.ajax({
       type: "GET",
       dataType: format,
@@ -27,14 +31,26 @@ var httpServ = (function () {
     });
   }
 
-  function _recupererNomServeur() {
-    return serverURL;
+
+  function _getCreateLoginInfo(successCallback, errorCallback) {
+    var format = "json";
+    var fullURL = serverURL + "/createLoginInfo";
+    $.ajax({
+      type: "GET",
+      dataType: format,
+      url: fullURL,
+      success: successCallback,
+      error: errorCallback
+    });
   }
+
+
 
   // définition des noms de methodes publiques
   return {
-    lireVersion: _lireVersion,
-    recuperNomServeur: _recupererNomServeur
+    getBaseUrl: _getBaseUrl,
+    getVersion: _getVersion,
+    getCreateLoginInfo: _getCreateLoginInfo
   };
 
 })();

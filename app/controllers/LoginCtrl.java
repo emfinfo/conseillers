@@ -4,11 +4,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import controllers.actions.BeforeAfterAction;
 import helpers.BooleanResult;
 import helpers.Utils;
+import javax.inject.Inject;
 import models.Login;
 import play.db.jpa.Transactional;
 import play.mvc.*;
-import static play.mvc.Controller.request;
-import static play.mvc.Results.ok;
 import session.SessionManager;
 import views.html.index;
 import workers.DbWorkerAPI;
@@ -22,8 +21,9 @@ import workers.DbWorkerFactory;
 public class LoginCtrl extends Controller {
   private DbWorkerAPI dbWrk;
 
-  public LoginCtrl() {
-    this.dbWrk = DbWorkerFactory.getInstance().getDbWorker();
+  @Inject
+  public LoginCtrl(DbWorkerFactory factory) {
+    this.dbWrk = factory.getDbWorker();
   }
 
   public Result index() {
@@ -58,7 +58,7 @@ public class LoginCtrl extends Controller {
   }
 
   @With(BeforeAfterAction.class)
-  public Result sessionStatus() {
+  public Result status() {
     return Utils.toJson("open", SessionManager.isSessionOpen());
   }
 

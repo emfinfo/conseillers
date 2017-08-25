@@ -3,13 +3,10 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
+# application
 GET      /                                                   controllers.ApplicationCtrl.index()
 OPTIONS  /*path                                              controllers.ApplicationCtrl.checkPreFlight(path)
-
-# versions serveur et application
-GET      /version-app                                        controllers.ApplicationCtrl.lireVersionApplication()
-GET      /version-srv                                        controllers.ApplicationCtrl.lireVersionServeur()
+GET      /version                                            controllers.ApplicationCtrl.lireVersion()
 
 # requêtes sur les "etats civils"
 GET      /etats-civils                                       controllers.ConseillerCtrl.chargerEtatsCivils(fmt = "html")
@@ -56,15 +53,14 @@ GET      /conseillers.json/:canton/:conseil                  controllers.Conseil
 GET      /conseillers.json/:canton/:conseil/:parti           controllers.ConseillerCtrl.chargerConseillers(fmt="json", canton :String, conseil :String, parti :String, actuels="false")
 GET      /conseillers.json/:canton/:conseil/:parti/:actuels  controllers.ConseillerCtrl.chargerConseillers(fmt="json", canton :String, conseil :String, parti :String, actuels :String)
 
-# requêtes sur le login
-GET      /login/:loginName/:pwd                              controllers.LoginCtrl.login(loginName :String, pwd :String)
-GET      /logout                                             controllers.LoginCtrl.logout
-GET      /sessionStatus                                      controllers.LoginCtrl.sessionStatus
+# requêtes de session
+GET      /session/login/:user/:pwd                           controllers.LoginCtrl.login(user :String, pwd :String)
+GET      /session/logout                                     controllers.LoginCtrl.logout
+GET      /session/status                                     controllers.LoginCtrl.status
+
+GET      /createLogin                                        controllers.Assets.at(path="/public", file="/info.html")
 POST     /createLogin                                        controllers.LoginCtrl.createLogin
 GET      /unauthorizedAccess                                 controllers.LoginCtrl.unauthorizedAccess()
 
 # Map static resources from the /public folder to the /assets URL path
 GET      /assets/*file                                       controllers.Assets.versioned(path="/public", file: Asset)
-
-#GET  /assets/*file  controllers.Assets.at(path="/public", file)
-

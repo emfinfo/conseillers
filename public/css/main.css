@@ -10,12 +10,12 @@ body {
 }
 
 #conteneur {
-  /*background-color: white;*/
-  /*width: 45em;*/
+  /*  background-color: white;
+    width: 45em;
+    border: 2px solid green;*/
   height: auto;
   margin: auto; /* pour centrer le conteneur */
   text-align: left;
-  /*border: 2px solid green;*/
   padding: 1em 2em;
   font-family: Verdana, Arial, serif;
 }

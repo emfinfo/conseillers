@@ -1,6 +1,8 @@
-# conseillers 1.1.0 (january 2017)
-A small Play! framework 2.5.x application with a MySQL DB (Swiss parliament).
-This release is now full adapted to Play 2.5.x. DbWorker if now build by a DbWorkerFactory (for JPA entity manager injection).
+# conseillers 1.2.0 (august 2017)
+A small Play application with a MySQL DB (Swiss parliament).
+This release is now full adapted to last Play 2.6.x framework.
+DbWorkerFactory inject JPA entity manager into the dao layer.
+DbWorker and dao are only laoded one time (singleton).
 
 * Prerequisites :
   * Netbeans 8.2 and the « Pleasure Play Framework Plugin » installed
