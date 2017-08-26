@@ -16,14 +16,13 @@
     <class>models.Login</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
+
       <!-- Logging configuration. -->
-      <property name="eclipselink.logging.parameters" value="false"/>
-      <property name="eclipselink.logging.logger" value="JavaLogger" />
-      <!--<property name="eclipselink.logging.logger" value="ServerLogger"/>-->
+      <!--      <property name="eclipselink.logging.parameters" value="false"/>-->
+      <!--<property name="eclipselink.logging.logger" value="JavaLogger" />-->
       <property name="eclipselink.logging.level" value="OFF" />
-      <property name="eclipselink.logging.sql" value="WARNING"/>
-      <property name="eclipselink.logging.level.sql" value="WARNING"/>
-      <!--<property name="eclipselink.logging.logger" value="org.eclipse.persistence.logging.slf4j.Slf4jSessionLogger" />-->
+      <!--<property name="eclipselink.logging.sql" value="WARNING"/>-->
+      <!--<property name="eclipselink.logging.level.sql" value="WARNING"/>-->
 
     </properties>
   </persistence-unit>
