@@ -97,6 +97,7 @@ public class ConseillerCtrl extends Controller {
     }
     return httpResult;
   }
+  
   /**
    * Renvoyer une liste des partis de Suisse.
    */
