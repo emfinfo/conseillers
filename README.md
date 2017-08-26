@@ -2,7 +2,7 @@
 A small Play application with a MySQL DB (Swiss parliament).
 This release is now full adapted to last Play 2.6.x framework.
 DbWorkerFactory inject JPA entity manager into the dao layer.
-DbWorker and dao are only laoded one time (singleton).
+DbWorker and dao are only loaded one time (singleton).
 
 * Prerequisites :
   * Netbeans 8.2 and the « Pleasure Play Framework Plugin » installed
