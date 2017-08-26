@@ -60,8 +60,8 @@ public class DbWorkerFactory {
           EntityManager em = jpa.em();
 
           // exemple multi-tenant
-//          int userId = SessionManager.getSessionUserId();
-//          int dbId = SessionManager.getSessionDbId();
+//          int userId = SessionManager.getUserId();
+//          int dbId = SessionManager.getDbId();
 //          if (userId > 0 && dbId > 0) {
 //            em.setProperty("eclipselink.session-name", "multitenant-session-" + userId + "-" + dbId);
 //            em.setProperty("eclipselink.tenant-id1", "" + userId);
