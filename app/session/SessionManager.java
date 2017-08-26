@@ -74,7 +74,7 @@ public class SessionManager {
    * @return true si l'utilisateur est reconnu
    */
   @SuppressWarnings("null")
-  public static boolean createSession(String userName, String pwd, String domain, Login login) {
+  public static boolean create(String userName, String pwd, String domain, Login login) {
     boolean ok = false;
     if (session().get(SESSION_USER_ID) == null) {
 
@@ -111,12 +111,12 @@ public class SessionManager {
    *
    * @return true si la session est maintenant vide
    */
-  public static boolean clearSession() {
+  public static boolean clear() {
     boolean ok = session().get(SESSION_USER_ID) != null;
     if (ok) {
       session().clear();
     }
-    return !isSessionOpen();
+    return !isOpen();
   }
 
 
@@ -125,7 +125,7 @@ public class SessionManager {
    *
    * @return true si une session est ouverte
    */
-  public static boolean isSessionOpen() {
+  public static boolean isOpen() {
     boolean ok = session().get(SESSION_USER_ID) != null;
     if (ok) {
       session(SESSION_TIMESTAMP, "" + System.currentTimeMillis());
@@ -139,7 +139,7 @@ public class SessionManager {
    * @param ms le temps en [ms] pour qu'un timeout intervienne
    * @return true si la session peut être fermée
    */
-  public static boolean isSessionTimeout(int ms) {
+  public static boolean isTimeout(int ms) {
     long cTime = System.currentTimeMillis();
     long sTime = ConvertLib.stringToLong(session().get(SESSION_TIMESTAMP));
     System.out.println("cTime: " + cTime + " sTime: " + sTime + " diff: " + (cTime-sTime));
@@ -151,7 +151,7 @@ public class SessionManager {
    *
    * @return l'identifiant de la personne loguée ou 0 si non trouvé
    */
-  public static int getSessionUserId() {
+  public static int getUserId() {
     String userId = session().get(SESSION_USER_ID);
     return ConvertLib.stringToInt(userId);
   }
@@ -161,7 +161,7 @@ public class SessionManager {
    *
    * @return une langue sur 2 caractères (ex: "fr" pour le français)
    */
-  public static String getSessionLang() {
+  public static String getLang() {
     String lang = session().get(SESSION_LANG);
     if (lang == null || lang.isEmpty()) {
       lang = "fr";
@@ -174,7 +174,7 @@ public class SessionManager {
    *
    * @return un identifiant de BD
    */
-  public static int getSessionDbId() {
+  public static int getDbId() {
     String dbId = session().get(SESSION_DB_ID);
     return ConvertLib.stringToInt(dbId);
   }
@@ -184,7 +184,7 @@ public class SessionManager {
    *
    * @param dbId un identifiant de BD
    */
-  public static void setSessionDbId(int dbId) {
+  public static void setDbId(int dbId) {
     session(SESSION_DB_ID, "" + dbId);
   }
 
