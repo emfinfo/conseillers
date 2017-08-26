@@ -28,7 +28,7 @@ public class Utils {
 
   public static void logInfo(long startTime, Object... params) {
     String threadId = String.valueOf(Thread.currentThread().getId());
-    String userId = (SessionManager.isSessionOpen()) ? "" + SessionManager.getSessionUserId() : "?";
+    String userId = (SessionManager.isOpen()) ? "" + SessionManager.getUserId() : "?";
     String msg = DateTimeLib.dateToString(DateTimeLib.getNow(), "dd.MM.yy HH:mm:ss");
     msg += " - USER: " + userId + ", THREAD: " + threadId;
     msg += ", " + StackTracer.getParentMethod(-1);
@@ -67,8 +67,8 @@ public class Utils {
     String msg = route;
 
     // user
-    if (SessionManager.isSessionOpen()) {
-      msg += " (USER: " + SessionManager.getSessionUserId() + ")";
+    if (SessionManager.isOpen()) {
+      msg += " (USER: " + SessionManager.getUserId() + ")";
     }
 
     // elapsed time

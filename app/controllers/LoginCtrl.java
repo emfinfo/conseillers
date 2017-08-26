@@ -42,8 +42,8 @@ public class LoginCtrl extends Controller {
     Login login = dbWrk.rechercherLogin(nom);
 
     // on essaye d'ouvrir la session
-    SessionManager.clearSession();
-    if (!SessionManager.createSession(nom, motDePasse, "", login)) {
+    SessionManager.clear();
+    if (!SessionManager.create(nom, motDePasse, "", login)) {
       login = new Login();
     }
 
@@ -53,13 +53,13 @@ public class LoginCtrl extends Controller {
 
   @With(BeforeAfterAction.class)
   public Result logout() {
-    SessionManager.clearSession();
-    return Utils.toJson("ok", !SessionManager.isSessionOpen());
+    SessionManager.clear();
+    return Utils.toJson("ok", !SessionManager.isOpen());
   }
 
   @With(BeforeAfterAction.class)
   public Result status() {
-    return Utils.toJson("open", SessionManager.isSessionOpen());
+    return Utils.toJson("open", SessionManager.isOpen());
   }
 
   @With(BeforeAfterAction.class)
