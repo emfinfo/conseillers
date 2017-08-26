@@ -60,12 +60,12 @@ public class DbWorkerFactory {
           EntityManager em = jpa.em();
 
           // exemple multi-tenant
-//          int loginId = SessionManager.getSessionLoginId();
-//          int comptaId = SessionManager.getSessionComptaId();
-//          if (loginId > 0 && comptaId > 0) {
-//            em.setProperty("eclipselink.session-name", "multitenant-session-" + loginId + "-" + comptaId);
-//            em.setProperty("eclipselink.tenant-id1", "" + loginId);
-//            em.setProperty("eclipselink.tenant-id2", "" + comptaId);
+//          int userId = SessionManager.getSessionUserId();
+//          int dbId = SessionManager.getSessionDbId();
+//          if (userId > 0 && dbId > 0) {
+//            em.setProperty("eclipselink.session-name", "multitenant-session-" + userId + "-" + dbId);
+//            em.setProperty("eclipselink.tenant-id1", "" + userId);
+//            em.setProperty("eclipselink.tenant-id2", "" + dbId);
 //          }
 
           // injection de l'entity-manager de Play dans la couche dao
