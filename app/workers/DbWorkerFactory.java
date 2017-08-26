@@ -59,7 +59,7 @@ public class DbWorkerFactory {
           // récupération de l'entity-manager de Play
           EntityManager em = jpa.em();
 
-          // multi-tenant example
+          // exemple multi-tenant
 //          int loginId = SessionManager.getSessionLoginId();
 //          int comptaId = SessionManager.getSessionComptaId();
 //          if (loginId > 0 && comptaId > 0) {
