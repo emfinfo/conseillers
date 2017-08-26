@@ -15,7 +15,7 @@ import static play.mvc.Controller.session;
 
 /**
  * Permet de gérer une session utilisateur. On utilise principalement 2 informations de session
- * (login-id et db-id), ce qui permet une approche "multi-tenant" d'une base de données.
+ * (user-id et db-id), ce qui permet une approche "multi-tenant" d'une base de données.
  *
  * @author jcstritt
  */
@@ -27,13 +27,13 @@ public class SessionManager {
 
 
   /**
-   * Controle si une authentification est possible sur ActiveDirectory.
+   * Contrôle si une authentification est possible sur ActiveDirectory.
    *
    * @param userName un nom d'utilisateur unique
    * @param psw un mot de passe
    * @param domain un nom de domaine "Active Directory"
    *
-   * @return TRUE si'laccès à ActiveDirectory a été un succès
+   * @return TRUE si l'accès à ActiveDirectory a été un succès
    */
   @SuppressWarnings("UseOfObsoleteCollectionType")
   @Inject

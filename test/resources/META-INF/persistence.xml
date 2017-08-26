@@ -24,11 +24,9 @@
       <!-- Logging configuration. -->
       <!--<property name="eclipselink.logging.parameters" value="true"/>-->
       <!--<property name="eclipselink.logging.logger" value="JavaLogger" />-->
-      <!--<property name="eclipselink.logging.logger" value="ServerLogger"/>-->
       <property name="eclipselink.logging.level" value="OFF" />
       <!--      <property name="eclipselink.logging.sql" value="OFF"/>
       <property name="eclipselink.logging.level.sql" value="OFF"/>-->
-
 
     </properties>
   </persistence-unit>

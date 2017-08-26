@@ -7,7 +7,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 
 /**
- * Classe pour gérer la sécurité des méthodes de contrôleurs appelées.
+ * Classe pour gérer la sécurité des appels de méthodes dans un contrôleur.
  *
  * @author jcstritt
  */
