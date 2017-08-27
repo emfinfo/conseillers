@@ -20,7 +20,6 @@ public class FunctionalTest2 extends WithApplication {
   public void test02_DbOpen() {
 
     // éléments injectés
-//    ExecutionContext ctx = app.injector().instanceOf(ExecutionContext.class);
     JPAApi jpa = app.injector().instanceOf(JPAApi.class);
     DbWorkerFactory factory = app.injector().instanceOf(DbWorkerFactory.class);
 
@@ -33,5 +32,4 @@ public class FunctionalTest2 extends WithApplication {
     });
 
   }
-
 }

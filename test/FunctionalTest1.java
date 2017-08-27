@@ -22,5 +22,4 @@ public class FunctionalTest1 {
     assertTrue(ok);
     dbWrk.fermerBd();
   }
-
 }
