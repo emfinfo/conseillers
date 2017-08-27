@@ -20,12 +20,12 @@ resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/release
 
 // pour récupérer conseillers-models dans le dépôt local Maven
 // resolvers += "Local Maven Repository" at "file:///" + Path.userHome.absolutePath + "/.m2/repository"
- resolvers += "Local Maven Repository" at Path.userHome.asFile.toURI.toURL + ".m2/repository"
+resolvers += "Local Maven Repository" at Path.userHome.asFile.toURI.toURL + ".m2/repository"
 
 // dépendences (voir dernières versions sur http://mvnrepository.com )
 libraryDependencies ++= Seq(
   javaJpa,
-  "ch.emf.info" % "conseillers-models" % "1.0.4",
+  "ch.emf.info" % "conseillers-models" % "1.0.5",
   "ch.emf.info" % "daolayer" % "5.1.4",
 "mysql" % "mysql-connector-java" % "5.1.38").map(_.force())
 

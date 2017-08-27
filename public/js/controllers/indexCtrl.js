@@ -105,12 +105,6 @@ var indexCtrl = (function () {
     divData.append('<ul>');
     _addLI(baseUrl + '/createLogin');
     divData.append('</ul>');
-//    divData.append('<p>createLogin utilise une méthode HTTP de type POST pour créer un nouvel utilisateur. ');
-//    divData.append("Elle nécessite d'envoyer un objet JSON dans le corps (body) de la méthode, ex: " + '{"nom":"TartampionJ", "motDePasse":"Emf123"}. ');
-//    divData.append("D'autres champs peuvent être spécifiés: " + '"domaine", "profil", "email", "initiales", "langue". ');
-//    divData.append("Le retour est un objet " + '"login" rempli ou avec le nom=null si la création ' + "n'a pas pu se faire (login existant).");
-//    divData.append('</p>');
-
   }
 
 
@@ -129,7 +123,6 @@ var indexCtrl = (function () {
   function afficherErreurHttp(jqXHR, textStatus, errorThrown) {
     var msg = textStatus + ": " + errorThrown + " " + jqXHR.responseText + " !";
     console.log(msg);
-//    alert(msg);
   }
 
 })();

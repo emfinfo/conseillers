@@ -2,11 +2,12 @@
 @(conseils: List[models.Conseil])
 <style>
   h1, li {color:green}
+  li {font-family: monospace; list-style-type: none;}
 </style>
 <h1>Liste des conseils</h1>
 <ul>
   @for(conseil <- conseils) {
-  <li>@conseil.getAbrev() -&gt; @conseil.getNom()</li>
+  <li>@conseil.getAbrev(5) @conseil.getNom()</li>
   }
 </ul>
 

@@ -9,6 +9,11 @@ body {
   text-align:center;
 }
 
+li {
+  font-family: monospace;
+  list-style-type: none;
+}
+
 #conteneur {
   /*  background-color: white;
     width: 45em;
