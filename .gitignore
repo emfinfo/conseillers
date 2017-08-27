@@ -31,5 +31,3 @@ target
 logs
 RUNNING_PID
 
-# Heroku
-.slugignore
