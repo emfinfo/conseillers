@@ -23,13 +23,13 @@ public class DbWorkerFactory {
   private final DbWorkerAPI dbWrk;
 
   @Inject
-  private DbWorkerFactory(JPAApi jpaApi) {
+  private DbWorkerFactory(JPAApi jpa) {
 //    Logger.info("DbWorkerFactory started");
     dao = new JpaDao();
     dbWrk = (DbWorkerAPI) Proxy.newProxyInstance(
       this.getClass().getClassLoader(),
       new Class<?>[]{DbWorkerAPI.class},
-      new DbWorkerInvocationHandler(jpaApi, new DbWorker(dao)));
+      new DbWorkerInvocationHandler(jpa, new DbWorker(dao)));
   }
 
   public DbWorkerAPI getDbWorker() {

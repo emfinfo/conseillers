@@ -3,7 +3,6 @@ import PlayKeys._
 import com.typesafe.config._
 
 routesGenerator := InjectedRoutesGenerator
-// routesGenerator := StaticRoutesGenerator
 
 val conf = ConfigFactory.parseFile(new File("conf/application.conf")).resolve()
 
@@ -19,7 +18,6 @@ javacOptions += "-Xlint:unchecked"
 resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/releases"
 
 // pour récupérer conseillers-models dans le dépôt local Maven
-// resolvers += "Local Maven Repository" at "file:///" + Path.userHome.absolutePath + "/.m2/repository"
 resolvers += "Local Maven Repository" at Path.userHome.asFile.toURI.toURL + ".m2/repository"
 
 // dépendences (voir dernières versions sur http://mvnrepository.com )
@@ -27,9 +25,7 @@ libraryDependencies ++= Seq(
   javaJpa,
   "ch.emf.info" % "conseillers-models" % "1.0.5",
   "ch.emf.info" % "daolayer" % "5.1.4",
-"mysql" % "mysql-connector-java" % "5.1.38").map(_.force())
-
-//  "org.eclipse.persistence" % "logging-slf4j" % "1.0.1-SNAPSHOT",
+  "mysql" % "mysql-connector-java" % "5.1.38").map(_.force())
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings
 libraryDependencies ~= { _.map(_.exclude("org.slf4j", "slf4j-log4j12")) }
