@@ -8,6 +8,9 @@ dump
 build
 nbbuild
 
+# NetBeans Play plugin
+/.nb-play.properties
+
 # Eclipse
 .settings
 .cache
@@ -28,4 +31,5 @@ target
 logs
 RUNNING_PID
 
-/.nb-play.properties
+# Heroku
+.slugignore
