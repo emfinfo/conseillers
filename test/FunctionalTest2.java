@@ -27,6 +27,11 @@ public class FunctionalTest2 extends WithApplication {
 
   }
 
+  @Override
+  public void stopPlay() {
+    super.stopPlay();
+  }
+
   @Test
   public void test02_DbOpen() {
 
