@@ -15,16 +15,22 @@ import workers.DbWorkerFactory;
  * @author jcstritt
  */
 public class FunctionalTest2 extends WithApplication {
+  private JPAApi jpa;
+  private DbWorkerAPI dbWrk;
+
+  @Override
+  public void startPlay() {
+    super.startPlay();
+
+    jpa = app.injector().instanceOf(JPAApi.class);
+    dbWrk = app.injector().instanceOf(DbWorkerFactory.class).getDbWorker();
+
+  }
 
   @Test
   public void test02_DbOpen() {
 
-    // éléments injectés
-    JPAApi jpa = app.injector().instanceOf(JPAApi.class);
-    DbWorkerFactory factory = app.injector().instanceOf(DbWorkerFactory.class);
-
-    // récupération du worker
-    DbWorkerAPI dbWrk = factory.getDbWorker();
+    // exécuter la requête avec une transaction JPA
     jpa.withTransaction(() -> {
       boolean ok = dbWrk.bdOuverte();
       Logger.info(StackTracer.getCurrentClassMethod() + ">>> DB open = " + ok + " <<<");
@@ -32,4 +38,5 @@ public class FunctionalTest2 extends WithApplication {
     });
 
   }
+
 }
