@@ -6,8 +6,6 @@ routesGenerator := InjectedRoutesGenerator
 
 val conf = ConfigFactory.parseFile(new File("conf/application.conf")).resolve()
 
-libraryDependencies += filters
-
 libraryDependencies += guice
 
 scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation")
@@ -25,41 +23,19 @@ libraryDependencies ++= Seq(
   javaJpa,
   "ch.emf.info" % "conseillers-models" % "1.0.5",
   "ch.emf.info" % "daolayer" % "5.1.4",
-  "mysql" % "mysql-connector-java" % "5.1.38").map(_.force())
+"mysql" % "mysql-connector-java" % "5.1.38").map(_.force())
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings
 libraryDependencies ~= { _.map(_.exclude("org.slf4j", "slf4j-log4j12")) }
 
+// récupération du nom de l'application et de la version depuis le fichier conf
 lazy val commonSettings = Seq(
   name := conf.getString("application.name"),
   version := conf.getString("application.version"),
   scalaVersion := "2.12.3"
 )
 
+// monte l'application avec le plugin Java, les fichiers dans le projet
 lazy val main = (project in file("."))
 .enablePlugins(PlayJava)
 .settings(commonSettings: _*)
-
-EclipseKeys.preTasks := Seq(compile in Compile)
-
-EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
-
-EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses,
-EclipseCreateSrc.ManagedResources)
-
-BrowserNotifierKeys.shouldOpenBrowser := true
-
-//EclipseKeys.skipParents in ThisBuild := false
-//
-//lazy val models = (project in file("models"))
-//.enablePlugins(PlayJava)
-//.settings(commonSettings: _*)
-//.dependsOn(models)
-//.aggregate(models)
-// fork in run := true
-//  scalacOptions += "-feature",
-//  scalacOptions += "-deprecation",
-//  javacOptions += "-Xlint:unchecked"
-//  "org.mindrot" % "jbcrypt" % "0.3m", // pour hachage mot de passe
-//  "commons-codec" % "commons-codec" % "1.10", // pour Base64
-//  "commons-beanutils" % "commons-beanutils" % "1.9.2"
