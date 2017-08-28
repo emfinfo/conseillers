@@ -34,11 +34,12 @@ public class FunctionalTest2 extends WithApplication {
 
   @Test
   public void test02_DbOpen() {
+    String cur = StackTracer.getCurrentMethod();
 
     // exécuter la requête avec une transaction JPA
     jpa.withTransaction(() -> {
       boolean ok = dbWrk.bdOuverte();
-      Logger.info(StackTracer.getCurrentClassMethod() + ">>> DB open = " + ok + " <<<");
+      Logger.warn(cur + ">>> DB open = " + ok + " <<<");
       assertTrue(ok);
     });
 
