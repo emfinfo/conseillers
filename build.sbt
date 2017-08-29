@@ -8,10 +8,6 @@ val conf = ConfigFactory.parseFile(new File("conf/application.conf")).resolve()
 
 libraryDependencies += guice
 
-scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation")
-
-javacOptions += "-Xlint:unchecked"
-
 // pour récupérer basiclib et daolayer sur github
 resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/releases"
 
@@ -32,7 +28,9 @@ libraryDependencies ~= { _.map(_.exclude("org.slf4j", "slf4j-log4j12")) }
 lazy val commonSettings = Seq(
   name := conf.getString("application.name"),
   version := conf.getString("application.version"),
-  scalaVersion := "2.12.3"
+  scalaVersion := "2.12.3",
+  scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation")
+  javacOptions += "-Xlint:unchecked"
 )
 
 // monte l'application avec le plugin Java, les fichiers dans le projet
