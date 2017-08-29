@@ -29,7 +29,7 @@ lazy val commonSettings = Seq(
   name := conf.getString("application.name"),
   version := conf.getString("application.version"),
   scalaVersion := "2.12.3",
-  scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation")
+  scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation"),
   javacOptions += "-Xlint:unchecked"
 )
 
