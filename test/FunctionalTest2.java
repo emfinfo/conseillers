@@ -21,10 +21,8 @@ public class FunctionalTest2 extends WithApplication {
   @Override
   public void startPlay() {
     super.startPlay();
-
     jpa = app.injector().instanceOf(JPAApi.class);
     dbWrk = app.injector().instanceOf(DbWorkerFactory.class).getDbWorker();
-
   }
 
   @Override

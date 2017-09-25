@@ -193,7 +193,7 @@ public class ConseillerCtrl extends Controller {
    */
   @Transactional
   @With(BeforeAfterAction.class)
-  public Result chargerConseillers(String fmt, String canton, String conseil, String parti, String actuels) {
+  public Result chargerConseillers(String fmt, String canton, String conseil, String parti, String actif) {
     Result httpResult;
 
     // on traite le cas du filtre "canton"
@@ -214,11 +214,11 @@ public class ConseillerCtrl extends Controller {
       filtreParti = "";
     }
 
-    // on récupère le boolean "actuels"
-    boolean filtreActuels = Boolean.parseBoolean(actuels);
+    // on récupère le boolean "en activité"
+    boolean filtreActif = Boolean.parseBoolean(actif);
 
     // on récupère la liste des conseillers (filtrée ou non)
-    List<Conseiller> conseillers = dbWrk.chargerConseillers(filtreCanton, filtreConseil, filtreParti, filtreActuels);
+    List<Conseiller> conseillers = dbWrk.chargerConseillers(filtreCanton, filtreConseil, filtreParti, filtreActif);
 
     // on fait le rendu en xml, json ou html)
     try {

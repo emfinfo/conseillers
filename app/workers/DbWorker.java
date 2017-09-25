@@ -14,8 +14,9 @@ import models.Login;
 import models.Parti;
 
 /**
- * Couche "métier" pour gérer les demandes vers la base de données.
- * Utilise daolayer avec JPA comme sous-couche d'accès aux données.
+ * Couche "métier" pour gérer les demandes vers la base de données.<br>
+ * Utilise daolayer avec JPA comme sous-couche d'accès aux données.<br>
+ * Pour la Javadoc, veuillez consulter "DbWorkerAPI".
  *
  * @author Jean-Claude Stritt
  */
@@ -84,7 +85,7 @@ public class DbWorker implements DbWorkerAPI {
   }
 
   @Override
-  public List<Conseiller> chargerConseillers(String canton, String conseil, String parti, boolean actuels) {
+  public List<Conseiller> chargerConseillers(String canton, String conseil, String parti, boolean actif) {
     String jpql = "SELECT distinct c FROM Conseiller c LEFT JOIN c.activites a WHERE a.conseiller=c";
     Search2 search = new Search2(jpql);
     if (!canton.isEmpty()) {
@@ -99,7 +100,7 @@ public class DbWorker implements DbWorkerAPI {
       Parti pa = dao.getSingleResult(Parti.class, "abrev", parti);
       search.addFilterEqual("c.parti", pa);
     }
-    if (actuels) {
+    if (actif) {
       search.addFilterEqual("c.actif", true);
       search.addFilterIsNull("a.dateSortie");
     }
@@ -110,13 +111,13 @@ public class DbWorker implements DbWorkerAPI {
   }
 
   @Override
-  public List<Conseiller> chargerConseillers(String nom, boolean actuels) {
+  public List<Conseiller> chargerConseillers(String nom, boolean actif) {
     String jpql = "SELECT distinct c FROM Conseiller c JOIN c.activite a WHERE a.conseiller=c";
     Search2 search = new Search2(jpql);
     List<Conseiller> conseillers = new ArrayList<>();
     if (!nom.isEmpty()) {
       search.addFilterLike("c.nom", nom + "%");
-      if (actuels) {
+      if (actif) {
         search.addFilterEqual("c.actif", true);
         search.addFilterIsNull("a.dateSortie");
       }

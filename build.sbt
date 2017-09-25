@@ -18,7 +18,11 @@ resolvers += "Local Maven Repository" at Path.userHome.asFile.toURI.toURL + ".m2
 libraryDependencies ++= Seq(
   javaJpa,
   "ch.emf.info" % "conseillers-models" % "1.0.5",
+  "ch.emf.info" % "conseillers-models" % "1.0.5" classifier "javadoc",
+  "ch.emf.info" % "conseillers-models" % "1.0.5" classifier "sources",
   "ch.emf.info" % "daolayer" % "5.1.4",
+  "ch.emf.info" % "daolayer" % "5.1.4" classifier "javadoc",
+  "ch.emf.info" % "daolayer" % "5.1.4" classifier "sources",
 "mysql" % "mysql-connector-java" % "5.1.38").map(_.force())
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings
@@ -37,3 +41,15 @@ lazy val commonSettings = Seq(
 lazy val main = (project in file("."))
 .enablePlugins(PlayJava)
 .settings(commonSettings: _*)
+
+// projet Java, pas d'utilisation de SCALA
+EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
+
+// essaie de téléchargement des sources pour les librairies dépendantes
+EclipseKeys.withSource := true
+
+// essaie de téléchargement de la javadoc pour les librairies dépendantes
+EclipseKeys.withJavadoc := true
+
+// Use .class files instead of generated .scala files for views and routes
+//EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)

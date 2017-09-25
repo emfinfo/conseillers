@@ -32,6 +32,11 @@ public class DbWorkerFactory {
       new DbWorkerInvocationHandler(jpa, new DbWorker(dao)));
   }
 
+  /**
+   * Retourne une instance sur DbWorker.
+   * 
+   * @return l'imstance sur DbWorker
+   */
   public DbWorkerAPI getDbWorker() {
     return dbWrk;
   }

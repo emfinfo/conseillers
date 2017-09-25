@@ -1,11 +1,11 @@
 // Comment to get more information during initialization
 logLevel := Level.Warn
 
-// Use the Play sbt plugin for Play projects (21.8.2017)
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.3")
+// Use the Play sbt plugin for Play projects (25.9.2017)
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.5")
 
 // add eclipse-plugin https://github.com/typesafehub/sbteclipse
-addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "5.2.1")
+addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "5.2.2")
 
 // pour auto-load d'un changement dans Google Chrome https://github.com/jamesward/play-auto-refresh
 addSbtPlugin("com.jamesward" % "play-auto-refresh" % "0.0.15")

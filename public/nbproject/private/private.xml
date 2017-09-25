@@ -5,16 +5,15 @@
         <group name="223"/>
         <group name="Psp-Compta"/>
         <group name="307-exercices"/>
+        <group name="Conseillers">
+            <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/index.html</file>
+            <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/js/services/httpServ.js</file>
+        </group>
         <group name="HTML5">
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/index.html</file>
-            <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/js/models/fonction.js</file>
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/js/models/conseiller.js</file>
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/js/controllers/indexCtrl.js</file>
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/libs/date.js</file>
-            <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/js/services/httpServ.js</file>
-        </group>
-        <group name="Conseillers">
-            <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/index.html</file>
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/js/services/httpServ.js</file>
         </group>
         <group name="Play"/>
