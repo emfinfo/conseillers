@@ -39,7 +39,7 @@ public class ConseillerCtrl extends Controller {
   }
 
   /**
-   * Renvoyer une liste des états civils
+   * Renvoyer une liste des états civils.
    */
   @Transactional
   @With(BeforeAfterAction.class)
@@ -97,7 +97,7 @@ public class ConseillerCtrl extends Controller {
     }
     return httpResult;
   }
-  
+
   /**
    * Renvoyer une liste des partis de Suisse.
    */
@@ -129,7 +129,7 @@ public class ConseillerCtrl extends Controller {
   }
 
   /**
-   * Renvoyer une liste des conseils (CE, CF, CN).
+   * Renvoyer une liste de conseils (CE, CF, CN).
    */
   @Transactional
   @With(BeforeAfterAction.class)
@@ -159,7 +159,7 @@ public class ConseillerCtrl extends Controller {
   }
 
   /**
-   * Renvoyer une liste des groupes parlementaires.
+   * Renvoyer une liste de groupes parlementaires.
    */
   @Transactional
   @With(BeforeAfterAction.class)
@@ -189,7 +189,7 @@ public class ConseillerCtrl extends Controller {
   }
 
   /**
-   * Renvoyer une liste de conseillers éventuellement filtrée.
+   * Renvoyer une liste filtrée de conseillers.
    */
   @Transactional
   @With(BeforeAfterAction.class)

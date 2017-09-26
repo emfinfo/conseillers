@@ -45,11 +45,11 @@ lazy val main = (project in file("."))
 // projet Java, pas d'utilisation de SCALA
 EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
 
-// essaie de téléchargement des sources pour les librairies dépendantes
-EclipseKeys.withSource := true
-
-// essaie de téléchargement de la javadoc pour les librairies dépendantes
+// essai de téléchargement de la javadoc pour les librairies dépendantes
 EclipseKeys.withJavadoc := true
 
-// Use .class files instead of generated .scala files for views and routes
-//EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)
+// essai de téléchargement des sources pour les librairies dépendantes
+EclipseKeys.withSource := true
+
+// utilise les fichiers .class à la place des fichiers .scala générés pour les vues et les routes
+EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)
