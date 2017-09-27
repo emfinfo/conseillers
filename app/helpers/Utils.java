@@ -26,6 +26,12 @@ import session.SessionManager;
  */
 public class Utils {
 
+  /**
+   * Permet d'afficher des informations de log dans la console.
+   *
+   * @param startTime le temps du début de la requête
+   * @param params différents paramètres facultatifs.
+   */
   public static void logInfo(long startTime, Object... params) {
     String threadId = String.valueOf(Thread.currentThread().getId());
     String userId = (SessionManager.isOpen()) ? "" + SessionManager.getUserId() : "?";
@@ -53,6 +59,11 @@ public class Utils {
     Logger.info(msg);
   }
 
+ /**
+  * Permet d'afficher des informations de log dans la console.
+  *
+  * @param ctx le contexte HTTP
+  */
   public static void logInfo(Context ctx) {
     //String msg = DateTimeLib.dateToString(DateTimeLib.getDate(), "dd.MM.yy HH:mm:ss");
 
@@ -86,6 +97,12 @@ public class Utils {
     Logger.info(msg);
   }
 
+  /**
+   * Transforme un objet quelconque en JSON.
+   *
+   * @param object l'objet à serialiser en JSON
+   * @return un résultat HTTP avec le JSON
+   */
   public static Result toJson(Object object) {
     Result result;
     if (object != null) {
@@ -96,12 +113,30 @@ public class Utils {
     return result;
   }
 
+  /**
+   * Transforme une propriété de type clé-valeur en JSON.
+   *
+   * @param key la clé de la propriété
+   * @param value la valeur de la propriété
+   *
+   * @return un résultat HTTP avec le JSON
+   */
   public static Result toJson(String key, Object value) {
     ObjectNode jsonObj = Json.newObject();
     jsonObj.putPOJO(key, value);
     return ok(jsonObj).as("application/json");
   }
 
+  /**
+   * Transforme deux propriétés de type clé-valeur en JSON.
+   *
+   * @param key1 la clé de la propriété 1
+   * @param value1 la valeur de la propriété 1
+   * @param key2 la clé de la propriété 2
+   * @param value2 la valeur de la propriété 2
+   *
+   * @return un résultat HTTP avec le JSON
+   */
   public static Result toJson(String key1, Object value1, String key2, Object value2) {
     ObjectNode jsonObj = Json.newObject();
     jsonObj.putPOJO(key1, value1);
@@ -109,11 +144,27 @@ public class Utils {
     return ok(jsonObj).as("application/json");
   }
 
+  /**
+   * Transform une valeur booléenne en propriété JSON.
+   *
+   * @param ok la variable booléenne à transformer
+   * @param message
+   * @return
+   */
   public static Result toJson(boolean ok, String message) {
     BooleanResult bResult = new BooleanResult(ok, message);
     return ok(Json.toJson(bResult)).as("application/json");
   }
 
+  /**
+   * Convertit un objet JSON contenu dans un corps de requête POST en objet.
+   *
+   * @param <T> le type de l'objet
+   * @param req la requête HTTP de type POST
+   * @param type le type de l'objet
+   *
+   * @return un objet de type T
+   */
   public static <T> T toObject(final Request req, final TypeReference<T> type) {
     T result = null;
     ObjectMapper om = new ObjectMapper();
@@ -128,6 +179,14 @@ public class Utils {
     return result;
   }
 
+  /**
+   * Convertit un objet JSON en String.
+   *
+   * @param node un noeud JSON
+   * @param prop le nom d'une propriété à extraire
+   * 
+   * @return un string avec le contenu de la propriété
+   */
   public static String jsonToString(JsonNode node, String prop) {
     String result = "";
     JsonNode obj = node.get(prop);
@@ -137,6 +196,12 @@ public class Utils {
     return result;
   }
 
+  /**
+   * Valide le contexte "cross-domain" d'une requête.
+   *
+   * @param request une requête HTTP
+   * @param response une réponse HTTP
+   */
   public static void validCrossDomainContext(Request request, Response response) {
 //    Set<String> whiteList = Sets.newHashSet(
 //            "http://localhost:8383",
@@ -156,6 +221,11 @@ public class Utils {
     }
   }
 
+  /**
+   * Valide le contexte "cross-domain" d'une requête.
+   *
+   * @param ctx le contexte HTTP
+   */
   public static void validCrossDomainContext(Context ctx) {
     validCrossDomainContext(ctx.request(), ctx.response());
   }

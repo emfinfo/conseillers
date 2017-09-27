@@ -18,11 +18,11 @@ resolvers += "Local Maven Repository" at Path.userHome.asFile.toURI.toURL + ".m2
 libraryDependencies ++= Seq(
   javaJpa,
   "ch.emf.info" % "conseillers-models" % "1.0.5",
-  "ch.emf.info" % "conseillers-models" % "1.0.5" classifier "javadoc",
   "ch.emf.info" % "conseillers-models" % "1.0.5" classifier "sources",
+  "ch.emf.info" % "conseillers-models" % "1.0.5" classifier "javadoc",
   "ch.emf.info" % "daolayer" % "5.1.4",
-  "ch.emf.info" % "daolayer" % "5.1.4" classifier "javadoc",
   "ch.emf.info" % "daolayer" % "5.1.4" classifier "sources",
+  "ch.emf.info" % "daolayer" % "5.1.4" classifier "javadoc",
 "mysql" % "mysql-connector-java" % "5.1.38").map(_.force())
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings

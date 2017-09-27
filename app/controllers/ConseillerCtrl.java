@@ -31,6 +31,13 @@ public class ConseillerCtrl extends Controller {
     this.dbWrk = factory.getDbWorker();
   }
 
+  /**
+   * Affiche une exception dams le fichier de log et retourne un objet HTTP
+   * de type "bad request".
+   *
+   * @param e un objet exception
+   * @return un résultat HTTP
+   */
   private Result logError(Exception e) {
     String msg = "Probleme avec la BD : \n" + e.getMessage();
     Logger.error(msg);
