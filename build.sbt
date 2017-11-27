@@ -20,9 +20,9 @@ libraryDependencies ++= Seq(
   "ch.emf.info" % "conseillers-models" % "1.0.5",
   "ch.emf.info" % "conseillers-models" % "1.0.5" classifier "sources",
   "ch.emf.info" % "conseillers-models" % "1.0.5" classifier "javadoc",
-  "ch.emf.info" % "daolayer" % "5.1.4",
-  "ch.emf.info" % "daolayer" % "5.1.4" classifier "sources",
-  "ch.emf.info" % "daolayer" % "5.1.4" classifier "javadoc",
+  "ch.emf.info" % "daolayer" % "5.1.5",
+  "ch.emf.info" % "daolayer" % "5.1.5" classifier "sources",
+  "ch.emf.info" % "daolayer" % "5.1.5" classifier "javadoc",
 "mysql" % "mysql-connector-java" % "5.1.38").map(_.force())
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings
@@ -32,7 +32,7 @@ libraryDependencies ~= { _.map(_.exclude("org.slf4j", "slf4j-log4j12")) }
 lazy val commonSettings = Seq(
   name := conf.getString("application.name"),
   version := conf.getString("application.version"),
-  scalaVersion := "2.12.3",
+  scalaVersion := "2.12.4",
   scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation"),
   javacOptions += "-Xlint:unchecked"
 )
@@ -45,11 +45,11 @@ lazy val main = (project in file("."))
 // projet Java, pas d'utilisation de SCALA
 EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
 
-// essai de téléchargement de la javadoc pour les librairies dépendantes
-EclipseKeys.withJavadoc := true
-
 // essai de téléchargement des sources pour les librairies dépendantes
 EclipseKeys.withSource := true
+
+// essai de téléchargement de la javadoc pour les librairies dépendantes
+EclipseKeys.withJavadoc := true
 
 // utilise les fichiers .class à la place des fichiers .scala générés pour les vues et les routes
 EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)

@@ -1,8 +1,8 @@
 // Comment to get more information during initialization
 logLevel := Level.Warn
 
-// Use the Play sbt plugin for Play projects (25.9.2017)
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.5")
+// Use the Play sbt plugin for Play projects (27.11.2017)
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.7")
 
 // add eclipse-plugin https://github.com/typesafehub/sbteclipse
 addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "5.2.2")
