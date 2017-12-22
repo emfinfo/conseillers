@@ -8,11 +8,11 @@ val conf = ConfigFactory.parseFile(new File("conf/application.conf")).resolve()
 
 libraryDependencies += guice
 
-// pour récupérer basiclib et daolayer sur github
-resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/releases"
-
 // pour récupérer conseillers-models dans le dépôt local Maven
 resolvers += "Local Maven Repository" at Path.userHome.asFile.toURI.toURL + ".m2/repository"
+
+// pour récupérer éventuellement basiclib et daolayer sur github
+//resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/releases"
 
 // dépendences (voir dernières versions sur http://mvnrepository.com )
 libraryDependencies ++= Seq(
@@ -20,6 +20,9 @@ libraryDependencies ++= Seq(
   "ch.emf.info" % "conseillers-models" % "1.0.5",
   "ch.emf.info" % "conseillers-models" % "1.0.5" classifier "sources",
   "ch.emf.info" % "conseillers-models" % "1.0.5" classifier "javadoc",
+  "ch.emf.info" % "basiclib" % "1.0.13",
+  "ch.emf.info" % "basiclib" % "1.0.13" classifier "sources",
+  "ch.emf.info" % "basiclib" % "1.0.13" classifier "javadoc",
   "ch.emf.info" % "daolayer" % "5.1.5",
   "ch.emf.info" % "daolayer" % "5.1.5" classifier "sources",
   "ch.emf.info" % "daolayer" % "5.1.5" classifier "javadoc",
