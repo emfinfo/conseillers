@@ -1,5 +1,5 @@
-import com.jamesward.play.BrowserNotifierKeys
-import PlayKeys._
+// import com.jamesward.play.BrowserNotifierKeys
+// import PlayKeys._
 import com.typesafe.config._
 
 routesGenerator := InjectedRoutesGenerator
@@ -11,8 +11,8 @@ libraryDependencies += guice
 // pour récupérer conseillers-models dans le dépôt local Maven
 resolvers += "Local Maven Repository" at Path.userHome.asFile.toURI.toURL + ".m2/repository"
 
-// pour récupérer éventuellement basiclib et daolayer sur github
-//resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/releases"
+// pour récupérer éventuellement basiclib et daolayer sur github (si pas dans .m2)
+resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/releases"
 
 // dépendences (voir dernières versions sur http://mvnrepository.com )
 libraryDependencies ++= Seq(
@@ -44,6 +44,15 @@ lazy val commonSettings = Seq(
 lazy val main = (project in file("."))
 .enablePlugins(PlayJava)
 .settings(commonSettings: _*)
+
+// https://github.com/playframework/playframework/blob/2.6.x/framework/project/Dependencies.scala#L11
+val akkaVersion = "2.5.8"
+dependencyOverrides ++= Seq(
+    "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+    "com.typesafe.akka" %% "akka-stream" % akkaVersion,
+    "com.google.guava" % "guava" % "22.0",
+    "org.slf4j" % "slf4j-api" % "1.7.25"
+)
 
 // projet Java, pas d'utilisation de SCALA
 EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
