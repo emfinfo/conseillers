@@ -18,7 +18,7 @@ public class FunctionalTest1 {
   public void test01_DbOpen() {
     DbWorkerAPI dbWrk = new DbWorker("testPU");
     boolean ok = dbWrk.bdOuverte();
-    Logger.warn(StackTracer.getCurrentClassMethod() + ">>> DB open = " + ok + " <<<");
+    Logger.info(StackTracer.getCurrentClassMethod() + ">>> DB open = " + ok + " <<<");
     assertTrue(ok);
     dbWrk.fermerBd();
   }

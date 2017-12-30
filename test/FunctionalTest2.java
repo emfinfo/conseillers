@@ -23,21 +23,24 @@ public class FunctionalTest2 extends WithApplication {
     super.startPlay();
     jpa = app.injector().instanceOf(JPAApi.class);
     dbWrk = app.injector().instanceOf(DbWorkerFactory.class).getDbWorker();
+    Logger.info(">>> startPlay !");
   }
 
   @Override
   public void stopPlay() {
     super.stopPlay();
+    Logger.info(">>> stopPlay !");
   }
 
   @Test
   public void test02_DbOpen() {
-    String cur = StackTracer.getCurrentMethod();
+//    String cur = StackTracer.getCurrentMethod();
 
     // exécuter la requête avec une transaction JPA
     jpa.withTransaction(() -> {
       boolean ok = dbWrk.bdOuverte();
-      Logger.warn(cur + ">>> DB open = " + ok + " <<<");
+      Logger.info(StackTracer.getCurrentClassMethod() + ">>> DB open = " + ok + " <<<");
+//      Logger.warn(cur + ">>> DB open = " + ok + " <<<");
       assertTrue(ok);
     });
 

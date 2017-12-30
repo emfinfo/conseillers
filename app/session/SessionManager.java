@@ -83,7 +83,7 @@ public class SessionManager {
 
         // si password dans la table ...
         if (login.getMotDePasse() != null) {
-//          String result = ConvertLib.rehashKeyWithSalt(pwd, login.getMotDePasse());
+//          String result = ConvertLib.computeServerKey(pwd, login.getMotDePasse());
 //          System.out.println("mdp BD:     " + login.getMotDePasse());
 //          System.out.println("mdp fourni: " + pwd);
           ok = pwd != null && login.getMotDePasse().equals(pwd);
