@@ -27,14 +27,4 @@ DbWorker and dao are only loaded one time (singleton).
 * You can test a runnable version on heroku
 http://conseillers.herokuapp.com/
 
-* You can download a runnable distribution here :<br>
-  https://dl.dropboxusercontent.com/u/3539873/conseillers.zip
-  * Unzip in
-      * c:\Play for Windows,
-      * somewhere else for other OS
-  * In the console or terminal, go to the unzipped folder and execute the play application with :
-      * bin\conseillers.bat (Windows OS)
-      * ./bin/conseillers (Unix like OS, give execution rights for the script "conseillers")
-  * Test the application in a browser with :
-    http://localhost:9000
 
