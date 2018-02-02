@@ -5,11 +5,11 @@ DbWorkerFactory inject JPA entity manager into the dao layer.
 DbWorker and dao are only loaded one time (singleton).
 
 * 1.2.1 (january 2018)
-  * Adapted to release 2.6.11
+  * Adapted to Play framework 2.6.11
   * Use of BasicLib 1.1.1
 
 * 1.2.0 (december 2017)
-  * Adapted to release 2.6.10
+  * Adapted to Play framework 2.6.10
   * new Data in DB
 
 * Prerequisites :
