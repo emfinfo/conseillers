@@ -12,18 +12,15 @@ DbWorker and dao are only loaded one time (singleton).
   * Adapted to Play framework 2.6.10
   * new Data in DB
 
-* Prerequisites :
+* Prerequisites to use and test :
   * Netbeans 8.2 and the « Pleasure Play Framework Plugin » installed
   * Java 8 JRE or SDK
   * A running MySQL server (min 5.5) for local database operations
   * MySQL Workbench application (or other) to mount a local DB
+  * Run the application with standard F6 button.
 
 * A default db is installed on the web (emf-informatique.ch).
   * If you want, mount a local DB with the MySQL script in data folder.
-
-* Use and test in NetBeans 8.2
-  * If you want modify the source project, download it and use NetBeans 8.2 to open it (with « Pleasure Play Framework Plugin » installed).
-  * Run the application with standard F6 button.
 
 * You can test a runnable version on heroku
 http://conseillers.herokuapp.com/
