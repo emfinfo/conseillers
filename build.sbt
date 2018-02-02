@@ -1,9 +1,12 @@
 import com.typesafe.config._
 
+// pour les routes, utilise l'ibjection de dépendances
 routesGenerator := InjectedRoutesGenerator
 
+// objet permettant l'accès aux variables du fichier ".conf"
 val conf = ConfigFactory.parseFile(new File("conf/application.conf")).resolve()
 
+// utilisation de l'injection de dépendances "Guice" de Google
 libraryDependencies += guice
 
 // pour récupérer conseillers-models dans le dépôt local Maven
