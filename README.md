@@ -6,6 +6,7 @@ DbWorker and dao are only loaded one time (singleton).
 
 * 1.2.1 (january 2018)
   * Adapted to release 2.6.11
+  * Use of BasicLib 1.1.1
 
 * 1.2.0 (december 2017)
   * Adapted to release 2.6.10
