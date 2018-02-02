@@ -1,5 +1,3 @@
-// import com.jamesward.play.BrowserNotifierKeys
-// import PlayKeys._
 import com.typesafe.config._
 
 routesGenerator := InjectedRoutesGenerator
@@ -26,7 +24,8 @@ libraryDependencies ++= Seq(
   "ch.emf.info" % "daolayer" % "5.1.5",
   "ch.emf.info" % "daolayer" % "5.1.5" classifier "sources",
   "ch.emf.info" % "daolayer" % "5.1.5" classifier "javadoc",
-"mysql" % "mysql-connector-java" % "5.1.38").map(_.force())
+  "mysql" % "mysql-connector-java" % "5.1.38").map(_.force()
+)
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings
 libraryDependencies ~= { _.map(_.exclude("org.slf4j", "slf4j-log4j12")) }
@@ -44,15 +43,6 @@ lazy val commonSettings = Seq(
 lazy val main = (project in file("."))
 .enablePlugins(PlayJava)
 .settings(commonSettings: _*)
-
-// https://github.com/playframework/playframework/blob/2.6.x/framework/project/Dependencies.scala#L11
-val akkaVersion = "2.5.8"
-dependencyOverrides ++= Seq(
-    "com.typesafe.akka" %% "akka-actor" % akkaVersion,
-    "com.typesafe.akka" %% "akka-stream" % akkaVersion,
-    "com.google.guava" % "guava" % "22.0",
-    "org.slf4j" % "slf4j-api" % "1.7.25"
-)
 
 // projet Java, pas d'utilisation de SCALA
 EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
