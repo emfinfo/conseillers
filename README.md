@@ -9,7 +9,7 @@ DbWorker and dao are only loaded one time (singleton).
 
 * 1.2.0 (december 2017)
   * Adapted to release 2.6.10
-  * Data adapted in DB
+  * new Data in DB
 
 * Prerequisites :
   * Netbeans 8.2 and the « Pleasure Play Framework Plugin » installed
