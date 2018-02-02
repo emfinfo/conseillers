@@ -15,7 +15,7 @@ resolvers += "Local Maven Repository" at Path.userHome.asFile.toURI.toURL + ".m2
 // pour récupérer éventuellement basiclib et daolayer sur github (si pas dans .m2)
 resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/releases"
 
-// dépendences (voir dernières versions sur http://mvnrepository.com )
+// dépendances (voir dernières versions sur http://mvnrepository.com )
 libraryDependencies ++= Seq(
   javaJpa,
   "ch.emf.info" % "conseillers-models" % "1.0.5",
