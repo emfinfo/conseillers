@@ -15,7 +15,7 @@
             <h3 class="panel-title"><span id="version-app">&nbsp;</span> (parlement Suisse)</h3>
           </div>
           <div class="panel-body" style="text-align:left">
-            <div id="data"> 
+            <div id="data">
             </div>
           </div>
           <div class="footnote">BD MySQL sur serveur <span id="version-srv">&nbsp;</span>
@@ -24,9 +24,19 @@
       </div>
     </div>
 
-    <script type="text/javascript" src="libs/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="libs/browser.js"></script>
-    <script type="text/javascript" src="libs/date.js"></script>
+    <!--- jquery --->
+    <script type="text/javascript" src="libs/jquery/jquery-1.10.2.min.js"></script>
+
+    <!-- librairies Crypto  -->
+    <!-- https://code.google.com/archive/p/crypto-js/downloads -->
+    <script src="libs/crypto-js/aes.js"></script>
+    <script src="libs/crypto-js/pbkdf2.js"></script>
+    <script src="libs/crypto-js/enc-base64.js"></script>
+
+    <!--- librairies de l'application -->
+    <script type="text/javascript" src="js/helpers//browser.js"></script>
+    <script type="text/javascript" src="js/helpers/date.js"></script>
+    <script type="text/javascript" src="js/helpers/aesutil.js"></script>
     <script type="text/javascript" src="js/controllers/indexCtrl.js"></script>
   </body>
 </html>

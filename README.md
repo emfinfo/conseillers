@@ -1,8 +1,12 @@
-# conseillers 1.2.1 - february 2018
+# conseillers 1.3.0 - february 2018
 A small Play application with a MySQL DB (Swiss parliament).
 This release is now full adapted to last Play 2.6.x framework.
 DbWorkerFactory inject JPA entity manager into the dao layer.
 DbWorker and dao are only loaded one time (singleton).
+
+* New in release 1.3.0 (february 2018) :
+  * You must now encrypt login and createLogin data with aeslogin.js
+library and the method AesUtil.encrypt(data)
 
 * New in release 1.2.1 (february 2018) :
   * Adapted to Play framework 2.6.11

@@ -30,7 +30,7 @@ public class MySecurityCtrl extends Security.Authenticator {
 //    return redirect(controllers.LoginCtrl.unauthorizedAccess());
 //    Result r = configuration.
 //    return redirect(controllers.LoginCtrl.unauthorizedAccess());
-    return ok("?");
+    return ok("You must be logged for this route !");
   }
 
 }

@@ -53,8 +53,8 @@ GET      /conseillers.json/:canton/:conseil                  controllers.Conseil
 GET      /conseillers.json/:canton/:conseil/:parti           controllers.ConseillerCtrl.chargerConseillers(fmt="json", canton :String, conseil :String, parti :String, actuels="false")
 GET      /conseillers.json/:canton/:conseil/:parti/:actuels  controllers.ConseillerCtrl.chargerConseillers(fmt="json", canton :String, conseil :String, parti :String, actuels :String)
 
-# requêtes de session
-GET      /session/login/:user/:pwd                           controllers.LoginCtrl.login(user :String, pwd :String)
+# requêtes sur le login
+GET      /session/login/:data                                controllers.LoginCtrl.login(data :String)
 GET      /session/logout                                     controllers.LoginCtrl.logout
 GET      /session/status                                     controllers.LoginCtrl.status
 

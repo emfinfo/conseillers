@@ -15,6 +15,7 @@ import play.db.jpa.Transactional;
 import play.mvc.*;
 import static play.mvc.Results.badRequest;
 import static play.mvc.Results.ok;
+import session.MySecurityCtrl;
 import workers.DbWorkerAPI;
 import workers.DbWorkerFactory;
 
@@ -23,6 +24,7 @@ import workers.DbWorkerFactory;
  *
  * @author jcstritt
  */
+@Security.Authenticated(MySecurityCtrl.class)
 public class ConseillerCtrl extends Controller {
   private DbWorkerAPI dbWrk;
 

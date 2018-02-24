@@ -2,6 +2,7 @@ package workers;
 
 import ch.emf.dao.JpaDao;
 import ch.emf.dao.JpaDaoAPI;
+import ch.emf.dao.filtering.Search;
 import ch.emf.dao.filtering.Search2;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +34,12 @@ public class DbWorker implements DbWorkerAPI {
   }
 
   @Override
-  public Login rechercherLogin(String nom) {
-    Login login = dao.getSingleResult(Login.class, "nom", nom);
+  public Login rechercherLogin(String nom, String domaine) {
+    Search s = new Search(Login.class);
+    s.addFilterEqual("nom", nom);
+    s.addFilterAnd();
+    s.addFilterEqual("domaine", domaine);
+    Login login = dao.getSingleResult(s);
     if (login != null) {
       dao.detach(login);
     }
@@ -48,6 +53,11 @@ public class DbWorker implements DbWorkerAPI {
     }
     return login;
   }
+
+  @Override
+  public int modifierLogin(Login login) {
+    return dao.update(login);
+  }  
 
   @Override
   public List<EtatCivil> chargerEtatsCivils() {

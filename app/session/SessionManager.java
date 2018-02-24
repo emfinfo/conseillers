@@ -1,15 +1,8 @@
 package session;
 
+import ch.emf.helpers.Generate;
 import ch.jcsinfo.util.ConvertLib;
-import com.typesafe.config.Config;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
-import javax.inject.Inject;
-import javax.naming.Context;
-import javax.naming.NamingException;
-import javax.naming.directory.DirContext;
-import javax.naming.directory.InitialDirContext;
+import java.util.Date;
 import models.Login;
 import static play.mvc.Controller.session;
 
@@ -27,68 +20,46 @@ public class SessionManager {
 
 
   /**
-   * Contrôle si une authentification est possible sur ActiveDirectory.
-   *
-   * @param userName un nom d'utilisateur unique
-   * @param psw un mot de passe
-   * @param domain un nom de domaine "Active Directory"
-   *
-   * @return TRUE si l'accès à ActiveDirectory a été un succès
-   */
-  @SuppressWarnings("UseOfObsoleteCollectionType")
-  @Inject
-  private static boolean authenticateOnActiveDirectory(Config config, String userName, String psw, String domain) {
-    final String AD_PROTOCOLE = "ldap://";
-    final int AD_PORT = 389;
-//    String contextFactory = play.Play.application().configuration().getString("ad.context_factory");
-//    String adServer = AD_PROTOCOLE
-//            + play.Play.application().configuration().getString("ad.server")
-//            + ":" + AD_PORT;
-    String contextFactory = config.getString("ad.context_factory");
-    String adServer = AD_PROTOCOLE + config.getString("ad.server") + ":" + AD_PORT;
-
-    Map<String, String> env = new HashMap<>();
-    env.put(Context.INITIAL_CONTEXT_FACTORY, contextFactory);
-    env.put(Context.PROVIDER_URL, adServer);
-    env.put(Context.SECURITY_AUTHENTICATION, "simple");
-    env.put(Context.SECURITY_PRINCIPAL, domain + "\\" + userName);
-    env.put(Context.SECURITY_CREDENTIALS, psw);
-
-    boolean ok = false;
-    try {
-      DirContext ctx = new InitialDirContext((Hashtable<?, ?>)env);
-      ok = true;
-    } catch (NamingException ex) {
-      // Logger.error("authenticateOnActiveDirectory error : " + ex.getMessage());
-    }
-    return ok;
-  }
-
-  /**
    * Méthode de création d'une session par authentification de l'utilisateur.
    *
-   * @param userName un nom d'utilisateur unique
-   * @param pwd un mot de passe
-   * @param domain un nom de domaine "Active Directory"
-   * @param login un objet de login lu dans la base de donnée
+   * @param httpLogin un objet login lu depuis la requête HTTP
+   * @param dbLogin un objet de login lu depuis la base de donnée
+   *
    * @return true si l'utilisateur est reconnu
    */
   @SuppressWarnings("null")
-  public static boolean create(String userName, String pwd, String domain, Login login) {
+  public static boolean create(Login httpLogin, Login dbLogin) {
     boolean ok = false;
+
+    // le cookie de session doit avoir été effacé avant
     if (session().get(SESSION_USER_ID) == null) {
 
       // teste si l'utilisateur a été trouvé auparavant
-      if (login != null) {
+      if (dbLogin != null) {
 
         // si password dans la table ...
-        if (login.getMotDePasse() != null) {
-//          String result = ConvertLib.computeServerKey(pwd, login.getMotDePasse());
-//          System.out.println("mdp BD:     " + login.getMotDePasse());
-//          System.out.println("mdp fourni: " + pwd);
-          ok = pwd != null && login.getMotDePasse().equals(pwd);
-        } else {  // autrement on teste avec AD
-           // ok = authenticateOnActiveDirectory(userName, pwd, domain);
+        if (dbLogin.getMotDePasse() != null) {
+          String dbHash = dbLogin.getMotDePasse().substring(0, 64);
+          String dbSalt = dbLogin.getMotDePasse().substring(64);
+//          System.out.println("dbHash:  " + dbHash + ", dbSalt:  " + dbSalt);
+
+          // calcul de l'empreinte du mot de passe fourni avec le sel de la DB
+          String newHash = Generate.hash(httpLogin.getMotDePasse() + dbSalt, "SHA-256");
+
+          // teste si l'empreinte est correcte
+          ok = newHash.equals(dbHash);
+//          System.out.println("newHash: " + newHash + ", password ok: " + ok);
+
+          // teste si le timestamp de la requête HTTP est supérieur à celui de la BD
+          ok = ok && (httpLogin.getTimestamp().getTime() > dbLogin.getTimestamp().getTime());
+
+          // si oui, on mémorise le timestamp de la requête HTTP dans l'objet de la BD
+          if (ok) {
+            dbLogin.setTimestamp(new Date(httpLogin.getTimestamp().getTime()+5000));
+          }
+        } else { // autrement on pourrait tester avec AD
+           // ok = authenticateOnActiveDirectory(
+           //  httpLogin.getNom(), httpLogin.getDomaine(), htppLogin.getMotDePasse());
           ok = false;
         }
       }
@@ -96,7 +67,7 @@ public class SessionManager {
       // enregistrement de la session si identification correcte
       if (ok) {
         long start = System.currentTimeMillis();
-        session(SESSION_USER_ID, "" + login.getPkLogin());
+        session(SESSION_USER_ID, "" + dbLogin.getPkLogin());
         session(SESSION_DB_ID, "1");
         session(SESSION_TIMESTAMP, "" + start);
       } else {
@@ -118,7 +89,6 @@ public class SessionManager {
     }
     return !isOpen();
   }
-
 
   /**
    * Teste si la session est ouverte.

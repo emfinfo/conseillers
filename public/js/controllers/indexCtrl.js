@@ -12,7 +12,7 @@ var indexCtrl = (function () {
     $.getScript("js/services/httpServ.js", function () {
       console.log("httpServ.js chargé !");
       httpServ.getVersion(afficherVersion, afficherErreurHttp);
-      _afficheListeRoutes();
+      _afficherRoutes();
     });
 
   });
@@ -20,91 +20,123 @@ var indexCtrl = (function () {
   /*
    * 2. METHODES D'AFFICHAGE
    */
-  function _addLI(url) {
+  function _afficherUneRoute(url) {
+    var href = url;
+    var baseUrl = httpServ.getBaseUrl();
+
+    // noeud du DOM à modifier
     var divData = $('#data');
+
+    // test spécial sur les données du login qui doivent être encryptées
+    var check = '/session/login/';
+    if (url.includes(check)) {
+
+      // extraction des paramètres du login (dont 3 obligatoires)
+      var data = url.substring(check.length);
+      var t = data.split('/');
+      if (t.length >= 3) {
+
+        // préparation des données de la requête
+        data = t[0] + '/' + t[1] + '/' + t[2] + '/' + Date.now();
+
+        // on rajoute éventuellement les paramètres supplémentaires
+        if (t.length > 4) {
+          for (i = 5; i < t.length; i++) {
+            data += '/' + t[i];
+          }
+        }
+
+        // encryptage des données de la requête
+        var encData = AesUtil.encrypt(data);
+
+        // création de l'URL
+        href = baseUrl + check + encData;
+      }
+    }
 //    divData.append('<li><a href="' + url + '" target="_blank">' + url + '</a></li>');
-    divData.append('<li><a href="' + url + '" >' + url + '</a></li>');
+    divData.append('<li><a href="' + href + '" >' + baseUrl + url + '</a></li>');
   }
 
-  function _afficheListeRoutes() {
+  function _afficherRoutes() {
     var baseUrl = httpServ.getBaseUrl();
     var divData = $('#data');
     divData.html('');
 
     // versions
     divData.append('<ul>');
-    _addLI(baseUrl + '/version');
-    divData.append('</ul>');
-
-    // etat civil
-    divData.append('<ul>');
-    _addLI(baseUrl + '/etats-civils');
-    _addLI(baseUrl + '/etats-civils.xml');
-    _addLI(baseUrl + '/etats-civils.json');
-    divData.append('</ul>');
-
-    // canton
-    divData.append('<ul>');
-    _addLI(baseUrl + '/cantons');
-    _addLI(baseUrl + '/cantons.xml');
-    _addLI(baseUrl + '/cantons.json');
-    divData.append('</ul>');
-
-    // partis
-    divData.append('<ul>');
-    _addLI(baseUrl + '/partis');
-    _addLI(baseUrl + '/partis.xml');
-    _addLI(baseUrl + '/partis.json');
-    divData.append('</ul>');
-
-    // conseils
-    divData.append('<ul>');
-    _addLI(baseUrl + '/conseils');
-    _addLI(baseUrl + '/conseils.xml');
-    _addLI(baseUrl + '/conseils.json');
-    divData.append('</ul>');
-
-    // groupes
-    divData.append('<ul>');
-    _addLI(baseUrl + '/groupes');
-    _addLI(baseUrl + '/groupes.xml');
-    _addLI(baseUrl + '/groupes.json');
-    divData.append('</ul>');
-
-    // conseillers fribourgeois
-    divData.append('<ul>');
-    _addLI(baseUrl + '/conseillers/FR/tous/tous/true');
-    _addLI(baseUrl + '/conseillers.xml/FR/tous/tous/true');
-    _addLI(baseUrl + '/conseillers.json/FR/tous/tous/true');
-    divData.append('</ul>');
-
-    // conseillers nationaux au parti socialiste genevois
-    divData.append('<ul>');
-    _addLI(baseUrl + '/conseillers/GE/CN/PSS/true');
-    _addLI(baseUrl + '/conseillers.xml/GE/CN/PSS/true');
-    _addLI(baseUrl + '/conseillers.json/GE/CN/PSS/true');
-    divData.append('</ul>');
-
-    // conseillers fédéraux
-    divData.append('<ul>');
-    _addLI(baseUrl + '/conseillers/Suisse/CF/tous/true');
-    _addLI(baseUrl + '/conseillers.xml/Suisse/CF/tous/true');
-    _addLI(baseUrl + '/conseillers.json/Suisse/CF/tous/true');
+    _afficherUneRoute('/version');
     divData.append('</ul>');
 
     // login-logout
     divData.append('<ul>');
-    _addLI(baseUrl + '/session/login/mettrauxpa/Emf123');
-    _addLI(baseUrl + '/session/login/strittjc/Emf123');
-    _addLI(baseUrl + '/session/login/user1/Emf123');
-    _addLI(baseUrl + '/session/status');
-    _addLI(baseUrl + '/session/logout');
+    _afficherUneRoute('/session/login/mettrauxpa/edu/Emf123');
+    _afficherUneRoute('/session/login/strittjc/edu/Emf123');
+    _afficherUneRoute('/session/login/user1/studentfr/Emf123');
+    _afficherUneRoute('/session/status');
+    _afficherUneRoute('/session/logout');
     divData.append('</ul>');
 
     // createLogin
     divData.append('<ul>');
-    _addLI(baseUrl + '/createLogin');
+    _afficherUneRoute('/createLogin');
     divData.append('</ul>');
+
+    // etat civil
+    divData.append('<ul>');
+    _afficherUneRoute('/etats-civils');
+    _afficherUneRoute('/etats-civils.xml');
+    _afficherUneRoute('/etats-civils.json');
+    divData.append('</ul>');
+
+    // canton
+    divData.append('<ul>');
+    _afficherUneRoute('/cantons');
+    _afficherUneRoute('/cantons.xml');
+    _afficherUneRoute('/cantons.json');
+    divData.append('</ul>');
+
+    // partis
+    divData.append('<ul>');
+    _afficherUneRoute('/partis');
+    _afficherUneRoute('/partis.xml');
+    _afficherUneRoute('/partis.json');
+    divData.append('</ul>');
+
+    // conseils
+    divData.append('<ul>');
+    _afficherUneRoute('/conseils');
+    _afficherUneRoute('/conseils.xml');
+    _afficherUneRoute('/conseils.json');
+    divData.append('</ul>');
+
+    // groupes
+    divData.append('<ul>');
+    _afficherUneRoute('/groupes');
+    _afficherUneRoute('/groupes.xml');
+    _afficherUneRoute('/groupes.json');
+    divData.append('</ul>');
+
+    // conseillers fribourgeois
+    divData.append('<ul>');
+    _afficherUneRoute('/conseillers/FR/tous/tous/true');
+    _afficherUneRoute('/conseillers.xml/FR/tous/tous/true');
+    _afficherUneRoute('/conseillers.json/FR/tous/tous/true');
+    divData.append('</ul>');
+
+    // conseillers nationaux au parti socialiste genevois
+    divData.append('<ul>');
+    _afficherUneRoute('/conseillers/GE/CN/PSS/true');
+    _afficherUneRoute('/conseillers.xml/GE/CN/PSS/true');
+    _afficherUneRoute('/conseillers.json/GE/CN/PSS/true');
+    divData.append('</ul>');
+
+    // conseillers fédéraux
+    divData.append('<ul>');
+    _afficherUneRoute('/conseillers/Suisse/CF/tous/true');
+    _afficherUneRoute('/conseillers.xml/Suisse/CF/tous/true');
+    _afficherUneRoute('/conseillers.json/Suisse/CF/tous/true');
+    divData.append('</ul>');
+
   }
 
 
