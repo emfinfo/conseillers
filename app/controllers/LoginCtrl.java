@@ -135,7 +135,6 @@ public class LoginCtrl extends Controller {
 
     // extraction des données
     Login httpLogin = extractHttpLogin(data);
-//    System.out.println("http: " + httpLogin.toString2
 
     // on crée une empreinte du mot de passe
     String dbSalt = Generate.randomHex(32);
