@@ -27,9 +27,9 @@ libraryDependencies ++= Seq(
   "ch.emf.info" % "cypherlib" % "1.0.1",
   "ch.emf.info" % "cypherlib" % "1.0.1" classifier "sources",
   "ch.emf.info" % "cypherlib" % "1.0.1" classifier "javadoc",
-  "ch.emf.info" % "daolayer" % "5.1.5",
-  "ch.emf.info" % "daolayer" % "5.1.5" classifier "sources",
-  "ch.emf.info" % "daolayer" % "5.1.5" classifier "javadoc",
+  "ch.emf.info" % "daolayer" % "5.2.0",
+  "ch.emf.info" % "daolayer" % "5.2.0" classifier "sources",
+  "ch.emf.info" % "daolayer" % "5.2.0" classifier "javadoc",
   "commons-codec" % "commons-codec" % "1.7",
   "mysql" % "mysql-connector-java" % "5.1.38").map(_.force()
 )

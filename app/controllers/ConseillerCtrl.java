@@ -50,7 +50,7 @@ public class ConseillerCtrl extends Controller {
   /**
    * Renvoyer une liste des états civils.
    */
-  @Transactional
+  @Transactional(readOnly=true)
   @With(BeforeAfterAction.class)
   public Result chargerEtatsCivils(String fmt) {
     Result httpResult;
@@ -80,7 +80,7 @@ public class ConseillerCtrl extends Controller {
   /**
    * Renvoyer une liste des cantons.
    */
-  @Transactional
+  @Transactional(readOnly=true)
   @With(BeforeAfterAction.class)
   public Result chargerCantons(String fmt) {
     Result httpResult;
@@ -110,7 +110,7 @@ public class ConseillerCtrl extends Controller {
   /**
    * Renvoyer une liste des partis de Suisse.
    */
-  @Transactional
+  @Transactional(readOnly=true)
   @With(BeforeAfterAction.class)
   public Result chargerPartis(String fmt) {
     Result httpResult;
@@ -140,7 +140,7 @@ public class ConseillerCtrl extends Controller {
   /**
    * Renvoyer une liste de conseils (CE, CF, CN).
    */
-  @Transactional
+  @Transactional(readOnly=true)
   @With(BeforeAfterAction.class)
   public Result chargerConseils(String fmt) {
     Result httpResult;
@@ -170,7 +170,7 @@ public class ConseillerCtrl extends Controller {
   /**
    * Renvoyer une liste de groupes parlementaires.
    */
-  @Transactional
+  @Transactional(readOnly=true)
   @With(BeforeAfterAction.class)
   public Result chargerGroupes(String fmt) {
     Result httpResult;
@@ -204,6 +204,7 @@ public class ConseillerCtrl extends Controller {
   @With(BeforeAfterAction.class)
   public Result chargerConseillers(String fmt, String canton, String conseil, String parti, String actif) {
     Result httpResult;
+//    DateTimeLib.chronoReset();
 
     // on traite le cas du filtre "canton"
     String filtreCanton = canton;
@@ -228,6 +229,8 @@ public class ConseillerCtrl extends Controller {
 
     // on récupère la liste des conseillers (filtrée ou non)
     List<Conseiller> conseillers = dbWrk.chargerConseillers(filtreCanton, filtreConseil, filtreParti, filtreActif);
+//    System.out.println("A-obj: " + hashCode() + ", time: " + DateTimeLib.chronoStringElapsedTime());
+//    DateTimeLib.chronoReset();
 
     // on fait le rendu en xml, json ou html)
     try {
@@ -245,6 +248,7 @@ public class ConseillerCtrl extends Controller {
     } catch (Exception e) {
       httpResult = logError(e);
     }
+//    System.out.println("B-obj: " + hashCode() + ", time: " + DateTimeLib.chronoStringElapsedTime());
 
     return httpResult;
   }

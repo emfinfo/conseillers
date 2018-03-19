@@ -14,15 +14,14 @@
     <class>models.Canton</class>
     <class>models.Parti</class>
     <class>models.Login</class>
-    <shared-cache-mode>NONE</shared-cache-mode>
+    <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
     <properties>
 
       <!-- Logging configuration. -->
-      <!--      <property name="eclipselink.logging.parameters" value="false"/>-->
-      <!--<property name="eclipselink.logging.logger" value="JavaLogger" />-->
-      <property name="eclipselink.logging.level" value="OFF" />
-      <!--<property name="eclipselink.logging.sql" value="WARNING"/>-->
-      <!--<property name="eclipselink.logging.level.sql" value="WARNING"/>-->
+      <property name="eclipselink.logging.parameters" value="true"/>
+      <property name="eclipselink.logging.level" value="WARNING" />
+      <property name="eclipselink.logging.sql" value="WARNING"/>
+      <property name="eclipselink.logging.level.sql" value="WARNING"/>
 
     </properties>
   </persistence-unit>

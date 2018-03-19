@@ -57,7 +57,7 @@ public class DbWorker implements DbWorkerAPI {
   @Override
   public int modifierLogin(Login login) {
     return dao.update(login);
-  }  
+  }
 
   @Override
   public List<EtatCivil> chargerEtatsCivils() {
@@ -95,7 +95,7 @@ public class DbWorker implements DbWorkerAPI {
   }
 
   @Override
-  public List<Conseiller> chargerConseillers(String canton, String conseil, String parti, boolean actif) {
+    public List<Conseiller> chargerConseillers(String canton, String conseil, String parti, boolean actif) {
     String jpql = "SELECT distinct c FROM Conseiller c LEFT JOIN c.activites a WHERE a.conseiller=c";
     Search2 search = new Search2(jpql);
     if (!canton.isEmpty()) {
@@ -116,8 +116,11 @@ public class DbWorker implements DbWorkerAPI {
     }
     search.addSortFields("c.nom", "c.prenom");
     List<Conseiller> conseillers = dao.getList(search);
-//    System.out.println("Conseillers: "+search.getJpql()+", open=" +dao.isOpen());
-    return conseillers;
+//    try {
+//      Thread.sleep(3000);
+//    } catch (InterruptedException ex) {
+//    }
+    return dao.getList(search);
   }
 
   @Override
