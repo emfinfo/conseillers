@@ -23,6 +23,9 @@
       <property name="eclipselink.logging.sql" value="WARNING"/>
       <property name="eclipselink.logging.level.sql" value="WARNING"/>
 
+      <!-- see http://blogs.nologin.es/rickyepoderi/index.php?/archives/95-Weaving-Problem-in-EclipseLink.html -->
+      <property name="eclipselink.weaving.internal" value="false"/>
+
     </properties>
   </persistence-unit>
 </persistence>
