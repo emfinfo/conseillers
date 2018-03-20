@@ -95,7 +95,7 @@ public class DbWorker implements DbWorkerAPI {
   }
 
   @Override
-    public List<Conseiller> chargerConseillers(String canton, String conseil, String parti, boolean actif) {
+  public List<Conseiller> chargerConseillers(String canton, String conseil, String parti, boolean actif) {
     String jpql = "SELECT distinct c FROM Conseiller c LEFT JOIN c.activites a WHERE a.conseiller=c";
     Search2 search = new Search2(jpql);
     if (!canton.isEmpty()) {

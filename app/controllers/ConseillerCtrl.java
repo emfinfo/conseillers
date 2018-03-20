@@ -200,7 +200,7 @@ public class ConseillerCtrl extends Controller {
   /**
    * Renvoyer une liste filtrée de conseillers.
    */
-  @Transactional
+  @Transactional(readOnly=true)
   @With(BeforeAfterAction.class)
   public Result chargerConseillers(String fmt, String canton, String conseil, String parti, String actif) {
     Result httpResult;
