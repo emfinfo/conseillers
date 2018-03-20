@@ -6,6 +6,7 @@ DbWorker and dao are only loaded one time (singleton).
 
 * New in release 1.3.1 (march 2018) :
   * adapted to DaoLayer 5.2.0 (correction of a big bug with multi-users)
+  * adapted to Play Framework 2.6.12
 
 * New in release 1.3.0 (february 2018) :
   * You must now encrypt login and createLogin data with aeslogin.js
