@@ -228,7 +228,7 @@ public class Utils {
       || origin.get().contains("192.168")
       || origin.get().contains("emf-informatique.ch")
       || origin.get().contains("homepage.hispeed.ch"));
-    System.out.println("  validCrossDomainContext origin: " + origin + ", ok:" + ok);
+//    System.out.println("  validCrossDomainContext origin: " + origin + ", ok:" + ok);
     if (ok) {
       response.setHeader("Access-Control-Allow-Origin", origin.get());
       response.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT,OPTIONS");
