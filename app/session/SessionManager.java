@@ -43,7 +43,6 @@ public class SessionManager {
 
     // on met à jour le timestamp
     if (ok) {
-//          dbLogin.setTimestamp(clientLogin.getTimestamp());
 //      dbLogin.setTimestamp(new Date(clientLogin.getTimestamp().getTime() + 5000));
       dbLogin.setTimestamp(new Date(clientLogin.getTimestamp().getTime()));
     }
@@ -110,7 +109,6 @@ public class SessionManager {
    * @return true si une session est ouverte
    */
   public static boolean isOpen() {
-    System.out.println("isOpen session: "+session().toString());
     String userId = session().get(SESSION_USER_ID);
     boolean ok = userId != null;
     if (ok) {
