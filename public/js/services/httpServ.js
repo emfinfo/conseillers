@@ -14,6 +14,7 @@ var httpServ = (function () {
 //  var serverURL = 'http://localhost:9000'; // local
 //  var serverURL = 'http://conseillers.herokuapp.com';
   var serverURL = browser.Url.getBaseUrl(); // si client et serveur au même endroit
+  console.info("serverURL: " + serverURL);
 
   function _getBaseUrl() {
     return serverURL;

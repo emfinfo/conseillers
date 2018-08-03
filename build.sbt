@@ -18,12 +18,12 @@ resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/release
 // dépendances (voir dernières versions sur http://mvnrepository.com )
 libraryDependencies ++= Seq(
   javaJpa,
-  "ch.emf.info" % "conseillers-models" % "1.0.6",
-  "ch.emf.info" % "conseillers-models" % "1.0.6" classifier "sources",
-  "ch.emf.info" % "conseillers-models" % "1.0.6" classifier "javadoc",
-  "ch.emf.info" % "basiclib" % "1.2.2",
-  "ch.emf.info" % "basiclib" % "1.2.2" classifier "sources",
-  "ch.emf.info" % "basiclib" % "1.2.2" classifier "javadoc",
+  "ch.emf.info" % "conseillers-models" % "1.0.7",
+  "ch.emf.info" % "conseillers-models" % "1.0.7" classifier "sources",
+  "ch.emf.info" % "conseillers-models" % "1.0.7" classifier "javadoc",
+  "ch.emf.info" % "basiclib" % "1.3.1",
+  "ch.emf.info" % "basiclib" % "1.3.1" classifier "sources",
+  "ch.emf.info" % "basiclib" % "1.3.1" classifier "javadoc",
   "ch.emf.info" % "cypherlib" % "1.0.1",
   "ch.emf.info" % "cypherlib" % "1.0.1" classifier "sources",
   "ch.emf.info" % "cypherlib" % "1.0.1" classifier "javadoc",

@@ -30,7 +30,7 @@ public class Utils {
    * Permet d'afficher des informations de log dans la console.
    *
    * @param startTime le temps du début de la requête
-   * @param params différents paramètres facultatifs.
+   * @param params    différents paramètres facultatifs.
    */
   public static void logInfo(long startTime, Object... params) {
     String threadId = String.valueOf(Thread.currentThread().getId());
@@ -59,11 +59,11 @@ public class Utils {
     Logger.info(msg);
   }
 
- /**
-  * Permet d'afficher des informations de log dans la console.
-  *
-  * @param ctx le contexte HTTP
-  */
+  /**
+   * Permet d'afficher des informations de log dans la console.
+   *
+   * @param ctx le contexte HTTP
+   */
   public static void logInfo(Context ctx) {
     //String msg = DateTimeLib.dateToString(DateTimeLib.getDate(), "dd.MM.yy HH:mm:ss");
 
@@ -73,28 +73,39 @@ public class Utils {
     if (route.contains("login/")) {
       route = route.substring(0, route.lastIndexOf("/"));
     }
+    int p = route.indexOf("?_=");
+    if (p >= 0) {
+      route = route.substring(0, p);
+    }
+    if (!route.endsWith("/")) {
+//      System.out.println("route: " + route);
 
 //    msg += ", " + route;
-    String msg = route;
+      String msg = route;
 
-    // user
-    if (SessionManager.isOpen()) {
-      msg += " (USER: " + SessionManager.getUserId() + ")";
-    }
+      // user
+//      Map<String, String> map = ctx.response().getHeaders();
+//      for (Map.Entry<String, String> entry : map.entrySet()) {
+//        System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
+//      }
+      if (SessionManager.isOpen()) {
+//      msg += " (USER: " + SessionManager.getUserId() + ")";
+        msg += " (" + SessionManager.getUserName() + ")";
+      }
 
-    // elapsed time
+      // elapsed time
 //    Map<String, String> headers = ctx.response().getHeaders();
 //    for (Entry<String, String> e : headers.entrySet()) {
 //      String key = e.getKey();
 //      String value = e.getValue();
-//      System.out.println("key: "+key+", value="+value);
 //    }
-    long startTime = Long.parseLong(ctx.response().getHeaders().get("logtimestamp"));
-    if (startTime >= 0) {
-      msg += ", " + (System.currentTimeMillis() - startTime) + " ms";
+      String ts = ctx.response().getHeaders().get("logtimestamp");
+      long startTime = (ts == null) ? System.currentTimeMillis() : Long.parseLong(ts);
+      if (startTime >= 0) {
+        msg += ", " + (System.currentTimeMillis() - startTime) + " ms";
+      }
+      Logger.info(msg);
     }
-
-    Logger.info(msg);
   }
 
   /**
@@ -116,7 +127,7 @@ public class Utils {
   /**
    * Transforme une propriété de type clé-valeur en JSON.
    *
-   * @param key la clé de la propriété
+   * @param key   la clé de la propriété
    * @param value la valeur de la propriété
    *
    * @return un résultat HTTP avec le JSON
@@ -130,9 +141,9 @@ public class Utils {
   /**
    * Transforme deux propriétés de type clé-valeur en JSON.
    *
-   * @param key1 la clé de la propriété 1
+   * @param key1   la clé de la propriété 1
    * @param value1 la valeur de la propriété 1
-   * @param key2 la clé de la propriété 2
+   * @param key2   la clé de la propriété 2
    * @param value2 la valeur de la propriété 2
    *
    * @return un résultat HTTP avec le JSON
@@ -147,7 +158,7 @@ public class Utils {
   /**
    * Transform une valeur booléenne en propriété JSON.
    *
-   * @param ok la variable booléenne à transformer
+   * @param ok      la variable booléenne à transformer
    * @param message
    * @return
    */
@@ -159,8 +170,8 @@ public class Utils {
   /**
    * Convertit un objet JSON contenu dans un corps de requête POST en objet.
    *
-   * @param <T> le type de l'objet
-   * @param req la requête HTTP de type POST
+   * @param <T>  le type de l'objet
+   * @param req  la requête HTTP de type POST
    * @param type le type de l'objet
    *
    * @return un objet de type T
@@ -184,7 +195,7 @@ public class Utils {
    *
    * @param node un noeud JSON
    * @param prop le nom d'une propriété à extraire
-   * 
+   *
    * @return un string avec le contenu de la propriété
    */
   public static String jsonToString(JsonNode node, String prop) {
@@ -199,7 +210,7 @@ public class Utils {
   /**
    * Valide le contexte "cross-domain" d'une requête.
    *
-   * @param request une requête HTTP
+   * @param request  une requête HTTP
    * @param response une réponse HTTP
    */
   public static void validCrossDomainContext(Request request, Response response) {
@@ -212,8 +223,13 @@ public class Utils {
 //            "http://homepage.hispeed.ch");
     Optional<String> origin = request.header("Origin");
 //    if (origin != null && whiteList.contains(origin)) {
-    if (origin.isPresent() && (origin.get().contains("localhost") || origin.get().contains("192.168")
-      || origin.get().contains("emf-informatique.ch") || origin.get().contains("homepage.hispeed.ch"))) {
+    boolean ok = origin.isPresent()
+      && (origin.get().contains("localhost")
+      || origin.get().contains("192.168")
+      || origin.get().contains("emf-informatique.ch")
+      || origin.get().contains("homepage.hispeed.ch"));
+    System.out.println("  validCrossDomainContext origin: " + origin + ", ok:" + ok);
+    if (ok) {
       response.setHeader("Access-Control-Allow-Origin", origin.get());
       response.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT,OPTIONS");
       response.setHeader("Access-Control-Allow-Credentials", "true");

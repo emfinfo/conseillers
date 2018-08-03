@@ -1,4 +1,4 @@
-/* global httpServ */
+/* global httpServ, AesUtil */
 
 var indexCtrl = (function () {
 
@@ -10,7 +10,7 @@ var indexCtrl = (function () {
 
     // chargement de la couche de service et des premières données par HTTP
     $.getScript("js/services/httpServ.js", function () {
-      console.log("httpServ.js chargé !");
+//      console.log("httpServ.js chargé !");
       httpServ.getVersion(afficherVersion, afficherErreurHttp);
       _afficherRoutes();
     });
@@ -36,10 +36,10 @@ var indexCtrl = (function () {
       var t = data.split('/');
       if (t.length >= 3) {
 
-        // préparation des données de la requête
+        // préparation des données de la requête avec timestamp
         data = t[0] + '/' + t[1] + '/' + t[2] + '/' + Date.now();
 
-        // on rajoute éventuellement les paramètres supplémentaires
+        // on ajoute éventuellement les paramètres supplémentaires
         if (t.length > 4) {
           for (i = 5; i < t.length; i++) {
             data += '/' + t[i];

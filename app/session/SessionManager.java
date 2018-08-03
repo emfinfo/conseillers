@@ -14,9 +14,41 @@ import static play.mvc.Controller.session;
  */
 public class SessionManager {
   public final static String SESSION_USER_ID = "user-id";
+  public final static String SESSION_USER_NAME = "user-name";
   public final static String SESSION_DB_ID = "db-id";
   public final static String SESSION_LANG = "fr";
   public final static String SESSION_TIMESTAMP = "timestamp";
+
+
+  /**
+   * Méthode privée pour comparer les empreintes du mot de passe
+   */
+  private static boolean compareHash(Login clientLogin, Login dbLogin) {
+    boolean ok = false;
+
+    // empreinte et sel sont récupérés depuis les infos dans la BD
+    String pwd = dbLogin.getMotDePasse();
+    String dbHash = pwd.substring(0, 64);
+    String dbSalt = pwd.substring(64);
+
+    // on génère une nouvelle empreinte
+    String newHash = Generate.hash(clientLogin.getMotDePasse() + dbSalt, "SHA-256");
+
+    // on vérifie si les deux empreintes correspondent
+    ok = newHash.equals(dbHash);
+
+    // on vérifie si le timestamp est plus haut (pour éviter qu'on réutilise les mêmes infos)
+    long diff = clientLogin.getTimestamp().getTime() - dbLogin.getTimestamp().getTime();
+    ok = ok && (diff > 0 || Math.abs(diff) > 3600000);
+
+    // on met à jour le timestamp
+    if (ok) {
+//          dbLogin.setTimestamp(clientLogin.getTimestamp());
+//      dbLogin.setTimestamp(new Date(clientLogin.getTimestamp().getTime() + 5000));
+      dbLogin.setTimestamp(new Date(clientLogin.getTimestamp().getTime()));
+    }
+    return ok;
+  }
 
 
   /**
@@ -28,40 +60,19 @@ public class SessionManager {
    * @return true si l'utilisateur est reconnu
    */
   @SuppressWarnings("null")
-  public static boolean create(Login httpLogin, Login dbLogin) {
+  public static boolean create(Login clientLogin, Login dbLogin) {
     boolean ok = false;
 
-    // le cookie de session doit avoir été effacé avant
-    if (session().get(SESSION_USER_ID) == null) {
+    // teste si l'utilisateur a été trouvé auparavant
+    if (dbLogin != null) {
 
-      // teste si l'utilisateur a été trouvé auparavant
-      if (dbLogin != null) {
-
-        // si password dans la table ...
-        if (dbLogin.getMotDePasse() != null) {
-          String dbHash = dbLogin.getMotDePasse().substring(0, 64);
-          String dbSalt = dbLogin.getMotDePasse().substring(64);
-//          System.out.println("dbHash:  " + dbHash + ", dbSalt:  " + dbSalt);
-
-          // calcul de l'empreinte du mot de passe fourni avec le sel de la DB
-          String newHash = Generate.hash(httpLogin.getMotDePasse() + dbSalt, "SHA-256");
-
-          // teste si l'empreinte est correcte
-          ok = newHash.equals(dbHash);
-//          System.out.println("newHash: " + newHash + ", password ok: " + ok);
-
-          // teste si le timestamp de la requête HTTP est supérieur à celui de la BD
-          ok = ok && (httpLogin.getTimestamp().getTime() > dbLogin.getTimestamp().getTime());
-
-          // si oui, on mémorise le timestamp de la requête HTTP dans l'objet de la BD
-          if (ok) {
-            dbLogin.setTimestamp(new Date(httpLogin.getTimestamp().getTime()+5000));
-          }
-        } else { // autrement on pourrait tester avec AD
-           // ok = authenticateOnActiveDirectory(
-           //  httpLogin.getNom(), httpLogin.getDomaine(), htppLogin.getMotDePasse());
-          ok = false;
-        }
+      // si password dans la table ...
+      if (dbLogin.getMotDePasse() != null) {
+        ok = compareHash(clientLogin, dbLogin);
+      } else { // autrement on pourrait tester avec AD
+        // ok = authenticateOnActiveDirectory(
+        //  httpLogin.getNom(), httpLogin.getDomaine(), httpLogin.getMotDePasse());
+        ok = false;
       }
 
       // enregistrement de la session si identification correcte
@@ -70,6 +81,12 @@ public class SessionManager {
         session(SESSION_USER_ID, "" + dbLogin.getPkLogin());
         session(SESSION_DB_ID, "1");
         session(SESSION_TIMESTAMP, "" + start);
+        session(SESSION_USER_NAME, dbLogin.getNom());
+//        String uuid = session().get("uuid");
+//        if (uuid == null) {
+//          uuid = java.util.UUID.randomUUID().toString();
+//          session("uuid", uuid);
+//        }
       } else {
         session().clear();
       }
@@ -79,15 +96,12 @@ public class SessionManager {
 
   /**
    * Efface le contenu de la session en cours.
-   *
-   * @return true si la session est maintenant vide
    */
-  public static boolean clear() {
+  public static void clear() {
     boolean ok = session().get(SESSION_USER_ID) != null;
     if (ok) {
       session().clear();
     }
-    return !isOpen();
   }
 
   /**
@@ -96,7 +110,9 @@ public class SessionManager {
    * @return true si une session est ouverte
    */
   public static boolean isOpen() {
-    boolean ok = session().get(SESSION_USER_ID) != null;
+    System.out.println("isOpen session: "+session().toString());
+    String userId = session().get(SESSION_USER_ID);
+    boolean ok = userId != null;
     if (ok) {
       session(SESSION_TIMESTAMP, "" + System.currentTimeMillis());
     }
@@ -112,7 +128,7 @@ public class SessionManager {
   public static boolean isTimeout(int ms) {
     long cTime = System.currentTimeMillis();
     long sTime = ConvertLib.stringToLong(session().get(SESSION_TIMESTAMP));
-    System.out.println("cTime: " + cTime + " sTime: " + sTime + " diff: " + (cTime-sTime));
+//    System.out.println("cTime: " + cTime + " sTime: " + sTime + " diff: " + (cTime-sTime));
     return (cTime-sTime) >= ms;
   }
 
@@ -124,6 +140,19 @@ public class SessionManager {
   public static int getUserId() {
     String userId = session().get(SESSION_USER_ID);
     return ConvertLib.stringToInt(userId);
+  }
+
+  /**
+   * Récupérer le "user.name" de l'utilisateur logué.
+   *
+   * @return le nom de l'utilisateur logué
+   */
+  public static String getUserName() {
+    String name = session().get(SESSION_USER_NAME);
+    if (name == null || name.isEmpty()) {
+      name = "?name?";
+    }
+    return name;
   }
 
   /**

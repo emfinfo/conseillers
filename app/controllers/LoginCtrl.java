@@ -5,7 +5,6 @@ import ch.emf.helpers.Convert;
 import ch.emf.helpers.Generate;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import controllers.actions.BeforeAfterAction;
 import helpers.BooleanResult;
 import helpers.Utils;
 import java.util.Date;
@@ -40,6 +39,7 @@ public class LoginCtrl extends Controller {
     return ok(index.render("Accès non autorisé !"));
   }
 
+
   // méthode pour créer un objet de login pour les données reçus
   private Login extractHttpLogin(String data) {
     Login login = new Login();
@@ -66,7 +66,7 @@ public class LoginCtrl extends Controller {
 
       // décrypte les données
       String decrypted = aesUtil.decrypt(salt, iv, passPhrase, b64);
-//      System.out.println("decrypted: "+decrypted);
+//      System.out.println("decrypted: " + decrypted);
 
       // extraction des données du login
       String t[] = decrypted.split("/");
@@ -86,7 +86,7 @@ public class LoginCtrl extends Controller {
   }
 
 
-  @With(BeforeAfterAction.class)
+//  @With(BeforeAfterAction.class)
   @Transactional
   public Result login(String data) {
 
@@ -96,14 +96,14 @@ public class LoginCtrl extends Controller {
 
     // on recherche l'utilisateur+domaine spécifiés
     Login dbLogin = dbWrk.rechercherLogin(httpLogin.getNom(), httpLogin.getDomaine());
-//    System.out.println("db:   " + ((dbLogin != null) ? dbLogin.toString2() : ""));
+//    System.out.println("db:   " + ((dbLogin != null) ? dbLogin.toString2() : "?"));
 
     // on supprime la session en cours
-    SessionManager.clear();
+//    SessionManager.clear();
 
     // si le login est correct on modifie le login pour le timestamp
     if (SessionManager.create(httpLogin, dbLogin)) {
-      dbWrk.modifierLogin(dbLogin);
+      int nb = dbWrk.modifierLogin(dbLogin);
 //      login.setMotDePasse("");
     } else {
       dbLogin = new Login();
@@ -113,18 +113,21 @@ public class LoginCtrl extends Controller {
     return Utils.toJson(dbLogin);
   }
 
-  @With(BeforeAfterAction.class)
+
+//  @With(BeforeAfterAction.class)
   public Result logout() {
     SessionManager.clear();
-    return Utils.toJson("ok", !SessionManager.isOpen());
+    return Utils.toJson("open", SessionManager.isOpen());
   }
 
-  @With(BeforeAfterAction.class)
+
+//  @With(BeforeAfterAction.class)
   public Result status() {
     return Utils.toJson("open", SessionManager.isOpen());
   }
 
-  @With(BeforeAfterAction.class)
+
+//  @With(BeforeAfterAction.class)
   @Transactional
   public Result createLogin() {
     boolean ok = false;

@@ -1,6 +1,5 @@
 package controllers;
 
-import controllers.actions.BeforeAfterAction;
 import helpers.Utils;
 import java.util.List;
 import javax.inject.Inject;
@@ -51,7 +50,7 @@ public class ConseillerCtrl extends Controller {
    * Renvoyer une liste des états civils.
    */
   @Transactional(readOnly=true)
-  @With(BeforeAfterAction.class)
+//  @With(BeforeAfterAction.class)
   public Result chargerEtatsCivils(String fmt) {
     Result httpResult;
 
@@ -81,7 +80,7 @@ public class ConseillerCtrl extends Controller {
    * Renvoyer une liste des cantons.
    */
   @Transactional(readOnly=true)
-  @With(BeforeAfterAction.class)
+//  @With(BeforeAfterAction.class)
   public Result chargerCantons(String fmt) {
     Result httpResult;
 
@@ -111,7 +110,7 @@ public class ConseillerCtrl extends Controller {
    * Renvoyer une liste des partis de Suisse.
    */
   @Transactional(readOnly=true)
-  @With(BeforeAfterAction.class)
+//  @With(BeforeAfterAction.class)
   public Result chargerPartis(String fmt) {
     Result httpResult;
 
@@ -141,7 +140,7 @@ public class ConseillerCtrl extends Controller {
    * Renvoyer une liste de conseils (CE, CF, CN).
    */
   @Transactional(readOnly=true)
-  @With(BeforeAfterAction.class)
+//  @With(BeforeAfterAction.class)
   public Result chargerConseils(String fmt) {
     Result httpResult;
 
@@ -171,7 +170,7 @@ public class ConseillerCtrl extends Controller {
    * Renvoyer une liste de groupes parlementaires.
    */
   @Transactional(readOnly=true)
-  @With(BeforeAfterAction.class)
+//  @With(BeforeAfterAction.class)
   public Result chargerGroupes(String fmt) {
     Result httpResult;
 
@@ -201,7 +200,7 @@ public class ConseillerCtrl extends Controller {
    * Renvoyer une liste filtrée de conseillers.
    */
   @Transactional(readOnly=true)
-  @With(BeforeAfterAction.class)
+//  @With(BeforeAfterAction.class)
   public Result chargerConseillers(String fmt, String canton, String conseil, String parti, String actif) {
     Result httpResult;
 //    DateTimeLib.chronoReset();

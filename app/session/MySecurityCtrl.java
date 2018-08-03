@@ -22,6 +22,7 @@ public class MySecurityCtrl extends Security.Authenticator {
 
   @Override
   public String getUsername(Context ctx) {
+//    System.out.println("MySecurityCtrl session: "+ ctx.session());
     return ctx.session().get(SessionManager.SESSION_USER_ID);
   }
 
