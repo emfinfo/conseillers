@@ -16,11 +16,6 @@
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/libs/date.js</file>
             <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/js/services/httpServ.js</file>
         </group>
-        <group name="Play">
-            <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/index.html</file>
-            <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/js/controllers/indexCtrl.js</file>
-            <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/info.html</file>
-            <file>file:/Users/jcstritt/Dropbox/_DEV/Java/Projets/NetBeans/Play/conseillers/public/js/services/httpServ.js</file>
-        </group>
+        <group name="Play"/>
     </open-files>
 </project-private>

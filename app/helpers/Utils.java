@@ -88,10 +88,16 @@ public class Utils {
 //      for (Map.Entry<String, String> entry : map.entrySet()) {
 //        System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
 //      }
-      if (SessionManager.isOpen()) {
-//      msg += " (USER: " + SessionManager.getUserId() + ")";
-        msg += " (" + SessionManager.getUserName() + ")";
+
+//      if (SessionManager.isOpen()) {
+////      msg += " (USER: " + SessionManager.getUserId() + ")";
+//        msg += " (" + SessionManager.getUserName() + ")";
+//      }
+      String name = SessionManager.getUserName();
+      if (!name.equalsIgnoreCase("?name?")) {
+        msg += " (" + name + ")";
       }
+
 
       // elapsed time
 //    Map<String, String> headers = ctx.response().getHeaders();
@@ -156,11 +162,12 @@ public class Utils {
   }
 
   /**
-   * Transform une valeur booléenne en propriété JSON.
+   * Transforme une valeur booléenne en propriété JSON.
    *
    * @param ok      la variable booléenne à transformer
-   * @param message
-   * @return
+   * @param message le message associé
+   *
+   * @return un résultat HTTP avec le JSON
    */
   public static Result toJson(boolean ok, String message) {
     BooleanResult bResult = new BooleanResult(ok, message);

@@ -56,6 +56,7 @@ public class LoginCtrl extends Controller {
 
       // génère la même clé que le client doit générer
       String passPhrase = Generate.passPhrase();
+//      System.out.println("passPhrase: "+passPhrase+" ("+new String(Convert.toBase64(passPhrase))+")");
 
       // crée l'utilitaire pour le décryptage
       AesUtil aesUtil = new AesUtil(128, 1000);

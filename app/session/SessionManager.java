@@ -78,9 +78,9 @@ public class SessionManager {
       if (ok) {
         long start = System.currentTimeMillis();
         session(SESSION_USER_ID, "" + dbLogin.getPkLogin());
+        session(SESSION_USER_NAME, dbLogin.getNom());
         session(SESSION_DB_ID, "1");
         session(SESSION_TIMESTAMP, "" + start);
-        session(SESSION_USER_NAME, dbLogin.getNom());
 //        String uuid = session().get("uuid");
 //        if (uuid == null) {
 //          uuid = java.util.UUID.randomUUID().toString();
@@ -98,8 +98,12 @@ public class SessionManager {
    */
   public static void clear() {
     boolean ok = session().get(SESSION_USER_ID) != null;
+    String name = session().get(SESSION_USER_NAME);
     if (ok) {
       session().clear();
+      if (name != null) {
+        session(SESSION_USER_NAME, name);
+      }
     }
   }
 
