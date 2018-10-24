@@ -116,10 +116,10 @@ public class DbWorker implements DbWorkerItf {
     search.addSortFields("c.nom", "c.prenom");
     
     // pour simuler une requête longue
-    try {
-      Thread.sleep(2000);
-    } catch (InterruptedException ex) {
-    }
+//    try {
+//      Thread.sleep(2000);
+//    } catch (InterruptedException ex) {
+//    }
 //    System.out.println("chargerConseillers jpql: "+search.getJpql());
     return dao.getList(search);
   }
