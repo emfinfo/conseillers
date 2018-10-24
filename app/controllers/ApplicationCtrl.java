@@ -37,6 +37,7 @@ public class ApplicationCtrl extends Controller {
   }
 
   public Result checkPreFlight(String path) {
+//    System.out.println("checkPreFlight: "+path);
     Utils.validCrossDomainContext(request(), response());
     return ok();
   }

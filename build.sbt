@@ -21,21 +21,24 @@ libraryDependencies ++= Seq(
   "ch.emf.info" % "conseillers-models" % "1.0.7",
   "ch.emf.info" % "conseillers-models" % "1.0.7" classifier "sources",
   "ch.emf.info" % "conseillers-models" % "1.0.7" classifier "javadoc",
-  "ch.emf.info" % "basiclib" % "1.3.1",
-  "ch.emf.info" % "basiclib" % "1.3.1" classifier "sources",
-  "ch.emf.info" % "basiclib" % "1.3.1" classifier "javadoc",
-  "ch.emf.info" % "cypherlib" % "1.0.1",
-  "ch.emf.info" % "cypherlib" % "1.0.1" classifier "sources",
-  "ch.emf.info" % "cypherlib" % "1.0.1" classifier "javadoc",
-  "ch.emf.info" % "daolayer" % "5.2.0",
-  "ch.emf.info" % "daolayer" % "5.2.0" classifier "sources",
-  "ch.emf.info" % "daolayer" % "5.2.0" classifier "javadoc",
+  "ch.emf.info" % "basiclib" % "1.3.2",
+  "ch.emf.info" % "basiclib" % "1.3.2" classifier "sources",
+  "ch.emf.info" % "basiclib" % "1.3.2" classifier "javadoc",
+  "ch.emf.info" % "cypherlib" % "1.0.2",
+  "ch.emf.info" % "cypherlib" % "1.0.2" classifier "sources",
+  "ch.emf.info" % "cypherlib" % "1.0.2" classifier "javadoc",
+  "ch.emf.info" % "daolayer" % "6.0.0",
+  "ch.emf.info" % "daolayer" % "6.0.0" classifier "sources",
+  "ch.emf.info" % "daolayer" % "6.0.0" classifier "javadoc",
   "commons-codec" % "commons-codec" % "1.7",
   "mysql" % "mysql-connector-java" % "5.1.38").map(_.force()
 )
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings
 libraryDependencies ~= { _.map(_.exclude("org.slf4j", "slf4j-log4j12")) }
+
+// évite certaines warning
+evictionWarningOptions in update := EvictionWarningOptions.default.withWarnTransitiveEvictions(false)
 
 // récupération du nom de l'application et de la version depuis le fichier conf
 lazy val commonSettings = Seq(

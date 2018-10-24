@@ -1,5 +1,6 @@
 package workers;
 
+import com.google.inject.ImplementedBy;
 import java.util.List;
 import models.Canton;
 import models.Conseil;
@@ -14,7 +15,8 @@ import models.Parti;
  *
  * @author Jean-Claude Stritt
  */
-public interface DbWorkerAPI {
+@ImplementedBy(DbWorker.class)
+public interface DbWorkerItf {
 
   /**
    * Rechercher un objet "Login" d'après un nom d'utilisateur fourni.
@@ -100,22 +102,5 @@ public interface DbWorkerAPI {
    * @return une liste filtrée de conseillers
    */
   List<Conseiller> chargerConseillers(String nom, boolean actif);
-
-
-
-  /**
-   * Permet de connaitre l'état "ouvert" de la base de données.
-   *
-   * @return true si la base de données est ouverte
-   */
-  boolean bdOuverte();
-
-  /**
-   * Fermeture de la base de données.<br>
-   * Utile pour un contrôleur avant de quitter l'application.
-   *
-   * @return true si la base de données est fermée
-   */
-  boolean fermerBd();
 
 }

@@ -9,12 +9,11 @@ import com.google.inject.AbstractModule;
  */
 public class AppModule extends AbstractModule {
 
+  
   @Override
   protected void configure() {
-
     bind(AppStart.class).asEagerSingleton();
     bind(AppStop.class).asEagerSingleton();
-
   }
-
+  
 }

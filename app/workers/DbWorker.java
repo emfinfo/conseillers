@@ -1,9 +1,10 @@
 package workers;
 
-import ch.emf.dao.JpaDao;
 import ch.emf.dao.JpaDaoAPI;
 import ch.emf.dao.filtering.Search;
 import ch.emf.dao.filtering.Search2;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
 import models.Canton;
@@ -13,28 +14,26 @@ import models.EtatCivil;
 import models.Groupe;
 import models.Login;
 import models.Parti;
+import dao.DaoRepositoryItf;
 
 /**
  * Couche "métier" pour gérer les demandes vers la base de données.<br>
  * Utilise daolayer avec JPA comme sous-couche d'accès aux données.<br>
- * Pour la Javadoc, veuillez consulter "DbWorkerAPI".
+ * Pour la Javadoc, veuillez consulter "DbWorkerItf".
  *
  * @author Jean-Claude Stritt
  */
-public class DbWorker implements DbWorkerAPI {
+@Singleton
+public class DbWorker implements DbWorkerItf {
   private final JpaDaoAPI dao;
 
-  public DbWorker(JpaDaoAPI dao) {
-    this.dao = dao;
+  @Inject
+  public DbWorker(DaoRepositoryItf rep) {
+    this.dao = rep.getDao();
   }
-
-  public DbWorker(String pu) {
-    dao = new JpaDao();
-    dao.open(pu);
-  }
-
+  
   @Override
-  public Login rechercherLogin(String nom, String domaine) {
+  public  Login rechercherLogin(String nom, String domaine) {
     Search s = new Search(Login.class);
     s.addFilterEqual("nom", nom);
     s.addFilterAnd();
@@ -47,7 +46,7 @@ public class DbWorker implements DbWorkerAPI {
   }
 
   @Override
-  public Login ajouterLogin(Login login) {
+  public  Login ajouterLogin(Login login) {
     if (dao.create(login) == 1) {
       dao.detach(login);
     }
@@ -115,11 +114,13 @@ public class DbWorker implements DbWorkerAPI {
       search.addFilterIsNull("a.dateSortie");
     }
     search.addSortFields("c.nom", "c.prenom");
-    List<Conseiller> conseillers = dao.getList(search);
-//    try {
-//      Thread.sleep(3000);
-//    } catch (InterruptedException ex) {
-//    }
+    
+    // pour simuler une requête longue
+    try {
+      Thread.sleep(2000);
+    } catch (InterruptedException ex) {
+    }
+//    System.out.println("chargerConseillers jpql: "+search.getJpql());
     return dao.getList(search);
   }
 
@@ -138,17 +139,6 @@ public class DbWorker implements DbWorkerAPI {
       conseillers = dao.getList(search);
     }
     return conseillers;
-  }
-
-  @Override
-  public boolean bdOuverte() {
-    return dao.isOpen();
-  }
-
-  @Override
-  public boolean fermerBd() {
-    dao.close();
-    return !dao.isOpen();
   }
 
 }

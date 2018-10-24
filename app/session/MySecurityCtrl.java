@@ -22,15 +22,32 @@ public class MySecurityCtrl extends Security.Authenticator {
 
   @Override
   public String getUsername(Context ctx) {
+    String username = ctx.session().get(SessionManager.SESSION_USER_ID);
 //    System.out.println("MySecurityCtrl session: "+ ctx.session());
-    return ctx.session().get(SessionManager.SESSION_USER_ID);
+//    if (username == null || username.isEmpty()) {
+//      RequestHeader header = ctx._requestHeader();
+//      System.out.println("no session, header: " + header.domain());
+//      Map<String, String> headers = ctx.response().getHeaders();
+//      for (Entry<String, String> e : headers.entrySet()) {
+//        String key = e.getKey();
+//        String value = e.getValue();
+//        System.out.println("key: " + key + ", value: " + value);
+//      }
+//
+//      Headers headers2 = ctx.request().getHeaders();
+//      List<String> hds = headers2.getAll("");
+//      for (String h : hds) {
+//        System.out.println("header: " + h);
+//      }
+//      String userAgent = ctx.request().getQueryString("q");
+//
+//    }
+
+    return username;
   }
 
   @Override
   public Result onUnauthorized(Context ctx) {
-//    return redirect(controllers.LoginCtrl.unauthorizedAccess());
-//    Result r = configuration.
-//    return redirect(controllers.LoginCtrl.unauthorizedAccess());
     return ok("You must be logged for this route !");
   }
 

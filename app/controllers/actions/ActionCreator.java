@@ -10,7 +10,7 @@ import play.mvc.Result;
 public class ActionCreator implements play.http.ActionCreator {
 
   @Override
-  public Action createAction(Http.Request request, Method actionMethod) {
+  public Action<?> createAction(Http.Request request, Method actionMethod) {
     return new Action.Simple() {
 
       private void before(Http.Context ctx) {

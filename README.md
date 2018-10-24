@@ -1,8 +1,10 @@
-# conseillers 1.3.3 - august 2018
+# conseillers 1.3.4 - october 2018
 A small Play application with a MySQL DB (Swiss parliament).
 This release is now full adapted to last Play 2.6.x framework.
-DbWorkerFactory inject JPA entity manager into the dao layer.
-DbWorker and dao are only loaded one time (singleton).
+
+* New in release 1.3.4 (october 2018) :
+  * adapted to Play Framework 2.6.20
+  * adapted to library DaoLayer 6.0.0 (Guice use)
 
 * New in release 1.3.3 (august 2018) :
   * adapted to Play Framework 2.6.16
@@ -28,7 +30,7 @@ library and the method AesUtil.encrypt(data)
   * new Data in DB
 
 * Prerequisites to use and test :
-  * Netbeans 8.2 and the « Pleasure Play Framework Plugin » installed
+  * Netbeans (8.2 or 9.x) and the « Pleasure Play Framework Plugin » installed
   * Java 8 JRE or SDK
   * A running MySQL server (min 5.5) for local database operations
   * MySQL Workbench application (or other) to mount a local DB

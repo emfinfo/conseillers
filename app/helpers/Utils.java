@@ -65,7 +65,6 @@ public class Utils {
    * @param ctx le contexte HTTP
    */
   public static void logInfo(Context ctx) {
-    //String msg = DateTimeLib.dateToString(DateTimeLib.getDate(), "dd.MM.yy HH:mm:ss");
 
     // route
     String route = ctx.toString();
@@ -78,33 +77,13 @@ public class Utils {
       route = route.substring(0, p);
     }
     if (!route.endsWith("/")) {
-//      System.out.println("route: " + route);
-
-//    msg += ", " + route;
       String msg = route;
-
-      // user
-//      Map<String, String> map = ctx.response().getHeaders();
-//      for (Map.Entry<String, String> entry : map.entrySet()) {
-//        System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
-//      }
-
-//      if (SessionManager.isOpen()) {
-////      msg += " (USER: " + SessionManager.getUserId() + ")";
-//        msg += " (" + SessionManager.getUserName() + ")";
-//      }
       String name = SessionManager.getUserName();
       if (!name.equalsIgnoreCase("?name?")) {
         msg += " (" + name + ")";
       }
 
-
       // elapsed time
-//    Map<String, String> headers = ctx.response().getHeaders();
-//    for (Entry<String, String> e : headers.entrySet()) {
-//      String key = e.getKey();
-//      String value = e.getValue();
-//    }
       String ts = ctx.response().getHeaders().get("logtimestamp");
       long startTime = (ts == null) ? System.currentTimeMillis() : Long.parseLong(ts);
       if (startTime >= 0) {
@@ -235,7 +214,7 @@ public class Utils {
       || origin.get().contains("192.168")
       || origin.get().contains("emf-informatique.ch")
       || origin.get().contains("homepage.hispeed.ch"));
-//    System.out.println("  validCrossDomainContext origin: " + origin + ", ok:" + ok);
+//    System.out.println("  >>> validCrossDomainContext origin: " + origin + ", ok:" + ok);
     if (ok) {
       response.setHeader("Access-Control-Allow-Origin", origin.get());
       response.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT,OPTIONS");

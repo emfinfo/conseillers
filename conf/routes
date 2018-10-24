@@ -60,7 +60,7 @@ GET      /session/status                                     controllers.LoginCt
 
 GET      /createLogin                                        controllers.Assets.at(path="/public", file="/info.html")
 POST     /createLogin                                        controllers.LoginCtrl.createLogin
-GET      /unauthorizedAccess                                 controllers.LoginCtrl.unauthorizedAccess()
+#GET      /unauthorizedAccess                                 controllers.LoginCtrl.unauthorizedAccess()
 
 # requêtes pour module 307
 POST     /convertTemp                                        controllers.ApplicationCtrl.convertirTemperature

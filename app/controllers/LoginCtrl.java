@@ -1,22 +1,21 @@
 package controllers;
 
 import ch.emf.cypher.AesUtil;
+import ch.emf.dao.helpers.Logger;
 import ch.emf.helpers.Convert;
 import ch.emf.helpers.Generate;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.inject.Inject;
 import helpers.BooleanResult;
 import helpers.Utils;
 import java.util.Date;
-import javax.inject.Inject;
 import models.Login;
 import play.db.jpa.Transactional;
 import play.mvc.*;
 import static play.mvc.Controller.request;
 import session.SessionManager;
-import views.html.index;
-import workers.DbWorkerAPI;
-import workers.DbWorkerFactory;
+import workers.DbWorkerItf;
 
 /**
  * Contrôleur pour gérer les logins.
@@ -24,21 +23,24 @@ import workers.DbWorkerFactory;
  * @author jcstritt
  */
 public class LoginCtrl extends Controller {
-  private DbWorkerAPI dbWrk;
+  private DbWorkerItf dbWrk;
 
   @Inject
-  public LoginCtrl(DbWorkerFactory factory) {
-    this.dbWrk = factory.getDbWorker();
+  public LoginCtrl(DbWorkerItf dbWrk) {
+    this.dbWrk = dbWrk;
   }
-
-  public Result index() {
-    return ok(index.render("Vous devez vous loguer !"));
-  }
-
-  public Result unauthorizedAccess() {
-    return ok(index.render("Accès non autorisé !"));
-  }
-
+  
+//  public Result index() {
+//    return ok(index.render("Vous devez vous loguer !"));
+//  }
+//
+//  public Result unauthorizedAccess() {
+//    return ok(index.render("Accès non autorisé !"));
+//  }
+//  private DbWorkerItf getDbWorker() {
+//    Injector inj = Guice.createInjector();
+//    return inj.getInstance(DbWorkerItf.class);
+//  }
 
   // méthode pour créer un objet de login pour les données reçus
   private Login extractHttpLogin(String data) {
@@ -87,20 +89,23 @@ public class LoginCtrl extends Controller {
   }
 
 
-//  @With(BeforeAfterAction.class)
   @Transactional
   public Result login(String data) {
+//    Map<String, String> headers = response().getHeaders();
+//    for (Map.Entry<String, String> entry : headers.entrySet()) {
+//      System.out.println("  - " + entry.getKey() + ": " + entry.getValue());
+//    }
 
     // extraction des données
     Login httpLogin = extractHttpLogin(data);
-//    System.out.println("http: " + httpLogin.toString2());
+    Logger.debug(this.getClass(), "http: " + httpLogin.toString2());
 
     // on recherche l'utilisateur+domaine spécifiés
     Login dbLogin = dbWrk.rechercherLogin(httpLogin.getNom(), httpLogin.getDomaine());
-//    System.out.println("db:   " + ((dbLogin != null) ? dbLogin.toString2() : "?"));
+    Logger.debug(this.getClass(), "db: " + ((dbLogin != null) ? dbLogin.toString2() : "?"));
 
     // on supprime la session en cours
-//    SessionManager.clear();
+    SessionManager.clear();
 
     // si le login est correct on modifie le login pour le timestamp
     if (SessionManager.create(httpLogin, dbLogin)) {
@@ -115,20 +120,17 @@ public class LoginCtrl extends Controller {
   }
 
 
-//  @With(BeforeAfterAction.class)
   public Result logout() {
     SessionManager.clear();
     return Utils.toJson("open", SessionManager.isOpen());
   }
 
 
-//  @With(BeforeAfterAction.class)
   public Result status() {
     return Utils.toJson("open", SessionManager.isOpen());
   }
 
 
-//  @With(BeforeAfterAction.class)
   @Transactional
   public Result createLogin() {
     boolean ok = false;
