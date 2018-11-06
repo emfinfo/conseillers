@@ -30,6 +30,9 @@ libraryDependencies ++= Seq(
   "ch.emf.info" % "daolayer" % "6.0.0",
   "ch.emf.info" % "daolayer" % "6.0.0" classifier "sources",
   "ch.emf.info" % "daolayer" % "6.0.0" classifier "javadoc",
+  "ch.emf.info" % "playdao" % "1.0.1",
+  "ch.emf.info" % "playdao" % "1.0.1" classifier "sources",
+  "ch.emf.info" % "playdao" % "1.0.1" classifier "javadoc",
   "commons-codec" % "commons-codec" % "1.7",
   "mysql" % "mysql-connector-java" % "5.1.38").map(_.force()
 )

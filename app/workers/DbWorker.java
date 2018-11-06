@@ -3,6 +3,7 @@ package workers;
 import ch.emf.dao.JpaDaoAPI;
 import ch.emf.dao.filtering.Search;
 import ch.emf.dao.filtering.Search2;
+import ch.emf.info.playdao.DaoRepositoryItf;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ import models.EtatCivil;
 import models.Groupe;
 import models.Login;
 import models.Parti;
-import dao.DaoRepositoryItf;
 
 /**
  * Couche "métier" pour gérer les demandes vers la base de données.<br>
@@ -31,7 +31,7 @@ public class DbWorker implements DbWorkerItf {
   public DbWorker(DaoRepositoryItf rep) {
     this.dao = rep.getDao();
   }
-  
+
   @Override
   public  Login rechercherLogin(String nom, String domaine) {
     Search s = new Search(Login.class);
@@ -114,7 +114,7 @@ public class DbWorker implements DbWorkerItf {
       search.addFilterIsNull("a.dateSortie");
     }
     search.addSortFields("c.nom", "c.prenom");
-    
+
     // pour simuler une requête longue
 //    try {
 //      Thread.sleep(2000);
