@@ -2,7 +2,7 @@
 @(conseillers: List[models.Conseiller])
 <conseillers>@for(conseiller <- conseillers) {
   <conseiller>
-    <id>@conseiller.getPkConseiller()</id>
+    <id>@conseiller.getPk()</id>
     <nom>@conseiller.getNom()</nom>
     <prenom>@conseiller.getPrenom()</prenom>
     <sexe>@conseiller.getSexe()</sexe>
@@ -12,27 +12,27 @@
     @if(conseiller.getDateNaissance==null) {<dateNaissance>null</dateNaissance>} else {<dateNaissance>@conseiller.getDateNaissance.format("yyyy-MM-dd")</dateNaissance>}
     @if(conseiller.getDateDeces==null) {<dateDeces>null</dateDeces>} else {<dateDeces>@conseiller.getDateDeces().format("yyyy-MM-dd")</dateDeces>}
     <canton>
-      <id>@conseiller.getCanton().getPkCanton()</id>
+      <id>@conseiller.getCanton().getPk()</id>
       <abrev>@conseiller.getCanton().getAbrev()</abrev>
       <nom>@conseiller.getCanton().getNom()</nom>
     </canton>
     <parti>
-      <id>@conseiller.getParti().getPkParti()</id>
+      <id>@conseiller.getParti().getPk()</id>
       <abrev>@conseiller.getParti().getAbrev()</abrev>
       <nom>@conseiller.getParti().getAbrev()</nom>
     </parti>
     <activites>@for(activite <- conseiller.getActivites()) {
       <activite>
-        <id>@activite.getPkActivite()</id>
+        <id>@activite.getPk()</id>
         <conseil>
-          <id>@activite.getConseil().getPkConseil()</id>
+          <id>@activite.getConseil().getPk()</id>
           <abrev>@activite.getConseil().getAbrev()</abrev>
           <nom>@activite.getConseil().getAbrev()</nom>
         </conseil>
         @if(activite.getDateEntree==null) {<dateEntree>null</dateEntree>} else {<dateEntree>@activite.getDateEntree.format("yyyy-MM-dd")</dateEntree>}
         @if(activite.getDateSortie==null) {<dateSortie>null</dateSortie>} else {<dateSortie>@activite.getDateSortie().format("yyyy-MM-dd")</dateSortie>}
         @if(activite.getGroupe()!=null) {<groupe>
-          <id>@activite.getGroupe().getPkGroupe()</id>
+          <id>@activite.getGroupe().getPk()</id>
           <abrev>@activite.getGroupe().getAbrev()</abrev>
           <nom>@activite.getGroupe().getNom()</nom>
         </groupe>}

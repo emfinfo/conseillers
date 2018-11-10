@@ -2,7 +2,7 @@
 <partis>
   @for(parti <- partis) {
   <parti>
-    <id>@parti.getPkParti()</id>
+    <id>@parti.getPk()</id>
     <abrev>@parti.getAbrev()</abrev>
     <nom>@parti.getNom()</nom>
   </parti>

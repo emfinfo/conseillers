@@ -3,8 +3,10 @@ A small Play application with a MySQL DB (Swiss parliament).
 This release is now full adapted to last Play 2.6.x framework.
 
 * New in release 1.3.5 (november 2018) :
-  * remove dao package
-  * use of library playdao 1.0.1
+  * use of DaoLaywr 6.0.1 and PlayDao 1.0.1
+  * use of multiple dedicated workers
+  * use of conseillers-models 1.0.9
+  * better tests
 
 * New in release 1.3.4 (october 2018) :
   * adapted to Play Framework 2.6.20

@@ -3,7 +3,7 @@
 <cantons>
   @for(canton <- cantons) {
   <canton>
-    <id>@canton.getPkCanton()</id>
+    <id>@canton.getPk()</id>
     <abrev>@canton.getAbrev()</abrev>
     <nom>@canton.getNom()</nom>
   </canton>

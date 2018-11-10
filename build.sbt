@@ -18,21 +18,21 @@ resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/release
 // dépendances (voir dernières versions sur http://mvnrepository.com )
 libraryDependencies ++= Seq(
   javaJpa,
-  "ch.emf.info" % "conseillers-models" % "1.0.7",
-  "ch.emf.info" % "conseillers-models" % "1.0.7" classifier "sources",
-  "ch.emf.info" % "conseillers-models" % "1.0.7" classifier "javadoc",
-  "ch.emf.info" % "basiclib" % "1.3.2",
-  "ch.emf.info" % "basiclib" % "1.3.2" classifier "sources",
-  "ch.emf.info" % "basiclib" % "1.3.2" classifier "javadoc",
+  "ch.emf.info" % "conseillers-models" % "1.0.9",
+  "ch.emf.info" % "conseillers-models" % "1.0.9" classifier "sources",
+  "ch.emf.info" % "conseillers-models" % "1.0.9" classifier "javadoc",
+  "ch.emf.info" % "basiclib" % "1.3.3",
+  "ch.emf.info" % "basiclib" % "1.3.3" classifier "sources",
+  "ch.emf.info" % "basiclib" % "1.3.3" classifier "javadoc",
   "ch.emf.info" % "cypherlib" % "1.0.2",
   "ch.emf.info" % "cypherlib" % "1.0.2" classifier "sources",
   "ch.emf.info" % "cypherlib" % "1.0.2" classifier "javadoc",
-  "ch.emf.info" % "daolayer" % "6.0.0",
-  "ch.emf.info" % "daolayer" % "6.0.0" classifier "sources",
-  "ch.emf.info" % "daolayer" % "6.0.0" classifier "javadoc",
-  "ch.emf.info" % "playdao" % "1.0.0",
-  "ch.emf.info" % "playdao" % "1.0.0" classifier "sources",
-  "ch.emf.info" % "playdao" % "1.0.0" classifier "javadoc",
+  "ch.emf.info" % "daolayer" % "6.0.1",
+  "ch.emf.info" % "daolayer" % "6.0.1" classifier "sources",
+  "ch.emf.info" % "daolayer" % "6.0.1" classifier "javadoc",
+  "ch.emf.info" % "playdao" % "1.0.1",
+  "ch.emf.info" % "playdao" % "1.0.1" classifier "sources",
+  "ch.emf.info" % "playdao" % "1.0.1" classifier "javadoc",
   "commons-codec" % "commons-codec" % "1.7",
   "mysql" % "mysql-connector-java" % "5.1.38").map(_.force()
 )
@@ -48,7 +48,7 @@ lazy val commonSettings = Seq(
   name := conf.getString("application.name"),
   version := conf.getString("application.version"),
   scalaVersion := "2.12.4",
-  scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation"),
+  scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation", "-J-Xss16M"),
   javacOptions += "-Xlint:unchecked"
 )
 

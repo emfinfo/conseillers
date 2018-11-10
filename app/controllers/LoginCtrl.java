@@ -15,7 +15,7 @@ import play.db.jpa.Transactional;
 import play.mvc.*;
 import static play.mvc.Controller.request;
 import session.SessionManager;
-import workers.DbWorkerItf;
+import workers.LoginWrk;
 
 /**
  * Contrôleur pour gérer les logins.
@@ -23,23 +23,19 @@ import workers.DbWorkerItf;
  * @author jcstritt
  */
 public class LoginCtrl extends Controller {
-  private DbWorkerItf dbWrk;
+  private final LoginWrk loginWrk;
 
   @Inject
-  public LoginCtrl(DbWorkerItf dbWrk) {
-    this.dbWrk = dbWrk;
+  public LoginCtrl(LoginWrk loginWrk) {
+    this.loginWrk = loginWrk;
   }
-  
+
 //  public Result index() {
 //    return ok(index.render("Vous devez vous loguer !"));
 //  }
 //
 //  public Result unauthorizedAccess() {
 //    return ok(index.render("Accès non autorisé !"));
-//  }
-//  private DbWorkerItf getDbWorker() {
-//    Injector inj = Guice.createInjector();
-//    return inj.getInstance(DbWorkerItf.class);
 //  }
 
   // méthode pour créer un objet de login pour les données reçus
@@ -101,7 +97,7 @@ public class LoginCtrl extends Controller {
     Logger.debug(this.getClass(), "http: " + httpLogin.toString2());
 
     // on recherche l'utilisateur+domaine spécifiés
-    Login dbLogin = dbWrk.rechercherLogin(httpLogin.getNom(), httpLogin.getDomaine());
+    Login dbLogin = loginWrk.rechercher(httpLogin.getNom(), httpLogin.getDomaine());
     Logger.debug(this.getClass(), "db: " + ((dbLogin != null) ? dbLogin.toString2() : "?"));
 
     // on supprime la session en cours
@@ -109,7 +105,7 @@ public class LoginCtrl extends Controller {
 
     // si le login est correct on modifie le login pour le timestamp
     if (SessionManager.create(httpLogin, dbLogin)) {
-      int nb = dbWrk.modifierLogin(dbLogin);
+      int nb = loginWrk.modifier(dbLogin);
 //      login.setMotDePasse("");
     } else {
       dbLogin = new Login();
@@ -149,13 +145,13 @@ public class LoginCtrl extends Controller {
 
     // on stocke dans un objet Login
     Login login = Utils.toObject(request(), new TypeReference<Login>() {});
-    login.setPkLogin(1);
+    login.setPk(1);
 
     // si le compte n'existe pas, on le sauve dans la BD
-    Login dbLogin = dbWrk.rechercherLogin(httpLogin.getNom(), httpLogin.getDomaine());
+    Login dbLogin = loginWrk.rechercher(httpLogin.getNom(), httpLogin.getDomaine());
     if (dbLogin == null) {
-      dbLogin = dbWrk.ajouterLogin(httpLogin);
-      ok = dbLogin != null && dbLogin.getPkLogin() > 0;
+      dbLogin = loginWrk.ajouter(httpLogin);
+      ok = dbLogin != null && dbLogin.getPk() > 0;
     }
 
     // on retourne le résultat de la création du compte

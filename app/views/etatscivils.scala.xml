@@ -2,7 +2,7 @@
 <etatscivils>
   @for(ec <- etatscivils) {
   <etatcivil>
-    <id>@ec.getPkEtatCivil()</id>
+    <id>@ec.getPk()</id>
     <abrev>@ec.getAbrev()</abrev>
     <nom>@ec.getNom()</nom>
   </etatcivil>

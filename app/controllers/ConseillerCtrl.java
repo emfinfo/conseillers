@@ -15,7 +15,7 @@ import play.mvc.*;
 import static play.mvc.Results.badRequest;
 import static play.mvc.Results.ok;
 import session.MySecurityCtrl;
-import workers.DbWorkerItf;
+import workers.ConseillerWrk;
 
 /**
  * Contrôleur pour gérer les appels REST sur les conseillers nationaux.
@@ -24,13 +24,13 @@ import workers.DbWorkerItf;
  */
 @Security.Authenticated(MySecurityCtrl.class)
 public class ConseillerCtrl extends Controller {
-  private DbWorkerItf dbWrk;
+  private final ConseillerWrk consWrk;
 
   @Inject
-  public ConseillerCtrl(DbWorkerItf dbWrk) {
-    this.dbWrk = dbWrk;
+  public ConseillerCtrl(ConseillerWrk consWrk) {
+    this.consWrk = consWrk;
   }
-  
+
   /**
    * Affiche une exception dams le fichier de log et retourne un objet HTTP
    * de type "bad request".
@@ -44,16 +44,16 @@ public class ConseillerCtrl extends Controller {
     Result httpResult = badRequest(msg);
     return httpResult;
   }
-  
+
   /**
    * Renvoyer une liste des états civils.
    */
   @Transactional(readOnly=true)
   public Result chargerEtatsCivils(String fmt) {
     Result httpResult;
-    
+
     // on récupère la liste des cantons
-    List<EtatCivil> ec = dbWrk.chargerEtatsCivils();
+    List<EtatCivil> ec = consWrk.chargerEtatsCivils();
 
     // on fait le rendu en xml, json ou html
     try {
@@ -68,8 +68,8 @@ public class ConseillerCtrl extends Controller {
           httpResult = ok(views.html.etatscivils.render(ec));
           break;
       }
-    } catch (Exception e) {
-      httpResult = logError(e);
+    } catch (Exception ex) {
+      httpResult = logError(ex);
     }
     return httpResult;
   }
@@ -82,7 +82,7 @@ public class ConseillerCtrl extends Controller {
     Result httpResult;
 
     // on récupère la liste des cantons
-    List<Canton> cantons = dbWrk.chargerCantons();
+    List<Canton> cantons = consWrk.chargerCantons();
 
     // on fait le rendu en xml, json ou html
     try {
@@ -111,7 +111,7 @@ public class ConseillerCtrl extends Controller {
     Result httpResult;
 
     // on récupère la liste des partis
-    List<Parti> partis = dbWrk.chargerPartis();
+    List<Parti> partis = consWrk.chargerPartis();
 
     // on fait le rendu en xml, json ou html
     try {
@@ -140,7 +140,7 @@ public class ConseillerCtrl extends Controller {
     Result httpResult;
 
     // on récupère la liste des conseils
-    List<Conseil> conseils = dbWrk.chargerConseils();
+    List<Conseil> conseils = consWrk.chargerConseils();
 
     // on fait le rendu en xml, json ou html
     try {
@@ -169,7 +169,7 @@ public class ConseillerCtrl extends Controller {
     Result httpResult;
 
     // on récupère la liste des conseils
-    List<Groupe> groupes = dbWrk.chargerGroupes();
+    List<Groupe> groupes = consWrk.chargerGroupes();
 
     // on fait le rendu en xml, json ou html
     try {
@@ -219,7 +219,7 @@ public class ConseillerCtrl extends Controller {
     boolean filtreActif = Boolean.parseBoolean(actif);
 
     // on récupère la liste des conseillers (filtrée ou non)
-    List<Conseiller> conseillers = dbWrk.chargerConseillers(filtreCanton, filtreConseil, filtreParti, filtreActif);
+    List<Conseiller> conseillers = consWrk.chargerConseillers(filtreCanton, filtreConseil, filtreParti, filtreActif);
 
     // on fait le rendu en xml, json ou html)
     try {

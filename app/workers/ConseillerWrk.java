@@ -1,7 +1,6 @@
 package workers;
 
 import ch.emf.dao.JpaDaoAPI;
-import ch.emf.dao.filtering.Search;
 import ch.emf.dao.filtering.Search2;
 import ch.emf.info.playdao.DaoRepositoryItf;
 import com.google.inject.Inject;
@@ -13,87 +12,58 @@ import models.Conseil;
 import models.Conseiller;
 import models.EtatCivil;
 import models.Groupe;
-import models.Login;
 import models.Parti;
 
 /**
- * Couche "métier" pour gérer les demandes vers la base de données.<br>
- * Utilise daolayer avec JPA comme sous-couche d'accès aux données.<br>
- * Pour la Javadoc, veuillez consulter "DbWorkerItf".
+ * Couche "métier" pour gérer les opérations sur les conseillers
+ * et les objets annexes (de et vers la base de données).<br>
+ * Utilise daolayer avec JPA comme sous-couche d'accès aux données.
  *
  * @author Jean-Claude Stritt
  */
 @Singleton
-public class DbWorker implements DbWorkerItf {
+public class ConseillerWrk {
   private final JpaDaoAPI dao;
 
   @Inject
-  public DbWorker(DaoRepositoryItf rep) {
+  public ConseillerWrk(DaoRepositoryItf rep) {
     this.dao = rep.getDao();
   }
 
-  @Override
-  public  Login rechercherLogin(String nom, String domaine) {
-    Search s = new Search(Login.class);
-    s.addFilterEqual("nom", nom);
-    s.addFilterAnd();
-    s.addFilterEqual("domaine", domaine);
-    Login login = dao.getSingleResult(s);
-    if (login != null) {
-      dao.detach(login);
-    }
-    return login;
+  public ConseillerWrk(JpaDaoAPI dao) {
+    this.dao = dao;
   }
 
-  @Override
-  public  Login ajouterLogin(Login login) {
-    if (dao.create(login) == 1) {
-      dao.detach(login);
-    }
-    return login;
-  }
-
-  @Override
-  public int modifierLogin(Login login) {
-    return dao.update(login);
-  }
-
-  @Override
   public List<EtatCivil> chargerEtatsCivils() {
     List<EtatCivil> etatsCivils = dao.getList(EtatCivil.class, "abrev");
     etatsCivils.add(new EtatCivil("tous", "Tous les états civils"));
     return etatsCivils;
   }
 
-  @Override
   public List<Canton> chargerCantons() {
     List<Canton> cantons = dao.getList(Canton.class, "abrev");
     cantons.add(new Canton("CH", "Suisse"));
     return cantons;
   }
 
-  @Override
   public List<Parti> chargerPartis() {
     List<Parti> partis = dao.getList(Parti.class, "abrev");
     partis.add(new Parti("tous", "Tous les partis"));
     return partis;
   }
 
-  @Override
   public List<Conseil> chargerConseils() {
     List<Conseil> conseils = dao.getList(Conseil.class, "abrev");
     conseils.add(new Conseil("tous", "Tous les conseils"));
     return conseils;
   }
 
-  @Override
   public List<Groupe> chargerGroupes() {
     List<Groupe> groupes = dao.getList(Groupe.class, "abrev");
     groupes.add(new Groupe("tous", "Tous les groupes"));
     return groupes;
   }
 
-  @Override
   public List<Conseiller> chargerConseillers(String canton, String conseil, String parti, boolean actif) {
     String jpql = "SELECT distinct c FROM Conseiller c LEFT JOIN c.activites a WHERE a.conseiller=c";
     Search2 search = new Search2(jpql);
@@ -124,7 +94,6 @@ public class DbWorker implements DbWorkerItf {
     return dao.getList(search);
   }
 
-  @Override
   public List<Conseiller> chargerConseillers(String nom, boolean actif) {
     String jpql = "SELECT distinct c FROM Conseiller c JOIN c.activite a WHERE a.conseiller=c";
     Search2 search = new Search2(jpql);

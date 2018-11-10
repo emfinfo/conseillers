@@ -77,10 +77,10 @@ public class SessionManager {
       // enregistrement de la session si identification correcte
       if (ok) {
         long start = System.currentTimeMillis();
-        session(SESSION_USER_ID, "" + dbLogin.getPkLogin());
-        session(SESSION_USER_NAME, dbLogin.getNom());
-        session(SESSION_DB_ID, "1");
+        session(SESSION_USER_ID, "" + dbLogin.getPk());
+        session(SESSION_DB_ID, "0");
         session(SESSION_TIMESTAMP, "" + start);
+        session(SESSION_USER_NAME, dbLogin.getNom());
 //        String uuid = session().get("uuid");
 //        if (uuid == null) {
 //          uuid = java.util.UUID.randomUUID().toString();

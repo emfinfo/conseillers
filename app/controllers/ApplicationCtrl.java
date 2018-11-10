@@ -30,14 +30,10 @@ public class ApplicationCtrl extends Controller {
   }
 
   public Result index() {
-//    Result httpResult;
-//    httpResult = redirect("/assets/index.html");
-//    return httpResult;
     return redirect("/assets/index.html");
   }
 
   public Result checkPreFlight(String path) {
-//    System.out.println("checkPreFlight: "+path);
     Utils.validCrossDomainContext(request(), response());
     return ok();
   }

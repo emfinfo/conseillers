@@ -2,7 +2,7 @@
 <conseils>
   @for(conseil <- conseils) {
   <conseil>
-    <id>@conseil.getPkConseil()</id>
+    <id>@conseil.getPk()</id>
     <abrev>@conseil.getAbrev()</abrev>
     <nom>@conseil.getNom()</nom>
   </conseil>

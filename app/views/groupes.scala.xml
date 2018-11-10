@@ -2,7 +2,7 @@
 <groupes>
   @for(groupe <- groupes) {
   <groupe>
-    <id>@groupe.getPkGroupe()</id>
+    <id>@groupe.getPk()</id>
     <abrev>@groupe.getAbrev()</abrev>
     <nom>@groupe.getNom()</nom>
   </groupe>

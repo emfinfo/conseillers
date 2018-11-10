@@ -10,7 +10,7 @@
     </encoder>
   </appender>
 
-  <logger name="application" level="INFO"/>
+  <logger name="application" level="ERROR"/>
   <logger name="play" level="ERROR"/>
   <logger name="controllers" level="ERROR"/>
   <logger name="workers" level="INFO"/>
