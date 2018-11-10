@@ -2,7 +2,7 @@ package session;
 
 import ch.emf.helpers.Generate;
 import ch.jcsinfo.util.ConvertLib;
-import java.util.Date;
+import java.sql.Timestamp;
 import models.Login;
 import static play.mvc.Controller.session;
 
@@ -37,14 +37,18 @@ public class SessionManager {
     // on vérifie si les deux empreintes correspondent
     ok = newHash.equals(dbHash);
 
-    // on vérifie si le timestamp est plus haut (pour éviter qu'on réutilise les mêmes infos)
+    // si le timestamp est null dans la BD, on le corrige
+    if (dbLogin.getTimestamp() == null) {
+      dbLogin.setTimestamp(new Timestamp(clientLogin.getTimestamp().getTime() - 1));
+    }
+
+    // on vérifie si le timestamp dans la requête est récent (pour éviter qu'on réutilise les mêmes infos)
     long diff = clientLogin.getTimestamp().getTime() - dbLogin.getTimestamp().getTime();
-    ok = ok && (diff > 0 || Math.abs(diff) > 3600000);
+    ok = ok && (diff > 0);
 
     // on met à jour le timestamp
     if (ok) {
-//      dbLogin.setTimestamp(new Date(clientLogin.getTimestamp().getTime() + 5000));
-      dbLogin.setTimestamp(new Date(clientLogin.getTimestamp().getTime()));
+      dbLogin.setTimestamp(clientLogin.getTimestamp());
     }
     return ok;
   }
@@ -76,10 +80,9 @@ public class SessionManager {
 
       // enregistrement de la session si identification correcte
       if (ok) {
-        long start = System.currentTimeMillis();
         session(SESSION_USER_ID, "" + dbLogin.getPk());
         session(SESSION_DB_ID, "0");
-        session(SESSION_TIMESTAMP, "" + start);
+        session(SESSION_TIMESTAMP, "" + System.currentTimeMillis());
         session(SESSION_USER_NAME, dbLogin.getNom());
 //        String uuid = session().get("uuid");
 //        if (uuid == null) {
