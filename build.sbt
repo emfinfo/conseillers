@@ -47,7 +47,7 @@ evictionWarningOptions in update := EvictionWarningOptions.default.withWarnTrans
 lazy val commonSettings = Seq(
   name := conf.getString("application.name"),
   version := conf.getString("application.version"),
-  scalaVersion := "2.12.4",
+  scalaVersion := "2.12.6",
   scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation", "-J-Xss16M"),
   javacOptions += "-Xlint:unchecked"
 )
