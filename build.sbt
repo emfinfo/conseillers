@@ -37,7 +37,7 @@ libraryDependencies ++= Seq(
   "org.mariadb.jdbc" % "mariadb-java-client" % "2.3.0").map(_.force()
 )
 
-// à cause d'une "warning" : class path contains multiple SLF4J bindings
+// à cause d'une "warning" : class path contains multiple SLF4J bindings, on prend logback
 libraryDependencies ~= { _.map(_.exclude("org.slf4j", "slf4j-log4j12")) }
 
 // évite certaines warning
