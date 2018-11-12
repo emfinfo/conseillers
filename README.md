@@ -1,6 +1,11 @@
-# conseillers 1.3.5 - november 2018
+# conseillers 1.3.6 - november 2018
 A small Play application with a MySQL DB (Swiss parliament).
 This release is now full adapted to last Play 2.6.x framework.
+
+* New in release 1.3.6 (november 2018) :
+  * use of DaoPlay 1.0.1
+  * security by profile
+  * timeout support (10s for tests)
 
 * New in release 1.3.5 (november 2018) :
   * use of DaoLayer 6.0.1 and PlayDao 1.0.1
