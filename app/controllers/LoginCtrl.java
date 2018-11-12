@@ -7,6 +7,7 @@ import ch.emf.helpers.Generate;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.inject.Inject;
+import com.typesafe.config.Config;
 import helpers.BooleanResult;
 import helpers.Utils;
 import java.util.Date;
@@ -23,10 +24,12 @@ import workers.LoginWrk;
  * @author jcstritt
  */
 public class LoginCtrl extends Controller {
+  private final int msTimeout;
   private final LoginWrk loginWrk;
 
   @Inject
-  public LoginCtrl(LoginWrk loginWrk) {
+  public LoginCtrl(Config config, LoginWrk loginWrk) {
+    msTimeout = config.getInt("application.msTimeout");
     this.loginWrk = loginWrk;
   }
 
@@ -115,17 +118,14 @@ public class LoginCtrl extends Controller {
     return Utils.toJson(dbLogin);
   }
 
-
   public Result logout() {
     SessionManager.clear();
-    return Utils.toJson("open", SessionManager.isOpen());
+    return Utils.toJson("open", SessionManager.isOpen(msTimeout));
   }
-
 
   public Result status() {
-    return Utils.toJson("open", SessionManager.isOpen());
+    return Utils.toJson("open", SessionManager.isOpen(msTimeout));
   }
-
 
   @Transactional
   public Result createLogin() {

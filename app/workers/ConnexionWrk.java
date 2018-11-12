@@ -5,7 +5,7 @@ import ch.emf.dao.JpaDaoAPI;
 import ch.emf.dao.conn.impl.ConnectWithPU;
 import ch.emf.dao.exceptions.JpaException;
 import ch.emf.dao.helpers.Logger;
-import ch.emf.info.playdao.DaoRepositoryItf;
+import ch.emf.dao.play.DaoRepositoryItf;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 

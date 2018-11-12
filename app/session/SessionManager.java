@@ -4,21 +4,22 @@ import ch.emf.helpers.Generate;
 import ch.jcsinfo.util.ConvertLib;
 import java.sql.Timestamp;
 import models.Login;
+import play.Logger;
 import static play.mvc.Controller.session;
 
 /**
  * Permet de gérer une session utilisateur. On utilise principalement 2 informations de session
- * (user-id et db-id), ce qui permet une approche "multi-tenant" d'une base de données.
+ * (user-id et db-id), ce qui permet une approche "multi-tenantd" d'une base de données.
  *
  * @author jcstritt
  */
 public class SessionManager {
   public final static String SESSION_USER_ID = "user-id";
   public final static String SESSION_USER_NAME = "user-name";
-  public final static String SESSION_DB_ID = "db-id";
-  public final static String SESSION_LANG = "fr";
+  public final static String SESSION_USER_PROFILE = "user-profile";
   public final static String SESSION_TIMESTAMP = "timestamp";
-
+  public final static String SESSION_LANG = "fr";
+  public final static String SESSION_DB_ID = "db-id";
 
   /**
    * Méthode privée pour comparer les empreintes du mot de passe
@@ -81,14 +82,9 @@ public class SessionManager {
       // enregistrement de la session si identification correcte
       if (ok) {
         session(SESSION_USER_ID, "" + dbLogin.getPk());
-        session(SESSION_DB_ID, "0");
-        session(SESSION_TIMESTAMP, "" + System.currentTimeMillis());
         session(SESSION_USER_NAME, dbLogin.getNom());
-//        String uuid = session().get("uuid");
-//        if (uuid == null) {
-//          uuid = java.util.UUID.randomUUID().toString();
-//          session("uuid", uuid);
-//        }
+        session(SESSION_USER_PROFILE, dbLogin.getProfil());
+        session(SESSION_TIMESTAMP, "" + System.currentTimeMillis());
       } else {
         session().clear();
       }
@@ -100,13 +96,10 @@ public class SessionManager {
    * Efface le contenu de la session en cours.
    */
   public static void clear() {
-    boolean ok = session().get(SESSION_USER_ID) != null;
-    String name = session().get(SESSION_USER_NAME);
-    if (ok) {
-      session().clear();
-      if (name != null) {
-        session(SESSION_USER_NAME, name);
-      }
+    String name = getUserName();
+    session().clear();
+    if (!name.equals("?name?")) {
+      Logger.info("SESSION CLEAR (" + name + ")");
     }
   }
 
@@ -116,10 +109,20 @@ public class SessionManager {
    * @return true si une session est ouverte
    */
   public static boolean isOpen() {
-    String userId = session().get(SESSION_USER_ID);
-    boolean ok = userId != null;
-    if (ok) {
-      session(SESSION_TIMESTAMP, "" + System.currentTimeMillis());
+    return session().get(SESSION_USER_ID) != null;
+  }
+
+  /**
+   * Teste si la session est ouverte et en même temps l'efface
+   * si le timeout de session est dépassé.
+   *
+   * @return true si une session est ouverte
+   */
+  public static boolean isOpen(int msTimeout) {
+    boolean ok = isOpen();
+    if (ok && isTimeout(msTimeout)) {
+      clear();
+      ok = false;
     }
     return ok;
   }
@@ -138,7 +141,17 @@ public class SessionManager {
   }
 
   /**
-   * Récupérer le "user-id" de l'utilisateur logué.
+   * Reset la propriété "timestamp" dans le cookie avec le temps actuel.
+   */
+  public static void resetTimeout() {
+    boolean ok = session().get(SESSION_USER_ID) != null;
+    if (ok) {
+      session(SESSION_TIMESTAMP, "" + System.currentTimeMillis());
+    }
+  }
+
+  /**
+   * Récupérer l'indetifiant (pk) de l'utilisateur logué.
    *
    * @return l'identifiant de la personne loguée ou 0 si non trouvé
    */
@@ -148,9 +161,9 @@ public class SessionManager {
   }
 
   /**
-   * Récupérer le "user.name" de l'utilisateur logué.
+   * Récupérer le nom d'utilisateur de l'utilisateur logué.
    *
-   * @return le nom de l'utilisateur logué
+   * @return le nom en question
    */
   public static String getUserName() {
     String name = session().get(SESSION_USER_NAME);
@@ -158,6 +171,19 @@ public class SessionManager {
       name = "?name?";
     }
     return name;
+  }
+
+  /**
+   * Récupérer le profil de l'utilisateur logué.
+   *
+   * @return le profil en question
+   */
+  public static String getUserProfile() {
+    String profile = session().get(SESSION_USER_PROFILE);
+    if (profile == null || profile.isEmpty()) {
+      profile = "?profil?";
+    }
+    return profile;
   }
 
   /**
@@ -174,22 +200,22 @@ public class SessionManager {
   }
 
   /**
-   * Dans une approche "multi-tenants" de la BD, récupérer l'identifiant mémorisé de cette BD.
+   * Récupérer l'identifiant de la compta en cours.
    *
-   * @return un identifiant de BD
+   * @return l'identifiant de la compta en cours ou 0 si non trouvé
    */
   public static int getDbId() {
-    String dbId = session().get(SESSION_DB_ID);
-    return ConvertLib.stringToInt(dbId);
+    String tenantId = session().get(SESSION_DB_ID);
+    return ConvertLib.stringToInt(tenantId);
   }
 
   /**
-   * Dans une approche "multi-tenants" de la BD, mémoriser un identifiant de cette BD.
+   * Mémoriser l'identifiant de la compta en cours.
    *
-   * @param dbId un identifiant de BD
+   * @param comptaId un identifiant numérique
    */
-  public static void setDbId(int dbId) {
-    session(SESSION_DB_ID, "" + dbId);
+  public static void setDbId(int comptaId) {
+    session(SESSION_DB_ID, "" + comptaId);
   }
 
 }

@@ -30,11 +30,11 @@ libraryDependencies ++= Seq(
   "ch.emf.info" % "daolayer" % "6.0.1",
   "ch.emf.info" % "daolayer" % "6.0.1" classifier "sources",
   "ch.emf.info" % "daolayer" % "6.0.1" classifier "javadoc",
-  "ch.emf.info" % "playdao" % "1.0.1",
-  "ch.emf.info" % "playdao" % "1.0.1" classifier "sources",
-  "ch.emf.info" % "playdao" % "1.0.1" classifier "javadoc",
+  "ch.emf.info" % "daoplay" % "1.0.1",
+  "ch.emf.info" % "daoplay" % "1.0.1" classifier "sources",
+  "ch.emf.info" % "daoplay" % "1.0.1" classifier "javadoc",
   "commons-codec" % "commons-codec" % "1.7",
-  "mysql" % "mysql-connector-java" % "5.1.38").map(_.force()
+  "org.mariadb.jdbc" % "mariadb-java-client" % "2.3.0").map(_.force()
 )
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings

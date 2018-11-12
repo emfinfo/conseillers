@@ -1,20 +1,23 @@
 package helpers;
 
-import ch.jcsinfo.datetime.DateTimeLib;
-import ch.jcsinfo.system.StackTracer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import play.Logger;
+import play.i18n.Lang;
+import play.i18n.MessagesApi;
 import play.libs.Json;
 import play.mvc.Http.Context;
 import play.mvc.Http.Request;
 import play.mvc.Http.Response;
 import play.mvc.Result;
+import static play.mvc.Results.badRequest;
 import static play.mvc.Results.internalServerError;
 import static play.mvc.Results.ok;
 import session.SessionManager;
@@ -25,39 +28,6 @@ import session.SessionManager;
  * @author jcstritt
  */
 public class Utils {
-
-  /**
-   * Permet d'afficher des informations de log dans la console.
-   *
-   * @param startTime le temps du début de la requête
-   * @param params    différents paramètres facultatifs.
-   */
-  public static void logInfo(long startTime, Object... params) {
-    String threadId = String.valueOf(Thread.currentThread().getId());
-    String userId = (SessionManager.isOpen()) ? "" + SessionManager.getUserId() : "?";
-    String msg = DateTimeLib.dateToString(DateTimeLib.getNow(), "dd.MM.yy HH:mm:ss");
-    msg += " - USER: " + userId + ", THREAD: " + threadId;
-    msg += ", " + StackTracer.getParentMethod(-1);
-    if (params.length > 0) {
-      int i = 0;
-      for (Object param : params) {
-        if (i == 0) {
-          msg += "(";
-        } else {
-          msg += ", ";
-        }
-        msg += param;
-        i++;
-      }
-      if (i > 0) {
-        msg += ")";
-      }
-    }
-    if (startTime >= 0) {
-      msg += ", " + (System.currentTimeMillis() - startTime) + " ms";
-    }
-    Logger.info(msg);
-  }
 
   /**
    * Permet d'afficher des informations de log dans la console.
@@ -94,6 +64,24 @@ public class Utils {
   }
 
   /**
+   * Affiche un message d'erreur dans le fichier de log et renvoie
+   * une réponse htpp "bad request".
+   *
+   * @param ex une exception à gérer
+   * @return un résultat de type "bad request"
+   */
+  public static Result logError(Exception ex) {
+    Logger.error(ex.getLocalizedMessage());
+    return badRequest(ex.getLocalizedMessage());
+  }
+
+
+
+  /*
+   * JSON
+   */
+
+  /**
    * Transforme un objet quelconque en JSON.
    *
    * @param object l'objet à serialiser en JSON
@@ -101,10 +89,14 @@ public class Utils {
    */
   public static Result toJson(Object object) {
     Result result;
-    if (object != null) {
-      result = ok(Json.toJson(object)).as("application/json");
-    } else {
-      result = internalServerError("NULL_OBJECT_ERROR");
+    try {
+      if (object != null) {
+        result = ok(Json.toJson(object)).as("application/json");
+      } else {
+        result = internalServerError("NULL_OBJECT_ERROR");
+      }
+    } catch (Exception e) {
+      result = logError(e);
     }
     return result;
   }
@@ -154,6 +146,29 @@ public class Utils {
   }
 
   /**
+   * Convertit un objet JSON en String.
+   *
+   * @param node un noeud JSON
+   * @param prop le nom d'une propriété à extraire
+   *
+   * @return un string avec le contenu de la propriété
+   */
+  public static String toString(JsonNode node, String prop) {
+    String result = "";
+    JsonNode obj = node.get(prop);
+    if (obj != null) {
+      result = obj.textValue();
+    }
+    return result;
+  }
+
+
+
+  /*
+   * HTTP REQUEST RESULT OR JSON TO JAVA OBJECT
+   */
+
+  /**
    * Convertit un objet JSON contenu dans un corps de requête POST en objet.
    *
    * @param <T>  le type de l'objet
@@ -171,27 +186,36 @@ public class Utils {
 //      System.out.println("  >>>toObject json: " + json);
       result = om.<T>readValue(json, type);
     } catch (IOException ex) {
-      System.out.println(">>> toObject error: " + ex.getMessage());
+      logError(ex);
     }
     return result;
   }
 
   /**
-   * Convertit un objet JSON en String.
+   * Trnsforme un objet JSON stringifié en objet Java.
    *
-   * @param node un noeud JSON
-   * @param prop le nom d'une propriété à extraire
-   *
-   * @return un string avec le contenu de la propriété
+   * @param <T> le type de la réponse
+   * @param json on objet JSON stringifié à transformer en objet Java
+   * @param type le type de référence pour T
+   * @return un objet d'après la requête HTTP fournie
    */
-  public static String jsonToString(JsonNode node, String prop) {
-    String result = "";
-    JsonNode obj = node.get(prop);
-    if (obj != null) {
-      result = obj.textValue();
+  public static <T> T toObject(final String json, final TypeReference<T> type) {
+    T result = null;
+    ObjectMapper om = new ObjectMapper();
+    om.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+    try {
+      result = om.<T>readValue(json, type);
+    } catch (IOException ex) {
+      logError(ex);
     }
     return result;
   }
+
+
+
+  /*
+   * CROSS DOMAIN VALIDATION
+   */
 
   /**
    * Valide le contexte "cross-domain" d'une requête.
@@ -232,4 +256,37 @@ public class Utils {
     validCrossDomainContext(ctx.request(), ctx.response());
   }
 
+
+ /*
+   * MESSAGES
+   */
+  public static String getMessage(MessagesApi messagesApi, String key) {
+    String sessionLang = SessionManager.getLang();
+    Lang lang = new Lang(Lang.forCode(sessionLang));
+    return messagesApi.get(lang, key);
+  }
+
+  public static List<String> getMessagesList(MessagesApi messagesApi, String key) {
+    List<String> messages = new ArrayList<>();
+    String oneMsg;
+    int i = 0;
+    do {
+      oneMsg = getMessage(messagesApi, key + i);
+      if (!oneMsg.isEmpty()) {
+        messages.add(oneMsg);
+      }
+      i++;
+    } while (!oneMsg.isEmpty());
+    return messages;
+  }
+
+  public static String[] getMessagesArray(MessagesApi messagesApi, String key) {
+    List<String> messages = getMessagesList(messagesApi, key);
+    return (String[]) messages.toArray();
+  }
+
+  public static String[] getMessagesArray(MessagesApi messagesApi, String key, String regex) {
+    String messages[] = getMessage(messagesApi, key).split(regex);
+    return messages;
+  }
 }

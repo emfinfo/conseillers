@@ -2,7 +2,7 @@ package workers;
 
 import ch.emf.dao.JpaDaoAPI;
 import ch.emf.dao.filtering.Search;
-import ch.emf.info.playdao.DaoRepositoryItf;
+import ch.emf.dao.play.DaoRepositoryItf;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import models.Login;

@@ -9,29 +9,29 @@ OPTIONS  /*path                                              controllers.Applica
 GET      /version                                            controllers.ApplicationCtrl.lireVersion()
 
 # requêtes sur les "etats civils"
-GET      /etats-civils                                       controllers.ConseillerCtrl.chargerEtatsCivils(fmt = "html")
-GET      /etats-civils.xml                                   controllers.ConseillerCtrl.chargerEtatsCivils(fmt = "xml")
-GET      /etats-civils.json                                  controllers.ConseillerCtrl.chargerEtatsCivils(fmt = "json")
+GET      /etats-civils                                       controllers.AnnexeCtrl.chargerEtatsCivils(fmt = "html")
+GET      /etats-civils.xml                                   controllers.AnnexeCtrl.chargerEtatsCivils(fmt = "xml")
+GET      /etats-civils.json                                  controllers.AnnexeCtrl.chargerEtatsCivils(fmt = "json")
 
 # requêtes sur les "cantons"
-GET      /cantons                                            controllers.ConseillerCtrl.chargerCantons(fmt = "html")
-GET      /cantons.xml                                        controllers.ConseillerCtrl.chargerCantons(fmt = "xml")
-GET      /cantons.json                                       controllers.ConseillerCtrl.chargerCantons(fmt = "json")
+GET      /cantons                                            controllers.AnnexeCtrl.chargerCantons(fmt = "html")
+GET      /cantons.xml                                        controllers.AnnexeCtrl.chargerCantons(fmt = "xml")
+GET      /cantons.json                                       controllers.AnnexeCtrl.chargerCantons(fmt = "json")
 
 # requêtes sur les "partis"
-GET      /partis                                             controllers.ConseillerCtrl.chargerPartis(fmt = "html")
-GET      /partis.xml                                         controllers.ConseillerCtrl.chargerPartis(fmt = "xml")
-GET      /partis.json                                        controllers.ConseillerCtrl.chargerPartis(fmt = "json")
+GET      /partis                                             controllers.AnnexeCtrl.chargerPartis(fmt = "html")
+GET      /partis.xml                                         controllers.AnnexeCtrl.chargerPartis(fmt = "xml")
+GET      /partis.json                                        controllers.AnnexeCtrl.chargerPartis(fmt = "json")
 
 # requêtes sur les "conseils"
-GET      /conseils                                           controllers.ConseillerCtrl.chargerConseils(fmt = "html")
-GET      /conseils.xml                                       controllers.ConseillerCtrl.chargerConseils(fmt = "xml")
-GET      /conseils.json                                      controllers.ConseillerCtrl.chargerConseils(fmt = "json")
+GET      /conseils                                           controllers.AnnexeCtrl.chargerConseils(fmt = "html")
+GET      /conseils.xml                                       controllers.AnnexeCtrl.chargerConseils(fmt = "xml")
+GET      /conseils.json                                      controllers.AnnexeCtrl.chargerConseils(fmt = "json")
 
 # requêtes sur les "groupes parlementaires"
-GET      /groupes                                            controllers.ConseillerCtrl.chargerGroupes(fmt = "html")
-GET      /groupes.xml                                        controllers.ConseillerCtrl.chargerGroupes(fmt = "xml")
-GET      /groupes.json                                       controllers.ConseillerCtrl.chargerGroupes(fmt = "json")
+GET      /groupes                                            controllers.AnnexeCtrl.chargerGroupes(fmt = "html")
+GET      /groupes.xml                                        controllers.AnnexeCtrl.chargerGroupes(fmt = "xml")
+GET      /groupes.json                                       controllers.AnnexeCtrl.chargerGroupes(fmt = "json")
 
 # requêtes sur les "conseillers"
 GET      /conseillers                                        controllers.ConseillerCtrl.chargerConseillers(fmt="html", canton="Suisse", conseil="", parti="", actuels="false")
@@ -67,5 +67,3 @@ POST     /convertTemp                                        controllers.Applica
 
 # Map static resources from the /public folder to the /assets URL path
 GET      /assets/*file                                       controllers.Assets.versioned(path="/public", file: Asset)
-
-

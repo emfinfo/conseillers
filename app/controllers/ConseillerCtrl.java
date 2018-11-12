@@ -3,18 +3,13 @@ package controllers;
 import com.google.inject.Inject;
 import helpers.Utils;
 import java.util.List;
-import models.Canton;
-import models.Conseil;
 import models.Conseiller;
-import models.EtatCivil;
-import models.Groupe;
-import models.Parti;
 import play.Logger;
 import play.db.jpa.Transactional;
 import play.mvc.*;
 import static play.mvc.Results.badRequest;
 import static play.mvc.Results.ok;
-import session.MySecurityCtrl;
+import session.ForTeacherSecurityCtrl;
 import workers.ConseillerWrk;
 
 /**
@@ -22,172 +17,13 @@ import workers.ConseillerWrk;
  *
  * @author jcstritt
  */
-@Security.Authenticated(MySecurityCtrl.class)
+@Security.Authenticated(ForTeacherSecurityCtrl.class)
 public class ConseillerCtrl extends Controller {
   private final ConseillerWrk consWrk;
 
   @Inject
   public ConseillerCtrl(ConseillerWrk consWrk) {
     this.consWrk = consWrk;
-  }
-
-  /**
-   * Affiche une exception dams le fichier de log et retourne un objet HTTP
-   * de type "bad request".
-   *
-   * @param e un objet exception
-   * @return un résultat HTTP
-   */
-  private Result logError(Exception e) {
-    String msg = "Probleme avec la BD : \n" + e.getMessage();
-    Logger.error(msg);
-    Result httpResult = badRequest(msg);
-    return httpResult;
-  }
-
-  /**
-   * Renvoyer une liste des états civils.
-   */
-  @Transactional(readOnly=true)
-  public Result chargerEtatsCivils(String fmt) {
-    Result httpResult;
-
-    // on récupère la liste des cantons
-    List<EtatCivil> ec = consWrk.chargerEtatsCivils();
-
-    // on fait le rendu en xml, json ou html
-    try {
-      switch (fmt.toUpperCase()) {
-        case "XML":
-          httpResult = ok(views.xml.etatscivils.render(ec)).as("application/xml");
-          break;
-        case "JSON":
-          httpResult = Utils.toJson(ec);
-          break;
-        default:
-          httpResult = ok(views.html.etatscivils.render(ec));
-          break;
-      }
-    } catch (Exception ex) {
-      httpResult = logError(ex);
-    }
-    return httpResult;
-  }
-
-  /**
-   * Renvoyer une liste des cantons.
-   */
-  @Transactional(readOnly=true)
-  public Result chargerCantons(String fmt) {
-    Result httpResult;
-
-    // on récupère la liste des cantons
-    List<Canton> cantons = consWrk.chargerCantons();
-
-    // on fait le rendu en xml, json ou html
-    try {
-      switch (fmt.toUpperCase()) {
-        case "XML":
-          httpResult = ok(views.xml.cantons.render(cantons)).as("application/xml");
-          break;
-        case "JSON":
-          httpResult = Utils.toJson(cantons);
-          break;
-        default:
-          httpResult = ok(views.html.cantons.render(cantons));
-          break;
-      }
-    } catch (Exception e) {
-      httpResult = logError(e);
-    }
-    return httpResult;
-  }
-
-  /**
-   * Renvoyer une liste des partis de Suisse.
-   */
-  @Transactional(readOnly=true)
-  public Result chargerPartis(String fmt) {
-    Result httpResult;
-
-    // on récupère la liste des partis
-    List<Parti> partis = consWrk.chargerPartis();
-
-    // on fait le rendu en xml, json ou html
-    try {
-      switch (fmt.toUpperCase()) {
-        case "XML":
-          httpResult = ok(views.xml.partis.render(partis)).as("application/xml");
-          break;
-        case "JSON":
-          httpResult = Utils.toJson(partis);
-          break;
-        default:
-          httpResult = ok(views.html.partis.render(partis));
-          break;
-      }
-    } catch (Exception e) {
-      httpResult = logError(e);
-    }
-    return httpResult;
-  }
-
-  /**
-   * Renvoyer une liste de conseils (CE, CF, CN).
-   */
-  @Transactional(readOnly=true)
-  public Result chargerConseils(String fmt) {
-    Result httpResult;
-
-    // on récupère la liste des conseils
-    List<Conseil> conseils = consWrk.chargerConseils();
-
-    // on fait le rendu en xml, json ou html
-    try {
-      switch (fmt.toUpperCase()) {
-        case "XML":
-          httpResult = ok(views.xml.conseils.render(conseils)).as("application/xml");
-          break;
-        case "JSON":
-          httpResult = Utils.toJson(conseils);
-          break;
-        default:
-          httpResult = ok(views.html.conseils.render(conseils));
-          break;
-      }
-    } catch (Exception e) {
-      httpResult = logError(e);
-    }
-    return httpResult;
-  }
-
-  /**
-   * Renvoyer une liste de groupes parlementaires.
-   */
-  @Transactional(readOnly=true)
-  public Result chargerGroupes(String fmt) {
-    Result httpResult;
-
-    // on récupère la liste des conseils
-    List<Groupe> groupes = consWrk.chargerGroupes();
-
-    // on fait le rendu en xml, json ou html
-    try {
-      switch (fmt.toUpperCase()) {
-        case "XML":
-          httpResult = ok(views.xml.groupes.render(groupes)).as("application/xml");
-          break;
-        case "JSON":
-          httpResult = Utils.toJson(groupes);
-          break;
-        default:
-          httpResult = ok(views.html.groupes.render(groupes));
-          break;
-      }
-    } catch (Exception e) {
-      httpResult = logError(e);
-    }
-    return httpResult;
   }
 
   /**
@@ -234,8 +70,9 @@ public class ConseillerCtrl extends Controller {
           httpResult = ok(views.html.conseillers.render(canton.toUpperCase(), conseillers));
           break;
       }
-    } catch (Exception e) {
-      httpResult = logError(e);
+    } catch (Exception ex) {
+      Logger.error(ex.getLocalizedMessage());
+      httpResult = badRequest(ex.getLocalizedMessage());
     }
 
     // on retourne le résultat
