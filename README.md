@@ -6,7 +6,7 @@ This release is now full adapted to last Play 2.6.x framework.
   * use of PlayUtils 1.0.0
   * LoginCtrl has been rewrited
   * LoginWrk has been completed with some SessionManager methods
-  * SessionManager has been deleted (use SeesionUtils from PlayUtils)
+  * SessionManager has been deleted (use SessionUtils from PlayUtils)
   * Security classes have been moved to controllers.security
   * Use of MessagesApi for i18n messages (used in security classes)
   * new messages.fr in conf for french messages
