@@ -1,0 +1,7 @@
+# --- APPLICATION
+security.FOR_ALL_ERROR_MSG=Vous devez être logué pour utiliser ce service !
+security.FOR_TEACHERS_ERROR_MSG=Vous devez être logué comme un professeur pour utiliser ce service !
+
+
+
+

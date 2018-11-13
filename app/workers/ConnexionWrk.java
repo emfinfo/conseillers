@@ -45,7 +45,7 @@ public class ConnexionWrk {
     try {
       dao.getConnection().disconnect();
     } catch (Exception ex) {
-      Logger.debug(ConnexionWrk.class, ex.getLocalizedMessage());
+      Logger.debug(ConnexionWrk.class, ex.getMessage());
     }
   }
 

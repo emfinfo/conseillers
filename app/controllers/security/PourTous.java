@@ -1,7 +1,10 @@
-package session;
+package controllers.security;
 
+import ch.emf.play.helpers.Utils;
+import ch.emf.play.session.SessionUtils;
 import com.typesafe.config.Config;
 import javax.inject.Inject;
+import play.i18n.MessagesApi;
 import play.mvc.Http.Context;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -11,12 +14,14 @@ import play.mvc.Security;
  *
  * @author jcstritt
  */
-public class ForAllSecurityCtrl extends Security.Authenticator {
+public class PourTous extends Security.Authenticator {
   private final int msTimeout;
+  private final String errorMsg;
 
   @Inject
-  public ForAllSecurityCtrl(Config config) {
+  public PourTous(Config config, MessagesApi msgApi) {
     msTimeout = config.getInt("application.msTimeout");
+    errorMsg = Utils.getMessage(msgApi, "security.FOR_ALL_ERROR_MSG");
   }
 
   /**
@@ -31,22 +36,22 @@ public class ForAllSecurityCtrl extends Security.Authenticator {
     String username = null;
 
     // un timeout de session est-il arrivé ? Si oui, on efface le cookie de session
-    if (SessionManager.isTimeout(msTimeout)) {
-      SessionManager.clear();
+    if (SessionUtils.isTimeout(msTimeout)) {
+      SessionUtils.clear();
     } else {
 
       // autrement on fait un reset du timeout (temps à l'heure actuelle)
-      SessionManager.resetTimeout();
+      SessionUtils.resetTimeout();
 
       // on retourne l'identifiant de session (avec la pk de login)
-      username = "" + SessionManager.getUserId();
+      username = "" + SessionUtils.getUserId();
     }
     return username;
   }
 
   @Override
   public Result onUnauthorized(Context ctx) {
-    return ok("You must be logged in to use this route !");
+    return ok(errorMsg);
   }
 
 }

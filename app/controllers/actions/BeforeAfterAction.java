@@ -1,6 +1,6 @@
 package controllers.actions;
 
-import helpers.Utils;
+import ch.emf.play.helpers.Utils;
 import java.util.concurrent.CompletionStage;
 import play.mvc.Action.Simple;
 import play.mvc.Http;

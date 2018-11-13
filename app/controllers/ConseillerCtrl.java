@@ -1,7 +1,8 @@
 package controllers;
 
+import ch.emf.play.helpers.Utils;
 import com.google.inject.Inject;
-import helpers.Utils;
+import controllers.security.PourProfs;
 import java.util.List;
 import models.Conseiller;
 import play.Logger;
@@ -9,7 +10,6 @@ import play.db.jpa.Transactional;
 import play.mvc.*;
 import static play.mvc.Results.badRequest;
 import static play.mvc.Results.ok;
-import session.ForTeacherSecurityCtrl;
 import workers.ConseillerWrk;
 
 /**
@@ -17,7 +17,7 @@ import workers.ConseillerWrk;
  *
  * @author jcstritt
  */
-@Security.Authenticated(ForTeacherSecurityCtrl.class)
+@Security.Authenticated(PourProfs.class)
 public class ConseillerCtrl extends Controller {
   private final ConseillerWrk consWrk;
 
@@ -71,7 +71,7 @@ public class ConseillerCtrl extends Controller {
           break;
       }
     } catch (Exception ex) {
-      Logger.error(ex.getLocalizedMessage());
+      Logger.error(ex.getMessage());
       httpResult = badRequest(ex.getLocalizedMessage());
     }
 

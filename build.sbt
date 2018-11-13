@@ -33,6 +33,9 @@ libraryDependencies ++= Seq(
   "ch.emf.info" % "daoplay" % "1.0.1",
   "ch.emf.info" % "daoplay" % "1.0.1" classifier "sources",
   "ch.emf.info" % "daoplay" % "1.0.1" classifier "javadoc",
+  "ch.emf.info" % "playutils" % "1.0.0",
+  "ch.emf.info" % "playutils" % "1.0.0" classifier "sources",
+  "ch.emf.info" % "playutils" % "1.0.0" classifier "javadoc",
   "commons-codec" % "commons-codec" % "1.7",
   "org.mariadb.jdbc" % "mariadb-java-client" % "2.3.0").map(_.force()
 )
@@ -47,7 +50,7 @@ evictionWarningOptions in update := EvictionWarningOptions.default.withWarnTrans
 lazy val commonSettings = Seq(
   name := conf.getString("application.name"),
   version := conf.getString("application.version"),
-  scalaVersion := "2.12.6",
+  scalaVersion := "2.12.7",
   scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation", "-J-Xss16M"),
   javacOptions += "-Xlint:unchecked"
 )

@@ -53,7 +53,7 @@ public class JUnitLoginWorkerTest {
   @Test
   public void test02_ajouterLogin() {
     Login login = new Login("tartampionju", "edu", "test", "prof", "tartampionju@edufr.ch", "JT", "fr");
-    Login loginAjoute = logWrk.ajouter(login);
+    Login loginAjoute = logWrk.creer(login);
     boolean ok = loginAjoute != null;
     Logger.info(clazz, ok, clazz.getSimpleName());
     assertTrue(ok);

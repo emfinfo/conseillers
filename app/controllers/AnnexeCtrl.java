@@ -1,7 +1,8 @@
 package controllers;
 
+import ch.emf.play.helpers.Utils;
 import com.google.inject.Inject;
-import helpers.Utils;
+import controllers.security.PourTous;
 import java.util.List;
 import models.Canton;
 import models.Conseil;
@@ -11,7 +12,6 @@ import models.Parti;
 import play.db.jpa.Transactional;
 import play.mvc.*;
 import static play.mvc.Results.ok;
-import session.ForAllSecurityCtrl;
 import workers.AnnexeWrk;
 
 /**
@@ -19,7 +19,7 @@ import workers.AnnexeWrk;
  *
  * @author jcstritt
  */
-@Security.Authenticated(ForAllSecurityCtrl.class)
+@Security.Authenticated(PourTous.class)
 public class AnnexeCtrl extends Controller {
   private final AnnexeWrk annWrk;
 

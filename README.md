@@ -1,9 +1,21 @@
-# conseillers 1.3.6 - november 2018
+# conseillers 1.3.7 - november 2018
 A small Play application with a MySQL DB (Swiss parliament).
 This release is now full adapted to last Play 2.6.x framework.
 
+* New in release 1.3.7 (november 2018) :
+  * use of PlayUtils 1.0.0
+  * LoginCtrl has been rewrited
+  * LoginWrk has been completed with some SessionManager methods
+  * SessionManager has been deleted (use SeesionUtils from PlayUtils)
+  * Security classes have been moved to controllers.security
+  * Use of MessagesApi for i18n messages (used in security classes)
+  * new messages.fr in conf for french messages
+  * Use of Play Logger in controllers, workers
+  * Use of all last librairies ou plugin for Play
+  * Use of mariabdb dependency java driver
+
 * New in release 1.3.6 (november 2018) :
-  * use of DaoPlay 1.0.1
+  * use of DaoPlay 1.0.1 (new for PlayDao)
   * security by profile
   * timeout support (10s for tests)
 

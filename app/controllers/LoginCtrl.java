@@ -1,21 +1,14 @@
 package controllers;
 
-import ch.emf.cypher.AesUtil;
-import ch.emf.dao.helpers.Logger;
-import ch.emf.helpers.Convert;
-import ch.emf.helpers.Generate;
-import com.fasterxml.jackson.core.type.TypeReference;
+import ch.emf.play.helpers.Utils;
+import ch.emf.play.session.SessionUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.inject.Inject;
 import com.typesafe.config.Config;
-import helpers.BooleanResult;
-import helpers.Utils;
-import java.util.Date;
 import models.Login;
 import play.db.jpa.Transactional;
 import play.mvc.*;
 import static play.mvc.Controller.request;
-import session.SessionManager;
 import workers.LoginWrk;
 
 /**
@@ -29,134 +22,77 @@ public class LoginCtrl extends Controller {
 
   @Inject
   public LoginCtrl(Config config, LoginWrk loginWrk) {
-    msTimeout = config.getInt("application.msTimeout");
+    this.msTimeout = config.getInt("application.msTimeout");
     this.loginWrk = loginWrk;
   }
 
-//  public Result index() {
-//    return ok(index.render("Vous devez vous loguer !"));
-//  }
-//
-//  public Result unauthorizedAccess() {
-//    return ok(index.render("Accès non autorisé !"));
-//  }
+  private Login createSession(Login clientLogin, Login dbLogin) {
+    boolean ok = dbLogin != null;
 
-  // méthode pour créer un objet de login pour les données reçus
-  private Login extractHttpLogin(String data) {
-    Login login = new Login();
-//    System.out.println("data: " + data + ", len=" + data.length());
+    // à chaque tentative de login on supprime d'abord la session
+    session().clear();
 
-    // on ne traite que si les données contiennent plus de 64 caractères
-    if (data.length() > 64) {
+    // teste si l'utilisateur a été trouvé auparavant
+    if (ok) {
 
-      // récupération du sel et du vecteur d'initialisation
-      String salt = data.substring(0, 32);
-      String iv = data.substring(32, 64);
-//      System.out.println("salt: " + salt + ", len=" + salt.length());
-//      System.out.println("iv:   " + iv + ", len=" + iv.length());
-
-      // génère la même clé que le client doit générer
-      String passPhrase = Generate.passPhrase();
-//      System.out.println("passPhrase: "+passPhrase+" ("+new String(Convert.toBase64(passPhrase))+")");
-
-      // crée l'utilitaire pour le décryptage
-      AesUtil aesUtil = new AesUtil(128, 1000);
-
-      // convertit les données hexadécimales en Base64 (nécessaire pour le décryptage)
-      byte[] bytes = Convert.toHex(data.substring(64));
-      String b64 = Convert.toBase64(bytes);
-
-      // décrypte les données
-      String decrypted = aesUtil.decrypt(salt, iv, passPhrase, b64);
-//      System.out.println("decrypted: " + decrypted);
-
-      // extraction des données du login
-      String t[] = decrypted.split("/");
-      if (t.length >= 4) {
-        login.setNom(t[0]);
-        login.setDomaine(t[1]);
-        login.setMotDePasse(t[2]);
-        login.setTimestamp(new Date(Long.parseLong(t[3])));
-        login.setProfil((t.length >= 5) ? t[4] : null);
-        login.setEmail((t.length >= 6) ? t[5] : null);
-        login.setInitiales((t.length >= 7) ? t[6] : null);
-        login.setLangue((t.length >= 8) ? t[7] : null);
+      // si password dans la table ...
+      if (dbLogin.getMotDePasse() != null) {
+        ok = loginWrk.comparer(clientLogin, dbLogin);
+      } else { // autrement on pourrait tester avec AD
+        // ok = authenticateOnActiveDirectory(
+        //  httpLogin.getNom(), httpLogin.getDomaine(), httpLogin.getMotDePasse());
+        ok = false;
       }
     }
 
-    return login;
-  }
-
-
-  @Transactional
-  public Result login(String data) {
-//    Map<String, String> headers = response().getHeaders();
-//    for (Map.Entry<String, String> entry : headers.entrySet()) {
-//      System.out.println("  - " + entry.getKey() + ": " + entry.getValue());
-//    }
-
-    // extraction des données
-    Login httpLogin = extractHttpLogin(data);
-    Logger.debug(this.getClass(), "http: " + httpLogin.toString2());
-
-    // on recherche l'utilisateur+domaine spécifiés
-    Login dbLogin = loginWrk.rechercher(httpLogin.getNom(), httpLogin.getDomaine());
-    Logger.debug(this.getClass(), "db: " + ((dbLogin != null) ? dbLogin.toString2() : "?"));
-
-    // on supprime la session en cours
-    SessionManager.clear();
-
-    // si le login est correct on modifie le login pour le timestamp
-    if (SessionManager.create(httpLogin, dbLogin)) {
-      int nb = loginWrk.modifier(dbLogin);
-//      login.setMotDePasse("");
+    // enregistrement de la session si l'identification est correcte
+    if (ok) {
+      SessionUtils.saveUserInfo(dbLogin.getPk(), dbLogin.getNom(), dbLogin.getProfil());
+      loginWrk.modifier(dbLogin); // modifie dans la BD pour le timestamp
     } else {
       dbLogin = new Login();
     }
+    return dbLogin;
+  }
+
+  @Transactional
+  public Result login(String data) {
+
+    // extraction des données client
+    Login clientLogin = loginWrk.extraire(data);
+
+    // on recherche l'utilisateur+domaine spécifiés dans la BD
+    Login dbLogin = loginWrk.rechercher(clientLogin.getNom(), clientLogin.getDomaine());
+
+    // on essaye de créer la session
+    dbLogin = createSession(clientLogin, dbLogin);
 
     // on retourne le résultat
     return Utils.toJson(dbLogin);
   }
 
   public Result logout() {
-    SessionManager.clear();
-    return Utils.toJson("open", SessionManager.isOpen(msTimeout));
+    SessionUtils.clear();
+    return Utils.toJson("open", SessionUtils.isOpen(msTimeout));
   }
 
   public Result status() {
-    return Utils.toJson("open", SessionManager.isOpen(msTimeout));
+    return Utils.toJson("open", SessionUtils.isOpen(msTimeout));
   }
 
   @Transactional
   public Result createLogin() {
-    boolean ok = false;
 
-    // on récupère les infos du json
+    // on récupère les infos de l'application cliente
     JsonNode json = request().body().asJson();
     String data = json.get("data").textValue();
+    Login clientLogin = loginWrk.extraire(data);
 
-    // extraction des données
-    Login httpLogin = extractHttpLogin(data);
-
-    // on crée une empreinte du mot de passe
-    String dbSalt = Generate.randomHex(32);
-    String dbHash = Generate.hash(httpLogin.getMotDePasse()+ dbSalt, "SHA-256");
-    httpLogin.setMotDePasse(dbHash + dbSalt);
-
-    // on stocke dans un objet Login
-    Login login = Utils.toObject(request(), new TypeReference<Login>() {});
-    login.setPk(1);
-
-    // si le compte n'existe pas, on le sauve dans la BD
-    Login dbLogin = loginWrk.rechercher(httpLogin.getNom(), httpLogin.getDomaine());
-    if (dbLogin == null) {
-      dbLogin = loginWrk.ajouter(httpLogin);
-      ok = dbLogin != null && dbLogin.getPk() > 0;
-    }
+    // on essaye de créer le compte
+    Login dbLogin = loginWrk.creerCompte(clientLogin);
 
     // on retourne le résultat de la création du compte
-    BooleanResult booleanResult = new BooleanResult(ok, login.getNom());
-    return Utils.toJson(booleanResult);
+    return Utils.toJson(dbLogin);
   }
 
 }
