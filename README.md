@@ -3,7 +3,7 @@ A small Play application with a MySQL DB (Swiss parliament).
 This release is now full adapted to last Play 2.6.x framework.
 
 * New in release 1.3.7 (november 2018) :
-  * Use of PlayUtils 1.0.0
+  * Use of PlayLib 1.0.0
   * LoginCtrl has been rewrited
   * LoginWrk has been completed with some SessionManager methods
   * SessionManager has been deleted (use SessionUtils from PlayUtils)

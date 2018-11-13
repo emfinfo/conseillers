@@ -33,9 +33,9 @@ libraryDependencies ++= Seq(
   "ch.emf.info" % "daoplay" % "1.0.1",
   "ch.emf.info" % "daoplay" % "1.0.1" classifier "sources",
   "ch.emf.info" % "daoplay" % "1.0.1" classifier "javadoc",
-  "ch.emf.info" % "playutils" % "1.0.0",
-  "ch.emf.info" % "playutils" % "1.0.0" classifier "sources",
-  "ch.emf.info" % "playutils" % "1.0.0" classifier "javadoc",
+  "ch.emf.info" % "playlib" % "1.0.0",
+  "ch.emf.info" % "playlib" % "1.0.0" classifier "sources",
+  "ch.emf.info" % "playlib" % "1.0.0" classifier "javadoc",
   "commons-codec" % "commons-codec" % "1.7",
   "org.mariadb.jdbc" % "mariadb-java-client" % "2.3.0").map(_.force()
 )
