@@ -3,7 +3,7 @@ A small Play application with a MySQL DB (Swiss parliament).
 This release is now full adapted to last Play 2.6.x framework.
 
 * New in release 1.3.7 (november 2018) :
-  * use of PlayUtils 1.0.0
+  * Use of PlayUtils 1.0.0
   * LoginCtrl has been rewrited
   * LoginWrk has been completed with some SessionManager methods
   * SessionManager has been deleted (use SessionUtils from PlayUtils)
@@ -13,6 +13,7 @@ This release is now full adapted to last Play 2.6.x framework.
   * Use of Play Logger in controllers, workers
   * Use of all last librairies ou plugin for Play
   * Use of mariabdb dependency java driver
+  * Updated data from Swiss parliament (10.11.2018)
 
 * New in release 1.3.6 (november 2018) :
   * use of DaoPlay 1.0.1 (new for PlayDao)
