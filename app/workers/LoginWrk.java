@@ -121,7 +121,7 @@ public class LoginWrk {
    * reçues d'une application cliente et les données dans la BD.
    *
    * @param clientLogin un objet Login provenant de l'application cliente
-   * @param clientLogin un objet Login provenant de la base de données
+   * @param dbLogin un objet Login provenant de la base de données
    */
   public boolean comparer(Login clientLogin, Login dbLogin) {
     boolean ok = false;
