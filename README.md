@@ -6,12 +6,12 @@ This release is now full adapted to last Play 2.6.x framework.
   * Use of PlayLib 1.0.0
   * LoginCtrl has been rewrited
   * LoginWrk has been completed with some SessionManager methods
-  * SessionManager has been deleted (use SessionUtils from PlayUtils)
+  * SessionManager has been deleted (use SessionUtils from PlayLib)
   * Security classes have been moved to controllers.security
   * Use of MessagesApi for i18n messages (used in security classes)
   * new messages.fr in conf for french messages
   * Use of Play Logger in controllers, workers
-  * Use of all last librairies ou plugin for Play
+  * Use of all last librairies ou plugins for Play
   * Use of mariabdb dependency java driver
   * Updated data from Swiss parliament (10.11.2018)
 
