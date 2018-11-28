@@ -1,0 +1,51 @@
+<!doctype html>
+<!-- panneau pour le filtrage des conseillers -->
+
+<div id="conseillers" class="card">
+  <div class="card-header text-white bg-primary">
+    <h3>Les conseillers nationaux ...</h3>
+  </div>
+  <div class="card-body" >
+
+    <!--<p>Choisir le canton et le format pour charger en AJAX des données depuis un serveur</p>-->
+    <p>Filtrés par canton, conseil ou parti&nbsp;:<a class="float-right" href="javascript:ctrl.effectuerLogout()">Logout</a></p>
+
+
+    <!-- une combobox pour sélectionner le canton -->
+    <select id="cmbCantons">
+    </select>
+
+    <!-- une combobox pour sélectionner le conseil -->
+    <select id="cmbConseils">
+    </select>
+
+    <!-- une combobox pour sélectionner le parti -->
+    <select id="cmbPartis" style="width: 200px">
+    </select>
+
+    &nbsp;
+    <input type="checkbox" id="cbxActuels" name="cbxActuels" />&nbsp;actuels
+
+    &nbsp;
+    <input type="checkbox" id="cbxDetails" name="cbxDetails" />&nbsp;détails&nbsp;
+
+    <input type="button" value="Tous les marqueurs" onclick="ctrl.afficherMarqueursConseillers()">
+
+    <!-- un calque vide pour afficher les données après un appel AJAX -->
+    <div id="data">
+      ...
+    </div>
+
+    <!-- un calque pour afficher une googlemap -->
+    <div id="map_canvas" style="width: 100%; height:480px; margin-top: 10px; border: 1px solid lightgray">
+      &nbsp;
+    </div>
+
+  </div>
+
+  <!-- pied de page pour afficher quelques données sur l'état du serveur -->
+  <div class="footnote">BD MySQL sur serveur <span id="versionServeur">&nbsp;</span> (session open: <span id="sessionStatus">&nbsp;</span>)
+  </div>
+</div>
+
+

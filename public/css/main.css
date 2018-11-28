@@ -1,31 +1,17 @@
-/**  {
-  margin:0px;
-  padding:0px;
-  border:0px;
-}*/
-
 body {
-  background-color: #A0A0A0;
-  text-align:center;
+  background-color: white;
 }
 
-li {
-  font-family: monospace;
-  list-style-type: none;
+.container {
+  margin-top : 20px;
 }
 
-#conteneur {
-  /*  background-color: white;
-    width: 45em;
-    border: 2px solid green;*/
-  height: auto;
-  margin: auto; /* pour centrer le conteneur */
-  text-align: left;
-  padding: 1em 2em;
-  font-family: Verdana, Arial, serif;
+.card-body {
+  background-color:aliceblue ;
 }
 
 .footnote {
   text-align: center;
   font-size: 0.75em;
 }
+

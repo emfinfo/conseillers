@@ -2,7 +2,6 @@ package controllers;
 
 import ch.emf.play.helpers.Utils;
 import ch.emf.play.session.SessionUtils;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.inject.Inject;
 import com.typesafe.config.Config;
 import models.Login;
@@ -47,7 +46,7 @@ public class LoginCtrl extends Controller {
 
     // enregistrement de la session si l'identification est correcte
     if (ok) {
-      SessionUtils.saveUserInfo(dbLogin.getPk(), dbLogin.getNom(), dbLogin.getProfil());
+      SessionUtils.saveUserInfo(dbLogin.getPk(), dbLogin.getNom(), dbLogin.getProfil(), 0);
       loginWrk.modifier(dbLogin); // modifie dans la BD pour le timestamp
     } else {
       dbLogin = new Login();
@@ -84,9 +83,11 @@ public class LoginCtrl extends Controller {
   public Result createLogin() {
 
     // on récupère les infos de l'application cliente
-    JsonNode json = request().body().asJson();
-    String data = json.get("data").textValue();
+//    JsonNode json = request().body().asJson();
+//    String data = json.get("data").textValue();
+    String data = request().body().asText();
     Login clientLogin = loginWrk.extraire(data);
+//    Logger.info(clientLogin.toString2());
 
     // on essaye de créer le compte
     Login dbLogin = loginWrk.creerCompte(clientLogin);

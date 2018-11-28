@@ -21,7 +21,7 @@ import models.Login;
 @Singleton
 public class LoginWrk {
   private final JpaDaoAPI dao;
-  private final String SPLIT_CHARS = "/";
+  private final String SEPARATOR = "♂♥♀";
 
   @Inject
   public LoginWrk(DaoRepositoryItf rep) {
@@ -98,10 +98,12 @@ public class LoginWrk {
 
       // décrypte les données
       String decrypted = aesUtil.decrypt(salt, iv, passPhrase, b64);
-//      System.out.println("decrypted: " + decrypted);
+
+      // séparateur "/" pour les demandes de l'API
+      String sep = decrypted.contains(SEPARATOR) ? SEPARATOR : "/";
 
       // extraction des données du login
-      String t[] = decrypted.split(SPLIT_CHARS);
+      String t[] = decrypted.split(sep);
       if (t.length >= 4) {
         login.setNom(t[0]);
         login.setDomaine(t[1]);
@@ -111,6 +113,8 @@ public class LoginWrk {
         login.setEmail((t.length >= 6) ? t[5] : null);
         login.setInitiales((t.length >= 7) ? t[6] : null);
         login.setLangue((t.length >= 8) ? t[7] : null);
+      } else {
+
       }
     }
     return login;
@@ -171,8 +175,10 @@ public class LoginWrk {
     Login dbLogin = rechercher(clientLogin.getNom(), clientLogin.getDomaine());
     if (dbLogin == null) {
       dbLogin = creer(clientLogin);
-    }
-    if (dbLogin == null || dbLogin.getPk() <= 0) {
+      if (dbLogin == null || dbLogin.getPk() <= 0) {
+        dbLogin = new Login();
+      }
+    } else {
       dbLogin = new Login();
     }
     return dbLogin;

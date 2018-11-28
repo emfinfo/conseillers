@@ -16,12 +16,14 @@ import play.mvc.Security;
  */
 public class PourProfs extends Security.Authenticator {
   private final int msTimeout;
-  private final String errorMsg;
+  private final MessagesApi msgApi;
+  private String errorMsg;
 
   @Inject
   public PourProfs(Config config, MessagesApi msgApi) {
-    msTimeout = config.getInt("application.msTimeout");
-    errorMsg = Utils.getMessage(msgApi, "security.FOR_TEACHERS_ERROR_MSG");
+    this.msTimeout = config.getInt("application.msTimeout");
+    this.msgApi = msgApi;
+    this.errorMsg = "";
   }
 
   /**
@@ -37,8 +39,10 @@ public class PourProfs extends Security.Authenticator {
 
     // un timeout de session est-il arrivé ? Si oui, on efface le cookie de session
     if (SessionUtils.isTimeout(msTimeout)) {
+       errorMsg = Utils.getMessage(msgApi, "security.TIMEOUT_MSG");
       SessionUtils.clear();
     } else {
+      errorMsg = Utils.getMessage(msgApi, "security.FORBIDDEN_MSG");
 
       // on récupère le profil de l'utilisateur
       String sessionProfile = SessionUtils.getUserProfile();
@@ -58,7 +62,7 @@ public class PourProfs extends Security.Authenticator {
 
   @Override
   public Result onUnauthorized(Context ctx) {
-    return ok(errorMsg);
+    return Utils.toJson("message", errorMsg);
   }
 
 }

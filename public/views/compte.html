@@ -1,0 +1,79 @@
+<!doctype html>
+
+<!-- panneau pour créer un nouveau compte -->
+<div id="compte" class="card">
+  <div class="card-header text-white bg-primary">
+    <h3>Nouveau compte</h3>
+  </div>
+  <div class="card-body">
+    <form id="frm-compte" role="form" action="javascript:ctrl.enregistrerCompte();">
+
+      <!-- NOM D'UTILISATEUR -->
+      <div class="form-group"> <span class="fa fa-user"></span>
+        <label for="txtNom">Nom d'utilisateur</label>
+        <input class="form-control" type="text"
+               style="border-radius:5px" id="txtNom" name="username" placeholder="Entrez un nom d&apos;utilisateur">
+      </div>
+
+      <!-- MOT DE PASSE -->
+      <div class="form-group"> <span class="fa fa-lock"></span>
+        <label for="txtMotDePasse">Mot de passe</label>
+        <input class="form-control" type="password"
+               style="border-radius:5px" id="txtMotDePasse" name="password" placeholder="Entrez un mot de passe">
+      </div>
+
+      <!-- <div class="form-group"> <span class="fa fa-lock"></span>
+        <label for="txtConfirmPassword">Confirmation</label>
+        <input class="form-control" type="password"
+               style="border-radius:5px" id="txtConfirmPassword" name="confirmPassword"
+               placeholder="Confirmez le mot de passe">
+      </div> -->
+
+      <!-- DOMAINE -->
+      <div class="form-group">
+        <span class="fa fa-random"></span><label for="select">&nbsp;Domaine</label>
+        <select id="selDomaine" class="form-control">
+          <option>EDU</option>
+          <option>STUDENTFR</option>
+        </select>
+      </div>  
+
+      <!-- INITIALES -->
+      <div class="form-group"> <span class="fa fa-user-edit"></span>
+        <label for="txtInitiales">Initiales</label>
+        <input class="form-control" type="text" style="border-radius:5px; text-transform:uppercase"
+               id="txtInitiales" name="initiales" placeholder="Entrez vos initiales">
+      </div>
+
+      <!-- EMAIL -->
+      <div class="form-group"> <span class="fa fa-envelope"></span>
+        <label for="txtEmail">Adresse e-mail</label>
+        <input class="form-control" type="email" style="border-radius:5px"
+               id="txtEmail" name="email" placeholder="Entrez votre adresse e-mail">
+      </div>
+
+      <!-- LANGUE -->      
+      <div class="form-group text-center"> <span class="fa fa-globe"></span>
+        <label>Langue</label>
+
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary active">
+            <input type="radio" name="langues" id="langue1" value="fr" autocomplete="off" checked> fr
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="langues" id="langue2" value="dt" autocomplete="off"> dt
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="langues" id="langue3" value="en" autocomplete="off"> en
+          </label>
+        </div>
+
+      </div>
+
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <button type="button" class="btn btn-danger" onclick="ctrl.retournerLogin();">Retour login</button>
+      </div>
+    </form>
+  </div>
+</div> <!-- fin du panneau nouveau compte -->

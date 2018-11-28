@@ -58,7 +58,7 @@ GET      /session/login/:data                                controllers.LoginCt
 GET      /session/logout                                     controllers.LoginCtrl.logout
 GET      /session/status                                     controllers.LoginCtrl.status
 
-GET      /createLogin                                        controllers.Assets.at(path="/public", file="/info.html")
+GET      /createLogin                                        controllers.Assets.at(path="/public/api", file="/info.html")
 POST     /createLogin                                        controllers.LoginCtrl.createLogin
 #GET      /unauthorizedAccess                                 controllers.LoginCtrl.unauthorizedAccess()
 
@@ -67,3 +67,5 @@ POST     /convertTemp                                        controllers.Applica
 
 # Map static resources from the /public folder to the /assets URL path
 GET      /assets/*file                                       controllers.Assets.versioned(path="/public", file: Asset)
+
+#GET      /app                                                controllers.Assets.at(path="/public/app", file="/index.html")

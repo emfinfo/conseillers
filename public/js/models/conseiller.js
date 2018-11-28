@@ -1,53 +1,28 @@
 /*
- * Pseudo-classe "Conseiller" (utile pour la compatibilité XML-->JSON).
+ * Pseudo-classe "Conseiller", modele de donnees pour stocker les infos d'un conseiller
+ * national (surtout utile pour le toString).
  *
- * @author Jean-Claude Stritt
+ * "cons" est un objet JSON recupere d'un appel AJAX
  */
-var Conseiller = function () {
-};
-
-Conseiller.prototype.setPkConseiller = function (pkConseiller) {
-  this.pkConseiller = pkConseiller;
-};
-
-Conseiller.prototype.setNom = function (nom) {
-  this.nom = nom;
-};
-
-Conseiller.prototype.setPrenom = function (prenom) {
-  this.prenom = prenom;
-};
-
-Conseiller.prototype.setOrigine = function (origine) {
-  this.origine = origine;
-};
-
-Conseiller.prototype.setDateNaissance = function (date) {
-  this.dateNaissance = Date.parseDate(date);
-};
-
-Conseiller.prototype.setDateDeces = function (date) {
-  this.dateDeces = Date.parseDate(date);
-};
-
-Conseiller.prototype.setCanton = function (canton) {
-  this.canton = canton;
-};
-
-Conseiller.prototype.setParti = function (parti) {
-  this.parti = parti;
-};
-
-Conseiller.prototype.setActivites = function (activites) {
-  this.activites = activites;
+var Conseiller = function (cons) {
+  this.actif = cons.actif;
+  this.nom = cons.nom;
+  this.prenom = cons.prenom;
+  this.citoyennete = cons.citoyennete;
+  this.dateNaissance = Date.parseString(cons.dateNaissance);
+  this.dateDeces = Date.parseString(cons.dateDeces);
+  this.canton = cons.canton;
+  this.parti = cons.parti;
+  this.activites = cons.activites;
 };
 
 Conseiller.prototype.toString = function () {
-  return this.nom + ' ' + this.prenom + ', ' + this.canton.abrev
+  return this.nom + ' ' + this.prenom
     + ((this.dateNaissance || this.dateDeces) ? ' (' : '')
-    + ((this.dateNaissance) ? this.dateNaissance.format2('yyyy') : '')
-    + ((this.dateDeces) ? "-" + this.dateDeces.format2('yyyy') : '')
+    + ((this.dateNaissance) ? this.dateNaissance.formatWithPattern('yyyy') : '')
+    + ((this.dateDeces) ? "-" + this.dateDeces.formatWithPattern('yyyy') : '')
     + ((this.dateNaissance || this.dateDeces) ? ')' : '')
-    + ', ' + this.parti.nom;
+    + ', ' + this.canton.abrev
+    + ', ' + this.parti.abrev;
 };
 

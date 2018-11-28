@@ -1,6 +1,7 @@
 # --- APPLICATION
-security.FOR_ALL_ERROR_MSG=Vous devez être logué pour utiliser ce service !
-security.FOR_TEACHERS_ERROR_MSG=Vous devez être logué comme un professeur pour utiliser ce service !
+security.UNAUTHORIZED_MSG=401 - Une authentification est nécessaire !
+security.FORBIDDEN_MSG=403 - droits insuffisants !
+security.TIMEOUT_MSG=408 - Timeout (délai serveur) !
 
 
 

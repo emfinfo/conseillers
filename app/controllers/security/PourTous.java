@@ -16,12 +16,14 @@ import play.mvc.Security;
  */
 public class PourTous extends Security.Authenticator {
   private final int msTimeout;
-  private final String errorMsg;
+  private final MessagesApi msgApi;
+  private String errorMsg;
 
   @Inject
   public PourTous(Config config, MessagesApi msgApi) {
-    msTimeout = config.getInt("application.msTimeout");
-    errorMsg = Utils.getMessage(msgApi, "security.FOR_ALL_ERROR_MSG");
+    this.msTimeout = config.getInt("application.msTimeout");
+    this.msgApi = msgApi;
+    this.errorMsg = "";
   }
 
   /**
@@ -37,8 +39,10 @@ public class PourTous extends Security.Authenticator {
 
     // un timeout de session est-il arrivé ? Si oui, on efface le cookie de session
     if (SessionUtils.isTimeout(msTimeout)) {
+      errorMsg = Utils.getMessage(msgApi, "security.TIMEOUT_MSG");
       SessionUtils.clear();
     } else {
+      errorMsg = Utils.getMessage(msgApi, "security.UNAUTHORIZED_MSG");
 
       // autrement on fait un reset du timeout (temps à l'heure actuelle)
       SessionUtils.resetTimeout();
@@ -51,7 +55,7 @@ public class PourTous extends Security.Authenticator {
 
   @Override
   public Result onUnauthorized(Context ctx) {
-    return ok(errorMsg);
+    return Utils.toJson("message", errorMsg);
   }
 
 }

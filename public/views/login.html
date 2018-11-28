@@ -1,0 +1,65 @@
+<!doctype html>
+
+<!-- panneau de login -->
+<div id="login" class="card">
+  <div class="card-header text-white bg-primary">
+    <h3>Identification</h3>
+
+  </div>
+  <div class="card-body" >
+
+    <form id="frm-login" role="form" action="javascript:ctrl.effectuerLogin();" novalidate>
+
+      <!-- NOM D'UTILISATEUR -->
+      <div class="form-group">
+        <div class="float-left" >
+          <span class="fa fa-user"></span><label for="txtUsernameLogin">&nbsp;Nom d'utilisateur</label>
+        </div>
+        <div class="float-right">
+          <a href="javascript:ctrl.creerCompte();">Créer un compte</a>&nbsp;|&nbsp;
+          <a href="api/index.html">API</a>
+        </div>
+        <input class="form-control" type="text" style="border-radius:5px"
+               id="txtUsernameLogin" name="usernameLogin" placeholder="Entrez votre nom d'utilisateur" autofocus >
+      </div>
+
+      <!-- MOT DE PASSE -->
+      <div class="form-group">
+        <div class="float-left">
+          <span class="fa fa-lock"></span><label for="txtPasswordLogin">&nbsp;Mot de passe</label>
+        </div>
+        <input class="form-control" type="password" style="border-radius:5px"
+               id="txtPasswordLogin" name="passwordLogin" placeholder="Entrez votre mot de passe" >
+      </div>
+
+      <!-- DOMAINE -->
+      <div class="form-group">
+        <span class="fa fa-random"></span><label for="select">&nbsp;Domaine</label>
+        <select id="selDomaine" class="form-control">
+          <option>EDU</option>
+          <option>STUDENTFR</option>
+        </select>
+      </div>      
+
+      <!-- BOUTON SIGNER -->
+      <div class="float-left">
+        <button class="btn btn-primary" type="submit" >Signer</button>
+      </div>
+
+      <!-- SWITCH MEMORISER -->
+      <div class="float-right switch">
+        <input type="checkbox" class="switch" id="cbxMemoriserOuiNon">
+        <label for="cbxMemoriserOuiNon">Mémoriser</label>
+      </div>
+
+      <!--      <script>
+              bootstrapValidate(
+                ['#txtUsernameLogin', '#txtPasswordLogin'],
+                "required:Une valeur est requise !"
+              );
+            </script>-->
+
+    </form>
+  </div>
+</div> <!-- fin du panneau login -->
+

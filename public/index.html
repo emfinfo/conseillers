@@ -1,51 +1,99 @@
 <!doctype html>
 <html lang="fr">
+  <!--
+     Partie cliente de l'application "Conseillers", une application qui permet de filtrer
+     des conseillers nationaux suisses depuis 1868.
+
+     Cette vue HTML est aussi une Single Page Application (SPA), c'est-à-dire une page unique
+     où seront chargés des sous-vues. Cette page possède son propre contrôleur qui démarre
+     l'application avec la vue de "login".
+
+    Les technologies et librairies utilisées sont :
+     - HTML5 (avec CSS3 et JavaScript) comme base du développement
+     - jquery pour les lectures/écritures de et vers le DOM
+     - bootstrap 3 pour le coté "responsive" de l'application
+     - formvalidation pour le coté validation de données :
+       http://www.jqueryscript.net/form/Powerful-Form-Validation-Plugin-For-jQuery-Bootstrap-3.html
+     - bootstrap-switch pour de jolies cases à cocher sous la forme de switchs (comme sur iOS)
+       http://www.bootstrap-switch.org/
+     - bootstrap-sweetalert pour de jolies popup d'alert au lieu des moches des navigateurs
+       http://lipis.github.io/bootstrap-sweetalert/
+     - browser.js (librairie maison) pour accéder à des fonctions du navigateur
+     - date.js (librairie maison) pour améliorer la gestion des dates
+
+     Auteur: J.-C. Stritt
+     Date:   septembre 2016 / juin 2018 (bootstrap 4)
+  -->
+
+  <!-- entête de la page -->
   <head>
-    <title>Conseillers...</title>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="images/favicon.png" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>Ex19 - Conseillers sur GoogleMap</title>
+    <link rel="icon" type="image/png" href="images/emf-info.png" />
+
+    <!-- Bootstrap CSS (dernière version au 17.8.2018) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" 
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <!-- css de l'application -->
+    <link rel="stylesheet" href="css/switch.css">
+    <link rel="stylesheet" href="css/main.css">
+
   </head>
+
+  <!-- corps de la page -->
   <body>
-    <div id="conteneur" class="container">
-      <div class="col-sm-12">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <!--<h3 class="panel-title"><span id="version-app">&nbsp;</span> API (parlement Suisse)</h3>-->
-            <div class="panel-title">
-              <h3 style="display: inline-block; margin-top: 0.25em;">
-                <span id="version-app"></span>
-              </h3>
-              <h6 style="display: inline-block" >
-                &nbsp;parlement Suisse REST-API
-              </h6>
-            </div>
-          </div>
-          <div class="panel-body" style="text-align:left">
-            <div id="data">
-            </div>
-          </div>
-          <div class="footnote">BD MySQL sur serveur <span id="version-srv">&nbsp;</span>
-          </div>
-        </div>
-      </div>
+
+    <!-- containeur Bootstrap -->
+    <div class="container">
+
+      <!-- calque pour les differentes vues -->
+      <div id="view" ></div>
+
     </div>
 
-    <!--- jquery --->
-    <script type="text/javascript" src="libs/jquery/jquery-1.10.2.min.js"></script>
+    <!-- JQUERY first, then POPPER, then BOOSTRAP JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-    <!-- librairies Crypto  -->
-    <!-- https://code.google.com/archive/p/crypto-js/downloads -->
-    <script src="libs/crypto-js/aes.js"></script>
-    <script src="libs/crypto-js/pbkdf2.js"></script>
-    <script src="libs/crypto-js/enc-base64.js"></script>
+    <!-- FORM VALIDATION JS library -->
+    <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.1.3/dist/bootstrap-validate.js"></script>
 
-    <!--- librairies de l'application -->
-    <script type="text/javascript" src="js/helpers/browser.js"></script>
-    <script type="text/javascript" src="js/helpers/date.js"></script>
-    <script type="text/javascript" src="js/helpers/aesutil.js"></script>
-    <script type="text/javascript" src="js/controllers/indexCtrl.js"></script>
+    <!-- SWEETALERT 2 JS library -->
+    <script src="https://unpkg.com/sweetalert2@7.21.0/dist/sweetalert2.all.js"></script>
+
+    <!-- crypto-js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/pbkdf2.js"></script>
+
+    <!-- Google map -->
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTYHDVN5kiAIBtIpXq9mPaQHXIE1os6zE" ></script>-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJlp2N6Q2SEchlplPDnKFPuAb-TbIzxvI" ></script>
+
+    <!-- modules JCS -->
+    <script src="http://jcstritt.emf-informatique.ch/scripts/js/browser.js"></script>
+    <script src="http://jcstritt.emf-informatique.ch/scripts/js/date.js"></script>
+    <script src="http://jcstritt.emf-informatique.ch/scripts/js/aesutil.js"></script>
+
+    <!-- chargement des modeles de donnees -->
+    <script src="js/models/conseiller.js"></script>
+    <script src="js/models/activite.js"></script>
+    <script src="js/models/capitale.js"></script>
+
+    <!-- chargement de la couche de services -->
+    <script src="js/services/httpServ.js"></script>
+
+    <!-- worker pour lire/ecrire dans localstorage -->
+    <script src="js/workers/localStorageWrk.js"></script>
+
+    <!-- worker pour gérer une carte GoogleMap -->
+    <script src="js/workers/googleMapWrk.js"></script>
+
+    <!-- démarrage de l'application JS -->
+    <script src="js/controllers/indexCtrl.js"></script>
+
   </body>
 </html>
 

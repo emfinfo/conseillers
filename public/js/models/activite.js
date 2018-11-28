@@ -1,43 +1,24 @@
 /*
- * Pseudo-classe "Activite" (utile pour la compatibilité XML-->JSON).
+ * Pseudo-classe "Activite" (utile pour le toString).
  *
  * @author Jean-Claude Stritt
  */
-var Activite = function () {
-};
-
-Activite.prototype.setPkActivite = function (pkActivite) {
-  this.pkActivite = pkActivite;
-};
-
-Activite.prototype.setConseil = function (conseil) {
-  this.conseil = conseil;
-};
-
-Activite.prototype.setDateEntree = function (date) {
-  this.dateEntree = Date.parseDate(date);
-};
-
-Activite.prototype.setDateSortie = function (date) {
-  this.dateSortie = Date.parseDate(date);
-};
-
-Activite.prototype.setGroupe = function (groupe) {
-  this.groupe = groupe;
-};
-
-Activite.prototype.setFonction = function (fonction) {
-  this.fonction = fonction;
+var Activite = function (act) {
+  this.conseil = act.conseil;
+  this.dateEntree = Date.parseString(act.dateEntree);
+  this.dateSortie = Date.parseString(act.dateSortie);
+  this.groupe = act.groupe;
+  this.fonction = act.fonction;
 };
 
 Activite.prototype.toString = function () {
   return this.conseil.abrev
-    + ((this.dateEntree || this.dateSortie)?' (':'')
-    + ((this.dateEntree) ? this.dateEntree.format2('yyyy') : '')
-    + ((this.dateSortie) ? '-' + this.dateSortie.format2('yyyy') : '-...')
-    + ((this.dateEntree || this.dateSortie)?')':'')
-    + ((this.groupe) ? ', ' + this.groupe.nomGroupe 
-    + ' (' + this.fonction.nomFonction.toLowerCase() + ')':'');
+    + ((this.dateEntree || this.dateSortie) ? ' (' : '')
+    + ((this.dateEntree) ? this.dateEntree.formatOnlyYear() : '')
+    + ((this.dateSortie) ? '-' + this.dateSortie.formatOnlyYear() : '-...')
+    + ((this.dateEntree || this.dateSortie) ? ')' : '')
+    + ((this.groupe && this.conseil.abrev != "CF") ? ', ' + this.groupe.nom : '');
+//      + ' (' + this.fonction.nomFonction.toLowerCase() + ')' : '');
 
 };
 

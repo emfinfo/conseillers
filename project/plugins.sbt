@@ -1,7 +1,7 @@
 // comment to get more information during initialization
 logLevel := Level.Warn
 
-// use the last Play sbt plugin for Play projects (15.10.2018) https://www.playframework.com/
+// use the last Play sbt plugin for Play projects (8.10.2018) https://www.playframework.com/
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.20")
 
 // add eclipse-plugin (17.11.2017) https://github.com/sbt/sbteclipse/releases
