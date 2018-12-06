@@ -1,9 +1,9 @@
-# conseillers 1.3.7 - november 2018
+# conseillers 1.3.7 - november-december 2018
 A small Play application with a MySQL DB (Swiss parliament).
 This release is now full adapted to last Play 2.6.x framework.
 
 * New in release 1.3.7 (november 2018) :
-  * Use of PlayLib 1.0.0
+  * Use of PlayLib 1.0.1
   * LoginCtrl has been rewrited
   * LoginWrk has been completed with some SessionManager methods
   * SessionManager has been deleted (use SessionUtils from PlayLib)
@@ -63,7 +63,5 @@ library and the method AesUtil.encrypt(data)
 * A default db is installed on the web (emf-informatique.ch).
   * If you want, mount a local DB with the MySQL script in data folder.
 
-* You can test a runnable version on heroku
-http://conseillers.herokuapp.com/
 
 
