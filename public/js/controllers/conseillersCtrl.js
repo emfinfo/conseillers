@@ -116,11 +116,13 @@ var ctrl = (function () {
     }
 
     // preparation pour un affichage avec lien cliquable
-    compDOM.append('<li style="list-style-type: decimal-leading-zero"><a  style="color:' + couleur + '" href="javascript:ctrl.afficherMarqueurConseiller(' + idx + ');">' + conseiller + '</a>');
+    compDOM.append('<li style="list-style-type: none"><a style="color:' + couleur 
+      + '" href="javascript:ctrl.afficherMarqueurConseiller(' + idx + ');">' 
+      + (idx+1) + '. ' + conseiller + '</a>');
 
     // boucle interne sur les différentes activités d'un conseiller
     if (details && conseiller.activites) {
-      compDOM.append('<ul style="margin: 0; padding: 0; list-style-type: circle">');
+      compDOM.append('<ul style="margin: 0; padding: 0; list-style-type: none">');
       $.each(conseiller.activites, function (i, activite) {
         compDOM.append('<li style="color:gray; margin-left: 1.25em">' + activite + '</li>');
       });
@@ -137,7 +139,8 @@ var ctrl = (function () {
     // on récupère le composant du DOM
     var divData = $('#data');
     divData.html('');
-    divData.append('<ol id="lesConseillers">');
+    // style="list-style-type: decimal-leading-zero
+    divData.append('<ul id="lesConseillers">');
 
     // on boucle pour ajouter chaque conseiller
     $.each(conseillers, function (idx, cons) {
@@ -209,7 +212,9 @@ var ctrl = (function () {
       } else if (errNbr === 408) {
         swal(data.message, "Veuillez vous reloguer svp", "info");
         httpServ.chargerVue("login");
-      }  
+      } else {
+        swal(data.message, "Veuillez vous reloguer svp", "error");
+      } 
     } else {
       _afficherLesConseillers(data);
       _afficherMarqueursConseillers(); // on peut éventuellement enlever cela

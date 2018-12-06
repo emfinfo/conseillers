@@ -39,7 +39,7 @@ public class PourProfs extends Security.Authenticator {
 
     // un timeout de session est-il arrivé ? Si oui, on efface le cookie de session
     if (SessionUtils.isTimeout(msTimeout)) {
-       errorMsg = Utils.getMessage(msgApi, "security.TIMEOUT_MSG");
+      errorMsg = Utils.getMessage(msgApi, "security.TIMEOUT_MSG");
       SessionUtils.clear();
     } else {
       errorMsg = Utils.getMessage(msgApi, "security.FORBIDDEN_MSG");

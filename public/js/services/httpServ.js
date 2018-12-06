@@ -9,10 +9,6 @@
 /* global browser, validator, AesUtil */
 
 var httpServ = (function () {
-  // var SERVER_URL = 'http://localhost:9000'; // local
-  // var SERVER_URL = 'http://172.23.87.10:9000'; // EMF
-  // var SERVER_URL = 'http://192.168.0.11:9000'; // maison
-  // var SERVER_URL = 'http:///51.77.136.188'; // OVH
   var SERVER_URL = browser.Url.getBaseUrl(); // si client et serveur au même endroit
   var JSON_TYPE = 'json';
   var SEPARATOR = '♂♥♀';
