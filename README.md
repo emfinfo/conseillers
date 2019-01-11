@@ -1,6 +1,10 @@
-# conseillers 1.3.7 - december 2018
+# conseillers 1.3.8 - january 2018
 A small Play application with a MySQL DB (Swiss parliament).
 This release is now full adapted to last Play 2.6.x framework.
+
+* New in release 1.3.8 (january 2018) :
+  * Use of Play 2.6.21
+  * DB with new counselors (11.1.2019)
 
 * New in release 1.3.7 (december 2018) :
   * Use of PlayLib 1.0.1

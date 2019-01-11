@@ -3,34 +3,34 @@
 
 <div id="conseillers" class="card">
   <div class="card-header text-white bg-primary">
-    <h3>Les conseillers nationaux ...</h3>
+    <h3><a class="special-link" href="https://www.parlament.ch/fr/ratsmitglieder?k=*" target="_blank" >Le parlement suisse</a><span class="special-small">&nbsp;au&nbsp;11.1.2019</span></h3>
   </div>
   <div class="card-body" >
 
     <!--<p>Choisir le canton et le format pour charger en AJAX des données depuis un serveur</p>-->
-    <p>Filtrés par canton, conseil ou parti&nbsp;:<a class="float-right" href="javascript:ctrl.effectuerLogout()">Logout</a></p>
-
+    <div>Filtrés par canton, conseil ou parti&nbsp;:<a class="float-right" href="javascript:ctrl.effectuerLogout()">Logout</a></div>
 
     <!-- une combobox pour sélectionner le canton -->
-    <select id="cmbCantons">
-    </select>
+    <select id="cmbCantons"></select>
 
     <!-- une combobox pour sélectionner le conseil -->
-    <select id="cmbConseils">
-    </select>
+    <select id="cmbConseils"></select>
 
     <!-- une combobox pour sélectionner le parti -->
-    <select id="cmbPartis" style="width: 200px">
-    </select>
+    <select id="cmbPartis" style="width: 200px"></select>
 
-    &nbsp;
-    <input type="checkbox" id="cbxActuels" name="cbxActuels" />&nbsp;actuels
+    <div style="padding-top:0.25em; display: inline-block">
+      &nbsp;
+      <input type="checkbox" id="cbxActuels" name="cbxActuels" />&nbsp;actuels
 
-    &nbsp;
-    <input type="checkbox" id="cbxDetails" name="cbxDetails" />&nbsp;détails&nbsp;
-
-    <input type="button" value="Tous les marqueurs" onclick="ctrl.afficherMarqueursConseillers()">
-
+      &nbsp;
+      <input type="checkbox" id="cbxDetails" name="cbxDetails" />&nbsp;détails&nbsp;
+  
+      &nbsp;
+      <input type="button" value="Tous les marqueurs" onclick="ctrl.afficherMarqueursConseillers()">
+    
+    </div>
+  
     <!-- un calque vide pour afficher les données après un appel AJAX -->
     <div id="data">
       ...
@@ -44,7 +44,7 @@
   </div>
 
   <!-- pied de page pour afficher quelques données sur l'état du serveur -->
-  <div class="footnote">BD MySQL sur serveur <span id="versionServeur">&nbsp;</span> (session open: <span id="sessionStatus">&nbsp;</span>)
+  <div class="footnote">BD MySQL sur serveur <span id="versionServeur">&nbsp;</span> (session ouverte: <span id="sessionStatus">&nbsp;</span>)
   </div>
 </div>
 

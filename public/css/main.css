@@ -6,11 +6,25 @@ body {
   margin-top : 20px;
 }
 
+.card-header {
+  padding-bottom: 0px;
+}
+
 .card-body {
-  background-color:aliceblue ;
+  background-color:aliceblue;
+  padding: 0.5em 1em 0.5em 1em;
+  /* border: 2px solid red; */
 }
 
 .footnote {
   text-align: center;
   font-size: 0.75em;
+}
+
+.special-link:any-link {
+  color: aliceblue;
+}
+
+.special-small {
+  font-size: 40%;
 }
