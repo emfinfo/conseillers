@@ -1,82 +1,49 @@
 package controllers;
 
 import ch.emf.play.helpers.Utils;
-import ch.jcsinfo.util.ConvertLib;
+import ch.emf.play.models.ReleaseInfo;
+import com.google.inject.Inject;
 import com.typesafe.config.Config;
-import java.util.Map;
-import javax.inject.Inject;
-import play.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import play.mvc.*;
 
 public class ApplicationCtrl extends Controller {
-
-  private String appFullName;
+  private ReleaseInfo releaseInfo;
+  private final Logger logger;
 
   @Inject
   public ApplicationCtrl(Config config) {
-
+    releaseInfo = new ReleaseInfo();
+    
     // on prépare un message pour le fichier de log
     String appName = config.getString("application.name");
     String appVersion = config.getString("application.version");
+    releaseInfo.setApplication(appName + " " + appVersion);
+    releaseInfo.setServer("Play " + play.core.PlayVersion.current());
+    releaseInfo.setData(config.getString("db.default.data.version"));
 
-    appFullName = appName + " " + appVersion;
-
-    Logger.info(
-      appFullName
+    // on ajoute le message dans le fichier de log
+    logger = LoggerFactory.getLogger(this.getClass());      
+    logger.info(releaseInfo.getApplication()
       + " is running on Play " + play.core.PlayVersion.current()
       + " with Java " + System.getProperty("java.version")
       + " (" + System.getProperty("sun.arch.data.model") + " bits)");
-
   }
 
   public Result index() {
-    return redirect("/assets/index.html");
+    return redirect("/assets/index.html").withNewSession();
   }
 
-  public Result checkPreFlight(String path) {
-    Utils.validCrossDomainContext(request(), response());
-    return ok();
+  public Result checkPreFlight(Http.Request req, String path) {
+    Result result = ok();
+    Utils.validCrossDomainRequest(req, result);
+    return result;
   }
 
 //  @With(BeforeAfterAction.class)
   public Result lireVersion() {
-    return Utils.toJson("version-app", appFullName, "version-srv", "Play " + play.core.PlayVersion.current());
-  }
-
-//  @With(BeforeAfterAction.class)
-  public Result convertirTemperature() {
-    String s = "";
-    Map<String, String[]> map = request().body().asFormUrlEncoded();
-    if (map.size() == 3) {
-      String temperature = ""; // map.get("Temperature")[0];
-      String fromUnit = "";    // map.get("FromUnit")[0];
-      String toUnit = "";      // map.get("ToUnit")[0];
-      for (Map.Entry<String, String[]> entry : map.entrySet()) {
-        if (entry.getKey().equalsIgnoreCase("temperature")) {
-          temperature = entry.getValue()[0];
-        } else if (entry.getKey().equalsIgnoreCase("fromunit")) {
-          fromUnit = entry.getValue()[0];
-        } else if (entry.getKey().equalsIgnoreCase("tounit")) {
-          toUnit = entry.getValue()[0];
-        }
-      }
-//      System.out.println("temperature: " + temperature + ", fromUnit: " + fromUnit + ", toUnit: " + toUnit);
-
-      // essai de convertion du nombre
-      if (!temperature.isEmpty() && !temperature.equals("NaN")) {
-        double r = 0d;
-        if (fromUnit.equalsIgnoreCase("C") && toUnit.equalsIgnoreCase("F")) {
-          double c = ConvertLib.stringToDouble(temperature);
-          r = c * 9 / 5 + 32;
-        } else if (fromUnit.equalsIgnoreCase("F") && toUnit.equalsIgnoreCase("C")) {
-          double f = ConvertLib.stringToDouble(temperature);
-          r = (f - 32) * 5 / 9;
-        }
-        s = ConvertLib.formatNumber(r, "#0.0");
-      }
-    }
-
-    return ok("<double>" + s + "</double>").as("application/xml");
+    return Utils.toJson(releaseInfo);
   }
 
 }

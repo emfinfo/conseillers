@@ -32,7 +32,7 @@ var ctrl = (function () {
       domaine: domaine,
       profil: profil,
       email: email,
-      initiales: initiales,
+      initiales: initiales.toUpperCase(),
       langue: langue.toUpperCase()
     };
     return compte;

@@ -17,6 +17,7 @@ var indexCtrl = (function () {
 
   });
 
+  
   /*
    * 2. METHODES D'AFFICHAGE
    */
@@ -132,24 +133,24 @@ var indexCtrl = (function () {
 
     // conseillers fédéraux
     divData.append('<ul>');
-    _afficherUneRoute('/conseillers/Suisse/CF/tous/true');
-    _afficherUneRoute('/conseillers.xml/Suisse/CF/tous/true');
-    _afficherUneRoute('/conseillers.json/Suisse/CF/tous/true');
+    _afficherUneRoute('/conseillers/Suisse/tous/tous/true');
+    _afficherUneRoute('/conseillers.xml/Suisse/tous/tous/true');
+    _afficherUneRoute('/conseillers.json/Suisse/tous/tous/true');
     divData.append('</ul>');
 
   }
-
-
 
 
   /*
    * 3. CALLBACKS (RETOUR DE SERVICE)
    */
   function afficherVersion(data, text, jqXHR) {
-    var infoComponent1 = $("#version-app");
-    infoComponent1.html(data["version-app"]);
-    var infoComponent2 = $("#version-srv");
-    infoComponent2.html(data["version-srv"]);
+    var infoComponent1 = $("#release-application");
+    infoComponent1.html(data["application"]);
+    var infoComponent2 = $("#release-data");
+    infoComponent2.html(data["data"]);
+    var infoComponent3 = $("#release-server");
+    infoComponent3.html(data["server"]);
   }
 
   function afficherErreurHttp(jqXHR, textStatus, errorThrown) {

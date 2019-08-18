@@ -21,6 +21,7 @@ var ctrl = (function () {
 
   // pour memoriser une fois pour toute la map de la suisse
   var map;
+  var geocoder;
 
 
   /*
@@ -40,7 +41,6 @@ var ctrl = (function () {
 
     // chargement des premières données depuis le serveur (par HTTP)
     httpServ.lireVersion(_okLireVersion);
-    httpServ.lireStatusSession(_okLireStatusSession);
     httpServ.chargerCantons(_okChargerCantons);
     httpServ.chargerConseils(_okChargerConseils);
     httpServ.chargerPartis(_okChargerPartis);
@@ -79,7 +79,7 @@ var ctrl = (function () {
     _afficherCarteSuisse();
 
     // maj la liste des conseillers
-     _majConseillers();
+    _majConseillers();
 
   });
 
@@ -96,11 +96,13 @@ var ctrl = (function () {
 
     // affichage de la carte
     map = new google.maps.Map(canvas, options);
+    geocoder = new google.maps.Geocoder();
   }
 
   function _majConseillers() {
     var divData = $('#data');
     divData.html('...');
+    httpServ.lireStatusSession(_okLireStatusSession);    
     httpServ.chargerConseillers(format, canton, conseil, parti, actuels, _okChargerConseillers);
   }  
 
@@ -166,13 +168,17 @@ var ctrl = (function () {
    * 3. FONCTIONS DE CALLBACKS (RETOUR DE REQUETES HTTP)
    */
   function _okLireVersion(data, text, jqXHR) {
-    var lblVersionServeur = $("#versionServeur");
-    lblVersionServeur.html(data['version-srv']);
+    var infoComponent1 = $("#release-application");
+    infoComponent1.html(data["application"]);
+    var infoComponent2 = $("#release-data");
+    infoComponent2.html('  au ' + data["data"]);
+    var infoComponent3 = $("#release-server");
+    infoComponent3.html(data["server"]);
   }
 
   function _okLireStatusSession(data, text, jqXHR) {
-    var lblSessionStatus = $("#sessionStatus");
-    lblSessionStatus.html("" + data.open);
+    var infoComponent1 = $("#sessionStatus");
+    infoComponent1.html("" + data.open);
   }
 
   function _okChargerCantons(cantons, text, jqXHR) {
@@ -205,12 +211,14 @@ var ctrl = (function () {
   }
 
   function _okChargerConseillers(data, text, jqXHR) {
+    console.log("data: "+JSON.stringify(data));
     if ('message' in data) {
       var errNbr = parseInt(data.message.split(" - ")[0]);
       if (errNbr === 403) {
         swal(data.message, "Vous ne pouvez accéder aux opérations sur les conseillers", "warning");
       } else if (errNbr === 408) {
         swal(data.message, "Veuillez vous reloguer svp", "info");
+        _effectuerLogout();
         httpServ.chargerVue("login");
       } else {
         swal(data.message, "Veuillez vous reloguer svp", "error");
@@ -241,7 +249,7 @@ var ctrl = (function () {
     var conseiller = new Conseiller(dernListeConseillers[idx]);
 
     // creer un marqueur pour le conseiller
-    var marqueur = googleMapWrk.creerMarqueurConseiller(conseiller);
+    var marqueur = googleMapWrk.creerMarqueurConseiller(geocoder, conseiller);
 
     // afficher le nouveau marqueur
     marqueur.setMap(map);
@@ -252,7 +260,7 @@ var ctrl = (function () {
     googleMapWrk.effacerTousLesMarqueurs();
 
     // creer tous les marqueurs pour les conseillers affiches
-    var marqueurs = googleMapWrk.creerMarqueursConseillers(dernListeConseillers);
+    var marqueurs = googleMapWrk.creerMarqueursConseillers(geocoder, dernListeConseillers);
 
     // afficher les marqueurs
     for (var i = 0; i < marqueurs.length; i++) {

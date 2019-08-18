@@ -16,24 +16,24 @@ public class GuiceModule extends AbstractModule {
     Logger.debug(GuiceModule.class, "start", className);
   }
 
-  @Provides
-  public ConnexionWrk provideConnexionWorker() throws JpaException {
-    ConnexionWrk conWrk = new ConnexionWrk();
-    dao = conWrk.getDao();
-    Logger.debug(GuiceModule.class, dao, className);
-    return conWrk;
-  }
+//  @Provides
+//  public ConnexionWrk provideConnexionWorker() throws JpaException {
+//    ConnexionWrk conWrk = new ConnexionWrk();
+////    dao = conWrk.getDao();
+//    Logger.debug(GuiceModule.class, dao, className);
+//    return conWrk;
+//  }
 
-  @Provides
-  public LoginWrk provideLoginWorker() {
-    Logger.debug(GuiceModule.class, dao, className);
-    return new LoginWrk(dao);
-  }
+//  @Provides
+//  public LoginWrk provideLoginWorker() {
+//    Logger.debug(GuiceModule.class, dao, className);
+//    return new LoginWrk(dao);
+//  }
 
-  @Provides
-  public ConseillerWrk provideConseillerWorker() {
-    Logger.debug(GuiceModule.class, dao, className);
-    return new ConseillerWrk(dao);
-  }
+//  @Provides
+//  public ConseillerWrk provideConseillerWorker() {
+//    Logger.debug(GuiceModule.class, dao, className);
+//    return new ConseillerWrk(dao);
+//  }
 
 }

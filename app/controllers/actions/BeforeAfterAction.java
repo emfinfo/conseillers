@@ -1,10 +1,12 @@
 package controllers.actions;
 
 import ch.emf.play.helpers.Utils;
+import static ch.emf.play.helpers.SessionUtils.SESSION_TIMESTAMP;
+import com.google.inject.Inject;
+import com.typesafe.config.Config;
 import java.util.concurrent.CompletionStage;
 import play.mvc.Action.Simple;
 import play.mvc.Http;
-import play.mvc.Http.Context;
 import play.mvc.Result;
 
 /**
@@ -16,21 +18,45 @@ import play.mvc.Result;
  */
 public class BeforeAfterAction extends Simple {
 
-  private void before(Context ctx) {
-    ctx.response().setHeader("logtimestamp", "" + System.currentTimeMillis());
+  private final int msTimeout;
+
+  @Inject
+  public BeforeAfterAction(Config config) {
+    this.msTimeout = config.getInt("application.msTimeout");
   }
 
-  private void after(Context ctx) {
-    Utils.logInfo(ctx);
+  public boolean isTimeout(Http.Request req) {
+    long cTime = System.currentTimeMillis();
+    long sTime = Long.parseLong(req.session().getOptional(SESSION_TIMESTAMP).orElse("0"));
+//    System.out.println("cTime: " + cTime + " sTime: " + sTime + " diff: " + (cTime-sTime));
+    return (cTime - sTime) >= msTimeout;
+  }
+
+  private void before(Http.Request req) {
+    req.getHeaders().addHeader("x-logtimestamp", "" + System.currentTimeMillis());
+  }
+
+  private void after(Http.Request req, Result result) {
+    Utils.validCrossDomainRequest(req, result);
+    Utils.logInfo(req);
   }
 
   @Override
-  public CompletionStage<Result> call(Http.Context ctx) {
-    before(ctx);
-    Utils.validCrossDomainContext(ctx);
-    CompletionStage<Result> result = delegate.call(ctx); // This part calls your real action method
-    after(ctx);
-    return result;
+  public CompletionStage<Result> call(Http.Request req) {
+    before(req);
+
+    if (isTimeout(req)) {
+      return delegate.call(req).thenApply(result -> {
+        after(req, result);
+        return result.withNewSession();
+      });
+    } else {
+      return delegate.call(req).thenApply(result -> {
+        after(req, result);
+        return result.addingToSession(req, SESSION_TIMESTAMP, "" + System.currentTimeMillis());
+      });
+    }
+
   }
 
 }

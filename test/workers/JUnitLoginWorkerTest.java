@@ -20,53 +20,51 @@ import org.junit.runners.MethodSorters;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class JUnitLoginWorkerTest {
-  private static ConnexionWrk conWrk;
   private static LoginWrk logWrk;
   private static Class<?> clazz;
-
+ 
   @BeforeClass
   public static void setUpClass() {
     Injector inj = Guice.createInjector(new GuiceModule());
-    conWrk = inj.getInstance(ConnexionWrk.class);
     logWrk = inj.getInstance(LoginWrk.class);
     clazz = JUnitLoginWorkerTest.class;
   }
-
+ 
   @AfterClass
   public static void tearDownClass() {
-    conWrk.deconnecter();
+    logWrk.deconnecter();
   }
-
+ 
   @Test
-  public void test01_estConnectee() {
+  public void test01_connecter() {
     boolean ok = false;
     try {
-      conWrk.connecter();
-      ok = conWrk.estConnectee();
+      logWrk.connecter("testPU");
+      ok = logWrk.estConnecte();
     } catch (JpaException ex) {
       Logger.error(clazz, ex.getLocalizedMessage());
     }
-    Logger.info(clazz, ok, clazz.getSimpleName());
+    Logger.info(clazz, ok);
     assertTrue(ok);
   }
-
+ 
   @Test
   public void test02_ajouterLogin() {
     Login login = new Login("tartampionju", "edu", "test", "prof", "tartampionju@edufr.ch", "JT", "fr");
     Login loginAjoute = logWrk.creer(login);
     boolean ok = loginAjoute != null;
-    Logger.info(clazz, ok, clazz.getSimpleName());
+    Logger.info(clazz, ok);
     assertTrue(ok);
   }
-
+ 
   @Test
   public void test03_rechercherLogin() {
     Login login = logWrk.rechercher("tartampionju", "edu");
     boolean ok = login != null;
-    Logger.info(clazz, ok, clazz.getSimpleName());
+    Logger.info(clazz, ok);
     assertTrue(ok);
   }
-
+ 
   @Test
   public void test04_modifierLogin() {
     Login login = logWrk.rechercher("tartampionju", "edu");
@@ -75,10 +73,10 @@ public class JUnitLoginWorkerTest {
       login.setDomaine("studentfr");
       ok = logWrk.modifier(login) == 1;
     }
-    Logger.info(clazz, ok, clazz.getSimpleName());
+    Logger.info(clazz, ok);
     assertTrue(ok);
   }
-
+ 
   @Test
   public void test05_supprimerLogin() {
     Login login = logWrk.rechercher("tartampionju", "studentfr");
@@ -86,7 +84,7 @@ public class JUnitLoginWorkerTest {
     if (ok) {
       ok = logWrk.supprimer(login) == 1;
     }
-    Logger.info(clazz, ok, clazz.getSimpleName());
+    Logger.info(clazz, ok);
     assertTrue(ok);
   }
 

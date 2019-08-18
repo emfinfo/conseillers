@@ -1,7 +1,6 @@
 package workers;
 
 import ch.emf.dao.JpaDaoAPI;
-import ch.emf.dao.play.DaoRepositoryItf;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.List;
@@ -18,23 +17,19 @@ import models.Parti;
  * - partis<br>
  * - conseils<br>
  * - groupes parlementaires<br>
+ * <br>
  * Utilise daolayer avec JPA comme sous-couche d'accès aux données.
  *
  * @author Jean-Claude Stritt
  */
 @Singleton
-public class AnnexeWrk {
-  private final JpaDaoAPI dao;
+public class AnnexeWrk extends Worker {
 
   @Inject
-  public AnnexeWrk(DaoRepositoryItf rep) {
-    this.dao = rep.getDao();
-  }
-
   public AnnexeWrk(JpaDaoAPI dao) {
-    this.dao = dao;
+    super(dao);
   }
-
+  
   public List<EtatCivil> chargerEtatsCivils() {
     List<EtatCivil> etatsCivils = dao.getList(EtatCivil.class, "abrev");
     etatsCivils.add(new EtatCivil("tous", "Tous les états civils"));

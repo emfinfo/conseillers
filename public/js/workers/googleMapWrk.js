@@ -68,6 +68,20 @@ var googleMapWrk = (function () {
     return options;
   }
 
+  function getLatLng( geocoder, conseiller) {
+    var capitale = mapCantons[conseiller.canton.abrev];    
+    var latLng = new google.maps.LatLng(capitale.lat, capitale.long);
+    var address = conseiller.citoyennete.split(',');
+    var myaddress = address[0].replace('(','').replace(')','');
+    console.log('address: '+myaddress);
+    geocoder.geocode({'address': myaddress}, function(results, status) {
+      if (status === 'OK') {
+        latLng = results[0].geometry.location;
+      }
+    });
+    return latLng;
+  }
+
 
   /**
    * Créer un marqueur pour un conseiller.
@@ -76,13 +90,16 @@ var googleMapWrk = (function () {
    * @param {type} conseiller : un bean "conseiller"
    * @returns {google.maps.Marker} : un marqueur
    */
-  function _creerMarqueurConseiller(conseiller) {
+  function _creerMarqueurConseiller(geocoder, conseiller) {
+
+    // on récupère un objet "latitude-longitude" de l'API GoogleMap
+    var latLng = getLatLng(geocoder, conseiller);
 
     // on récupère la capitale avec le canton du conseiller
-    var capitale = mapCantons[conseiller.canton.abrev];
+    // var capitale = mapCantons[conseiller.canton.abrev];
 
     // on crée un objet "latitude-longitude" de l'API GoogleMap pour la capitale trouvée
-    var latLng = new google.maps.LatLng(capitale.lat, capitale.long);
+    // var latLng = new google.maps.LatLng(capitale.lat, capitale.long);
 
     // on crée un marqueur avec la classe google.maps.Marker
     var marqueur = new google.maps.Marker({
@@ -107,13 +124,13 @@ var googleMapWrk = (function () {
    * @param {type} conseiller : un bean "conseiller"
    * @returns {google.maps.Marker} : un tableau de marqueurs
    */
-  function _creerMarqueursConseillers(conseillers) {
+  function _creerMarqueursConseillers(geocoder, conseillers) {
   
     // si la liste des conseillers est définie, on boucle sur ces conseillers
     if (conseillers) {
       for (var i = 0; i < conseillers.length; i++) {
         var cons = new Conseiller(conseillers[i]);
-        marqueurs[i] = _creerMarqueurConseiller(cons);
+        marqueurs[i] = _creerMarqueurConseiller(geocoder, cons);
       }
     }
 

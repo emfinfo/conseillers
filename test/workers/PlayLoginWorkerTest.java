@@ -24,84 +24,87 @@ import play.test.WithApplication;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PlayLoginWorkerTest extends WithApplication {
-  private static JPAApi jpa;
-  private static ConnexionWrk conWrk;
+  private static JPAApi jpaApi;
   private static LoginWrk logWrk;
   private static Class<?> clazz;
-
-
+ 
+ 
   @BeforeClass
   public static void setUpClass() {
     clazz = JUnitLoginWorkerTest.class;
   }
-
+ 
   @Override
   public void startPlay() {
     super.startPlay();
     Injector inj = app.injector();
-    jpa = inj.instanceOf(JPAApi.class);
-    conWrk = inj.instanceOf(ConnexionWrk.class);
+    jpaApi = inj.instanceOf(JPAApi.class);
     logWrk = inj.instanceOf(LoginWrk.class);
   }
-
+ 
   @Override
   public void stopPlay() {
     super.stopPlay();
   }
-
+ 
   @Test
   public void test11_estConnectee() {
-    jpa.withTransaction(() -> {
-      boolean ok = conWrk.estConnectee();
-      Logger.info(clazz, ok, clazz.getSimpleName());
+    jpaApi.withTransaction(em -> {
+      logWrk.memoriser(em);
+      boolean ok = logWrk.estConnecte();
+      Logger.info(clazz, ok);
       assertTrue(ok);
     });
   }
-
+ 
   @Test
   public void test12_ajouterLogin() {
-    jpa.withTransaction(() -> {
+    jpaApi.withTransaction(em -> {
+      logWrk.memoriser(em);
       Login login = new Login("tartampionju", "edu", "test", "prof", "tartampionju@edufr.ch", "JT", "fr");
       Login loginAjoute = logWrk.creer(login);
       boolean ok = loginAjoute != null;
-      Logger.info(clazz, ok, clazz.getSimpleName());
+      Logger.info(clazz, ok);
       assertTrue(ok);
     });
   }
-
+ 
   @Test
   public void test13_rechercherLogin() {
-    jpa.withTransaction(() -> {
+    jpaApi.withTransaction(em -> {
+      logWrk.memoriser(em);
       Login login = logWrk.rechercher("tartampionju", "edu");
       boolean ok = login != null;
-      Logger.info(clazz, ok, clazz.getSimpleName());
+      Logger.info(clazz, ok);
       assertTrue(ok);
     });
   }
-
+ 
   @Test
   public void test14_modifierLogin() {
-    jpa.withTransaction(() -> {
+    jpaApi.withTransaction(em -> {
+      logWrk.memoriser(em);
       Login login = logWrk.rechercher("tartampionju", "edu");
       boolean ok = login != null;
       if (ok) {
         login.setDomaine("studentfr");
         ok = logWrk.modifier(login) == 1;
       }
-      Logger.info(clazz, ok, clazz.getSimpleName());
+      Logger.info(clazz, ok);
       assertTrue(ok);
     });
   }
-
+ 
   @Test
   public void test15_supprimerLogin() {
-    jpa.withTransaction(() -> {
+    jpaApi.withTransaction(em -> {
+      logWrk.memoriser(em);
       Login login = logWrk.rechercher("tartampionju", "studentfr");
       boolean ok = login != null;
       if (ok) {
         ok = logWrk.supprimer(login) == 1;
       }
-      Logger.info(clazz, ok, clazz.getSimpleName());
+      Logger.info(clazz, ok);
       assertTrue(ok);
     });
   }

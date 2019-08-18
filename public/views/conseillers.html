@@ -3,12 +3,15 @@
 
 <div id="conseillers" class="card">
   <div class="card-header text-white bg-primary">
-    <h3><a class="special-link" href="https://www.parlament.ch/fr/ratsmitglieder?k=*" target="_blank" >Le parlement suisse</a><span class="special-small">&nbsp;au&nbsp;11.1.2019</span></h3>
+    <h3><a class="special-link" href="https://www.parlament.ch/fr/ratsmitglieder?k=*" target="_blank">Le parlement
+        suisse</a><span class="special-small" id="release-data"></span>
+    </h3>
   </div>
-  <div class="card-body" >
+  <div class="card-body">
 
     <!--<p>Choisir le canton et le format pour charger en AJAX des données depuis un serveur</p>-->
-    <div>Filtrés par canton, conseil ou parti&nbsp;:<a class="float-right" href="javascript:ctrl.effectuerLogout()">Logout</a></div>
+    <div>Filtrés par canton, conseil ou parti&nbsp;:<a class="float-right"
+        href="javascript:ctrl.effectuerLogout()">Logout</a></div>
 
     <!-- une combobox pour sélectionner le canton -->
     <select id="cmbCantons"></select>
@@ -25,12 +28,12 @@
 
       &nbsp;
       <input type="checkbox" id="cbxDetails" name="cbxDetails" />&nbsp;détails&nbsp;
-  
+
       &nbsp;
       <input type="button" value="Tous les marqueurs" onclick="ctrl.afficherMarqueursConseillers()">
-    
+
     </div>
-  
+
     <!-- un calque vide pour afficher les données après un appel AJAX -->
     <div id="data">
       ...
@@ -44,8 +47,7 @@
   </div>
 
   <!-- pied de page pour afficher quelques données sur l'état du serveur -->
-  <div class="footnote">BD MySQL sur serveur <span id="versionServeur">&nbsp;</span> (session ouverte: <span id="sessionStatus">&nbsp;</span>)
+  <div class="footnote"><span id="release-application"></span>&nbsp;sur serveur&nbsp;<span
+      id="release-server">&nbsp;</span> (session ouverte: <span id="sessionStatus">&nbsp;</span>)
   </div>
 </div>
-
-

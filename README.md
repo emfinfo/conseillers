@@ -1,6 +1,15 @@
-# conseillers 1.3.8 - january 2018
-A small Play application with a MySQL DB (Swiss parliament).
-This release is now full adapted to last Play 2.6.x framework.
+# conseillers 1.4.0 - august 2019
+A small Play 2 application with a MySQL DB (Swiss parliament).
+
+* New in release 1.4.0 (august 2019) :
+  * Full adapted to use of Play 2.7.x with no more use of deprecated methods.
+  * No more dependeny of library PlayDao (deleted)
+  * Use new release 1.1.x of library PlayLib
+  * Use new release 6.1.x of library DaoLayer
+  * Use new release 1.1.x of library Cypher
+ 
+* New in release 1.3.9 (april 2019) :
+  * Use of Play 2.6.24
 
 * New in release 1.3.8 (january 2018) :
   * Use of Play 2.6.21

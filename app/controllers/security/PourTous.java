@@ -1,11 +1,12 @@
 package controllers.security;
 
 import ch.emf.play.helpers.Utils;
-import ch.emf.play.session.SessionUtils;
+import ch.emf.play.helpers.SessionUtils;
+import com.google.inject.Inject;
 import com.typesafe.config.Config;
-import javax.inject.Inject;
+import java.util.Optional;
 import play.i18n.MessagesApi;
-import play.mvc.Http.Context;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
@@ -15,6 +16,7 @@ import play.mvc.Security;
  * @author jcstritt
  */
 public class PourTous extends Security.Authenticator {
+
   private final int msTimeout;
   private final MessagesApi msgApi;
   private String errorMsg;
@@ -27,35 +29,35 @@ public class PourTous extends Security.Authenticator {
   }
 
   /**
-   * Comme identificateur unique, nous stockons en fait la PK
-   * de login dans la session et pas le nom d'utilisateur.
-   *
-   * @param ctx le contexte de la requête HTTP
-   * @return la PK sous la forme d'un string ou null
+   * Cette classe de sécurité si elle est utilisé dans un contrôleur
+   * avec une annotation @Security.Authenticated(PourTous.class)
+   * permet l'accès à toutes les actions du contrôleur pour peu
+   * que l'on soit logué et qu'il n'y pas eu de timeout de session
+   * entre temps.<br>
+   * <br>
+   * Dans le cas contraire, la méthode "onUnauthorized" sera appellée.
+   * Elle fermera la session dans tous les cas.
+   * 
+   * @param req la requête HTTP avec ses meta-données
+   * @return la PK de login sous la forme d'un string ou null
    */
   @Override
-  public String getUsername(Context ctx) {
-    String username = null;
+  public Optional<String> getUsername(Http.Request req) {
+    Optional<String> username = Optional.ofNullable(null);
 
-    // un timeout de session est-il arrivé ? Si oui, on efface le cookie de session
-    if (SessionUtils.isTimeout(msTimeout)) {
-      errorMsg = Utils.getMessage(msgApi, "security.TIMEOUT_MSG");
-      SessionUtils.clear();
+    // un timeout de session est-il arrivé ?
+    if (SessionUtils.isTimeout(req, msTimeout)) {
+      errorMsg = Utils.getMessage(req, msgApi, "security.TIMEOUT_MSG");
     } else {
-      errorMsg = Utils.getMessage(msgApi, "security.UNAUTHORIZED_MSG");
-
-      // autrement on fait un reset du timeout (temps à l'heure actuelle)
-      SessionUtils.resetTimeout();
-
-      // on retourne l'identifiant de session (avec la pk de login)
-      username = "" + SessionUtils.getUserId();
+      username = SessionUtils.getOptionalUserId(req);
+      errorMsg = Utils.getMessage(req, msgApi, "security.UNAUTHORIZED_MSG");
     }
     return username;
   }
 
   @Override
-  public Result onUnauthorized(Context ctx) {
-    return Utils.toJson("message", errorMsg);
+  public Result onUnauthorized(Http.Request req) {
+    return Utils.toJson("message", errorMsg).withNewSession();
   }
 
 }

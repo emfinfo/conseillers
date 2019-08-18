@@ -1,7 +1,7 @@
 # --- APPLICATION
 security.UNAUTHORIZED_MSG=401 - Une authentification est nécessaire !
-security.FORBIDDEN_MSG=403 - droits insuffisants !
-security.TIMEOUT_MSG=408 - Timeout (délai serveur) !
+security.FORBIDDEN_MSG=403 - Droits insuffisants !
+security.TIMEOUT_MSG=408 - Timeout (délai session serveur dépassé) !
 
 
 

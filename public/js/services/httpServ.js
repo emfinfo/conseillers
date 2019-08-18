@@ -11,6 +11,7 @@
 var httpServ = (function () {
   var SERVER_URL = browser.Url.getBaseUrl(); // si client et serveur au même endroit
   var JSON_TYPE = 'json';
+  var TEXT_TYPE = 'text';
   var SEPARATOR = '♂♥♀';
 
   /*
@@ -165,7 +166,7 @@ var httpServ = (function () {
     // });
     $.ajax({
       type: "POST",
-      dataType: "text",
+      dataType: TEXT_TYPE,
       url: SERVER_URL + "/createLogin",
       data: encData,
       contentType: "text/plain; CHARSET=UTF-8",

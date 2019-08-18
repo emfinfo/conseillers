@@ -18,24 +18,24 @@ resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/release
 // dépendances (voir dernières versions sur http://mvnrepository.com )
 libraryDependencies ++= Seq(
   javaJpa,
-  "ch.emf.info" % "conseillers-models" % "1.0.9",
-  "ch.emf.info" % "conseillers-models" % "1.0.9" classifier "sources",
-  "ch.emf.info" % "conseillers-models" % "1.0.9" classifier "javadoc",
+  "commons-codec" % "commons-codec" % "1.7",
+  "org.mariadb.jdbc" % "mariadb-java-client" % "2.3.0",
   "ch.emf.info" % "basiclib" % "1.3.4",
   "ch.emf.info" % "basiclib" % "1.3.4" classifier "sources",
   "ch.emf.info" % "basiclib" % "1.3.4" classifier "javadoc",
-  "ch.emf.info" % "cypherlib" % "1.0.2",
-  "ch.emf.info" % "cypherlib" % "1.0.2" classifier "sources",
-  "ch.emf.info" % "cypherlib" % "1.0.2" classifier "javadoc",
-  "ch.emf.info" % "daoplay" % "1.0.1",
-  "ch.emf.info" % "daoplay" % "1.0.1" classifier "sources",
-  "ch.emf.info" % "daoplay" % "1.0.1" classifier "javadoc",
-  "ch.emf.info" % "playlib" % "1.0.2",
-  "ch.emf.info" % "playlib" % "1.0.2" classifier "sources",
-  "ch.emf.info" % "playlib" % "1.0.2" classifier "javadoc",
-  "commons-codec" % "commons-codec" % "1.7",
-  "org.mariadb.jdbc" % "mariadb-java-client" % "2.3.0").map(_.force()
-)
+  "ch.emf.info" % "cypherlib" % "1.1.0",
+  "ch.emf.info" % "cypherlib" % "1.1.0" classifier "sources",
+  "ch.emf.info" % "cypherlib" % "1.1.0" classifier "javadoc",
+  "ch.emf.info" % "daolayer" % "6.1.0",
+  "ch.emf.info" % "daolayer" % "6.1.0" classifier "sources",
+  "ch.emf.info" % "daolayer" % "6.1.0" classifier "javadoc",
+  "ch.emf.info" % "playlib" % "1.1.0",
+  "ch.emf.info" % "playlib" % "1.1.0" classifier "sources",
+  "ch.emf.info" % "playlib" % "1.1.0" classifier "javadoc",
+  "ch.emf.info" % "conseillers-models" % "1.0.10",
+  "ch.emf.info" % "conseillers-models" % "1.0.10" classifier "sources",
+  "ch.emf.info" % "conseillers-models" % "1.0.10" classifier "javadoc"
+).map(_.force())
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings, on prend logback
 libraryDependencies ~= { _.map(_.exclude("org.slf4j", "slf4j-log4j12")) }
@@ -47,9 +47,9 @@ evictionWarningOptions in update := EvictionWarningOptions.default.withWarnTrans
 lazy val commonSettings = Seq(
   name := conf.getString("application.name"),
   version := conf.getString("application.version"),
-  scalaVersion := "2.12.7",
+  scalaVersion := "2.12.8",
   scalacOptions ++= Seq("-unchecked", "-feature", "-deprecation", "-J-Xss16M"),
-  javacOptions += "-Xlint:unchecked"
+  javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 )
 
 // monte l'application avec le plugin Java, les fichiers dans le projet
