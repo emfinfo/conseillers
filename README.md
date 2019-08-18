@@ -7,6 +7,7 @@ A small Play 2 application with a MySQL DB (Swiss parliament).
   * Use new release 1.1.x of library PlayLib
   * Use new release 6.1.x of library DaoLayer
   * Use new release 1.1.x of library Cypher
+  * updated data from Swiss parliament (24.08.2019)
   * You can test a running version here : http://vps617676.ovh.net/assets/index.html
 
 * New in release 1.3.9 (april 2019) :
