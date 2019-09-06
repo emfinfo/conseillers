@@ -26,15 +26,15 @@ libraryDependencies ++= Seq(
   "ch.emf.info" % "cypherlib" % "1.1.0",
   "ch.emf.info" % "cypherlib" % "1.1.0" classifier "sources",
   "ch.emf.info" % "cypherlib" % "1.1.0" classifier "javadoc",
-  "ch.emf.info" % "daolayer" % "6.1.0",
-  "ch.emf.info" % "daolayer" % "6.1.0" classifier "sources",
-  "ch.emf.info" % "daolayer" % "6.1.0" classifier "javadoc",
+  "ch.emf.info" % "daolayer" % "6.1.1",
+  "ch.emf.info" % "daolayer" % "6.1.1" classifier "sources",
+  "ch.emf.info" % "daolayer" % "6.1.1" classifier "javadoc",
   "ch.emf.info" % "playlib" % "1.1.0",
   "ch.emf.info" % "playlib" % "1.1.0" classifier "sources",
   "ch.emf.info" % "playlib" % "1.1.0" classifier "javadoc",
-  "ch.emf.info" % "conseillers-models" % "1.0.10",
-  "ch.emf.info" % "conseillers-models" % "1.0.10" classifier "sources",
-  "ch.emf.info" % "conseillers-models" % "1.0.10" classifier "javadoc"
+  "ch.emf.info" % "conseillers-models" % "1.0.11",
+  "ch.emf.info" % "conseillers-models" % "1.0.11" classifier "sources",
+  "ch.emf.info" % "conseillers-models" % "1.0.11" classifier "javadoc"
 ).map(_.force())
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings, on prend logback
