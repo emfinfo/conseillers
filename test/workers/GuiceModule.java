@@ -1,10 +1,10 @@
 package workers;
 
 import ch.emf.dao.JpaDaoAPI;
-import ch.emf.dao.exceptions.JpaException;
+//import ch.emf.dao.exceptions.JpaException;
 import ch.emf.dao.helpers.Logger;
 import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
+//import com.google.inject.Provides;
 
 public class GuiceModule extends AbstractModule {
   private JpaDaoAPI dao;
