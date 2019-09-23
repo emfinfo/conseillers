@@ -3,7 +3,7 @@ A small Play 2 application with a MySQL DB (Swiss parliament).
 
 * New in release 1.4.0 (august 2019) :
   * Full adapted to use of Play 2.7.x with no more use of deprecated methods.
-  * No more dependeny of library PlayDao (deleted)
+  * No more dependency of library PlayDao (deleted)
   * Use new release 1.1.x of library PlayLib
   * Use new release 6.1.x of library DaoLayer
   * Use new release 1.1.x of library Cypher
