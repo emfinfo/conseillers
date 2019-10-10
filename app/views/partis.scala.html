@@ -1,11 +1,9 @@
 @(partis: List[models.Parti])
-<style>
-  h1, li {color:green}
-  li {font-family: monospace; list-style-type: none;}
-</style>
-<h1>Liste des partis</h1>
-<ul>
-  @for(parti <- partis) {
-  <li>@parti.getAbrev(12) @parti.getNom()</li>
-  }
-</ul>
+@main(title = "Partis") {
+  <h3>Liste des partis</h3>
+  <ul class="smaller">
+    @for(parti <- partis) {
+      <li>@parti.getAbrev(12) @parti.getNom()</li>
+    }
+  </ul>
+}  

@@ -32,7 +32,7 @@ public class ApplicationCtrl extends Controller {
   }
 
   public Result index() {
-    return redirect("/assets/index.html").withNewSession();
+    return redirect("assets/index.html").withNewSession();
   }
 
   public Result checkPreFlight(Http.Request req, String path) {

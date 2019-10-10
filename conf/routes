@@ -4,6 +4,8 @@
 
 # application
 GET      /                                                   controllers.ApplicationCtrl.index()
+#GET      /                                                   controllers.Assets.at(path="/public", file="/index.html")
+
 OPTIONS  /*path                                              controllers.ApplicationCtrl.checkPreFlight(request :Request, path)
 GET      /version                                            controllers.ApplicationCtrl.lireVersion()
 
@@ -63,4 +65,3 @@ POST     /createLogin                                        controllers.LoginCt
 
 # Map static resources from the /public folder to the /assets URL path
 GET      /assets/*file                                       controllers.Assets.versioned(path="/public", file: Asset)
-#GET      /app                                                controllers.Assets.at(path="/public/app", file="/index.html")

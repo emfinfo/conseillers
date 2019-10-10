@@ -1,6 +1,17 @@
-# conseillers 1.4.0 - august 2019
+# conseillers 1.4.2 - october 2019
 A small Play 2 application with a MySQL DB (Swiss parliament).
 
+* New in release 1.4.2 (october 2019) :
+  * The client part now use geolocalisation to make markers.
+  * You can click on a marker, a popup comes
+  * If you click on a counselor, a marker with popup comes
+  * The client part is now full responsive for screens, tablets and smartphones
+  * The client part now use ES6 new things (googleMapWrk completly redesigned)
+  * You can test a running version here : http://parlement.jcsinfo.ch/
+
+* New in release 1.4.1 (september 2019) :
+  * You can test a running version here : http://parlement.jcsinfo.ch/
+  
 * New in release 1.4.0 (august 2019) :
   * Full adapted to use of Play 2.7.x with no more use of deprecated methods.
   * No more dependency of library PlayDao (deleted)
@@ -8,7 +19,6 @@ A small Play 2 application with a MySQL DB (Swiss parliament).
   * Use new release 6.1.x of library DaoLayer
   * Use new release 1.1.x of library Cypher
   * updated data from Swiss parliament (14.08.2019)
-  * You can test a running version here : http://vps617676.ovh.net/assets/index.html
 
 * New in release 1.3.9 (april 2019) :
   * Use of Play 2.6.24

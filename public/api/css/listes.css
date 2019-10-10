@@ -1,13 +1,30 @@
 body {
   background-color: white;
+  text-align: left;
+  font-size: 1.2em;
 }
-  
+
+ul {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+  padding: 0;
+  list-style-type: none;  
+}
+
+li {
+  font-family: monospace;
+  /*list-style-type: none;*/
+}
+
 .container {
   margin-top: 0;
   padding: 0;
-  background-color: aliceblue;
+  text-align: left;
+  /*background-color: aliceblue;*/
   font-family: Verdana, Arial, serif;
   height: auto;
+  color: green;
+  /*border: 1px solid green;*/
 }
 
 /* .card {
@@ -19,46 +36,28 @@ body {
 }
 
 .card-body {
-  background-color: aliceblue;
+  /*background-color: aliceblue;*/
   padding: 0.5em 1em 0.5em 1em;
 }
 
-.footnote {
-  text-align: center;
-  font-size: 0.75em;
-  background-color: aliceblue;
-}
 
-.special-link:any-link {
-  color: aliceblue;
-}
-
-.special-small {
-  font-size: 40%;
-}
-
-/* popup dans googlemap */
-.gm-style .gm-style-iw {
-  font-size: 1.2em;
-  font-weight: bold;
-  font-family: sans-serif;
-  /* text-transform: uppercase; */
-}
 
 /* petits écrans, on prend toute la largeur */
 @media (max-width: 991px) {
   .container {
     max-width: 100%;
+    /*border: 1px solid red;*/
   }
 }
 
 /* les très petits écrans en mode portrait */
 @media (max-width: 575px) and (orientation:portrait) {
-  .container {
-    font-size: 0.8em;
-    /* border: 1px solid red; */
-  }
 
+  .smaller>li{
+   font-size: 0.75em;
+   /*color: red;*/
+  }
+  
   .card-body {
     padding-left: 5px;
     padding-right: 5px;

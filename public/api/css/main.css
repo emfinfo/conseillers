@@ -1,12 +1,12 @@
-/**  {
-  margin:0px;
-  padding:0px;
-  border:0px;
-}*/
-
 body {
-  background-color: #A0A0A0;
-  text-align:center;
+  background-color: white;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+ul {
+  margin-top: 0;
+  margin-bottom: 0.25em;
 }
 
 li {
@@ -14,18 +14,53 @@ li {
   list-style-type: none;
 }
 
-#conteneur {
-  /*  background-color: white;
-    width: 45em;
-    border: 2px solid green;*/
-  height: auto;
-  margin: auto; /* pour centrer le conteneur */
-  text-align: left;
-  padding: 1em 2em;
+.container {
+  margin-top: 0;
+  padding: 0;
+  background-color: aliceblue;
   font-family: Verdana, Arial, serif;
+  height: auto;
+}
+
+/* .card {
+  border: 1px solid gray;
+} */
+
+.card-header {
+  padding-bottom: 0px;
+}
+
+.card-body {
+  background-color: aliceblue;
+  padding: 0.5em 1em 0.5em 1em;
 }
 
 .footnote {
   text-align: center;
   font-size: 0.75em;
+  background-color: aliceblue;
+}
+
+.special-small {
+  font-size: 40%;
+}
+
+/* petits écrans, on prend toute la largeur */
+@media (max-width: 991px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+/* les très petits écrans en mode portrait */
+@media (max-width: 575px) and (orientation:portrait) {
+  .container {
+    font-size: 0.8em;
+    /* border: 1px solid violet;     */
+  }
+  
+  .card-body {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }

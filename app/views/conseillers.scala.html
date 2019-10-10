@@ -1,9 +1,6 @@
-
 @(canton: String, conseillers: List[models.Conseiller])
-<style>
-  h1, li {color:green}
-</style>
-<h1>Liste des conseillers (@canton)</h1>
+@main(title = "Conseillers") {
+<h3>Liste des conseillers (@canton)</h3>
 <ol>
   @for(conseiller <- conseillers) {
   <li>
@@ -17,4 +14,6 @@
     </ul>
   </li>}
 </ol>
+
+}
 

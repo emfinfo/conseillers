@@ -8,11 +8,18 @@
 
 /* global browser, validator, AesUtil */
 
-var httpServ = (function () {
-  var SERVER_URL = browser.Url.getBaseUrl(); // si client et serveur au même endroit
+var httpServ = (() => {
   var JSON_TYPE = 'json';
   var TEXT_TYPE = 'text';
   var SEPARATOR = '♂♥♀';
+
+  // récupération de la racine du nom de domaine du serveur
+  var serverURL = browser.Url.getBaseUrl(); // si client et serveur au même endroit
+  if (serverURL.includes('jcsinfo.ch')) {
+    serverURL += '/parlement';
+  }
+  console.log("server URL: "+serverURL);
+
 
   /*
    * GESTION GLOBALE DES ERREURS HTTP
@@ -56,11 +63,11 @@ var httpServ = (function () {
     //    var nomFichierVal = 'js/validators/' + nomVue + 'Validator.js';
 
     // chargement de la vue
-    $('#view').load(nomFichierHtml, function () {
+    $('#view').load(nomFichierHtml, () => {
       console.debug(nomFichierHtml + ' OK !');
 
       // chargement du controleur de la vue
-      $.getScript(nomFichierCtrl, function () {
+      $.getScript(nomFichierCtrl, () => {
         console.debug(nomFichierCtrl + ' OK !');
       });
 
@@ -102,7 +109,7 @@ var httpServ = (function () {
    * OPERATIONS GENERIQUES
    */
   function _lireVersion(successCallbackFn) {
-    var fullURL = SERVER_URL + "/version";
+    var fullURL = serverURL + "/version";
     $.ajax({
       type: "GET",
       dataType: JSON_TYPE,
@@ -112,7 +119,7 @@ var httpServ = (function () {
   }
 
   function _lireStatusSession(successCallbackFn) {
-    var fullURL = SERVER_URL + "/session/status";
+    var fullURL = serverURL + "/session/status";
     $.ajax({
       type: "GET",
       dataType: JSON_TYPE,
@@ -129,7 +136,7 @@ var httpServ = (function () {
     var data = login.nom + SEPARATOR + login.domaine + SEPARATOR +
       login.motDePasse + SEPARATOR + Date.now();
     var encData = AesUtil.encrypt(data);
-    var fullURL = SERVER_URL + "/session/login/" + encData;
+    var fullURL = serverURL + "/session/login/" + encData;
     $.ajax({
       type: "GET",
       dataType: JSON_TYPE,
@@ -139,7 +146,7 @@ var httpServ = (function () {
   }
 
   function _effectuerLogout(successCallbackFn) {
-    var fullURL = SERVER_URL + "/session/logout";
+    var fullURL = serverURL + "/session/logout";
     $.ajax({
       type: "GET",
       dataType: JSON_TYPE,
@@ -167,7 +174,7 @@ var httpServ = (function () {
     $.ajax({
       type: "POST",
       dataType: TEXT_TYPE,
-      url: SERVER_URL + "/createLogin",
+      url: serverURL + "/createLogin",
       data: encData,
       contentType: "text/plain; CHARSET=UTF-8",
       success: successCallbackFn
@@ -181,7 +188,7 @@ var httpServ = (function () {
    * OPERATIONS "METIER" SUR LA GESTION DES CONSEILLERS
    */
   function _chargerCantons(successCallbackFn) {
-    var fullURL = browser.Url.buildUrl(SERVER_URL, "cantons", JSON_TYPE);
+    var fullURL = browser.Url.buildUrl(serverURL, "cantons", JSON_TYPE);
     $.ajax({
       type: "GET",
       dataType: JSON_TYPE,
@@ -191,7 +198,7 @@ var httpServ = (function () {
   }
 
   function _chargerConseils(successCallbackFn) {
-    var fullURL = browser.Url.buildUrl(SERVER_URL, "conseils", JSON_TYPE);
+    var fullURL = browser.Url.buildUrl(serverURL, "conseils", JSON_TYPE);
     $.ajax({
       type: "GET",
       dataType: JSON_TYPE,
@@ -201,7 +208,7 @@ var httpServ = (function () {
   }
 
   function _chargerPartis(successCallbackFn) {
-    var fullURL = browser.Url.buildUrl(SERVER_URL, "partis", JSON_TYPE);
+    var fullURL = browser.Url.buildUrl(serverURL, "partis", JSON_TYPE);
     $.ajax({
       type: "GET",
       dataType: JSON_TYPE,
@@ -212,7 +219,7 @@ var httpServ = (function () {
 
   function _chargerConseillers(fmt, canton, conseil, parti, actuels, successCallbackFn) {
     var format = fmt.toLowerCase();
-    var fullURL = browser.Url.buildUrl(SERVER_URL, "conseillers", format);
+    var fullURL = browser.Url.buildUrl(serverURL, "conseillers", format);
     fullURL += "/" + canton;
     fullURL += "/" + conseil;
     fullURL += "/" + parti;

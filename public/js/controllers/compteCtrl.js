@@ -6,12 +6,12 @@
 
 /* global httpServ */
 
-var ctrl = (function () {
+var ctrl = (() => {
 
   /*
    * 1. DOM PRET : initialisations diverses
    */
-  //  $(document).ready(function () {
+  //  $(document).ready(() => {
   //  });
 
 
@@ -75,4 +75,4 @@ var ctrl = (function () {
     retournerLogin: _retournerLogin
   };
 
-}());
+})();

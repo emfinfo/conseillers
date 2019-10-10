@@ -1,10 +1,10 @@
 /*
  * Pseudo-classe "Capitale", modele de donnees pour stocker les infos d'une capitale.
  */
-var Capitale = function (nom, lat, long) {
+var Capitale = function (nom, lat, lng) {
   this.nom = nom;
   this.lat = lat;
-  this.long = long;
+  this.lng = lng;
 };
 
 Capitale.prototype.toString = function () {

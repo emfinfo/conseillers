@@ -6,7 +6,7 @@
 
 /* global browser */
 
-var localStorageWrk = (function () {
+var localStorageWrk = (() => {
   var LS_KEY_LOGIN = "projet_conseillers";
 
   // initialisation cle login si inexistante dans localstorage

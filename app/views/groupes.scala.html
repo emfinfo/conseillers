@@ -1,11 +1,9 @@
 @(groupes: List[models.Groupe])
-<style>
-  h1, li {color:green}
-  li {font-family: monospace; list-style-type: none;}
-</style>
-<h1>Liste des groupes parlementaires</h1>
-<ul>
-  @for(groupe <- groupes) {
-  <li>@groupe.getAbrev(5) @groupe.getNom()</li>
-  }
-</ul>
+@main(title = "Groupes") {
+  <h3>Liste des groupes parlementaires</h3>
+  <ul class="smaller">
+    @for(groupe <- groupes) {
+      <li>@groupe.getAbrev(5) @groupe.getNom()</li>
+    }
+  </ul>
+}  

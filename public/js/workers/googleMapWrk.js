@@ -2,12 +2,12 @@
  * Worker pour gerer une carte GoogleMap avec des marqueurs sur des conseillers
  * nationaux. Un tableau interne mémorise les marqueurs produits.
  *
- * @author L. Waeber & J.-C. Stritt
+ * @author J.-C. Stritt
  */
 
 /* global google */
 
-var googleMapWrk = (function () {
+var googleMapWrk = (() => {
 
   // hashmap des cantons avec leur capitale
   var mapCantons = {};
@@ -41,6 +41,12 @@ var googleMapWrk = (function () {
   // gestion interne d'un tableau de marqueurs (pour l'effacement)
   var marqueurs = [];
 
+  // création d'une fenêtre d'info pour popup après clic sur marqueur
+  var infowindow = new google.maps.InfoWindow({
+    maxWidth: 400,
+    pixelOffset: new google.maps.Size(0, -30)
+  });
+
 
   /**
    * Contruire les options d'une Google Map.
@@ -54,13 +60,13 @@ var googleMapWrk = (function () {
   function _construireOptionsCarte(niveauZoom, typeCarte, cantonCentrage) {
 
     // on récupere la capitale pour le canton fourni
-    var capitale = mapCantons[cantonCentrage];
+    let capitale = mapCantons[cantonCentrage];
 
     // on crée un objet "latitude-longitude" de l'API GoogleMap pour la capitale trouvée
-    var latLng = new google.maps.LatLng(capitale.lat, capitale.long);
+    let latLng = new google.maps.LatLng(capitale.lat, capitale.lng);
 
     // on crée les options de la carte et on les retourne
-    var options = {
+    let options = {
       zoom: niveauZoom,
       center: latLng,
       mapTypeId: typeCarte
@@ -68,75 +74,123 @@ var googleMapWrk = (function () {
     return options;
   }
 
-  function getLatLng( geocoder, conseiller) {
-    var capitale = mapCantons[conseiller.canton.abrev];    
-    var latLng = new google.maps.LatLng(capitale.lat, capitale.long);
-    var address = conseiller.citoyennete.split(',');
-    var myaddress = address[0].replace('(','').replace(')','');
-    console.log('address: '+myaddress);
-    geocoder.geocode({'address': myaddress}, function(results, status) {
-      if (status === 'OK') {
-        latLng = results[0].geometry.location;
-      }
-    });
-    return latLng;
+  /**
+   * Trouver la geolocalisation d'un conseiller sous la forme d'une "promesse".
+   * Pourquoi "promesse", car c'est une opération asynchrone vers l'API de google qui nous
+   * fournit la géolocation d'une conseiller (objet avec les 2 propriétés latitude-longitude).
+   * 
+   * @param {*} geocoder l'objet Google pour trouver une geolocalisation
+   * @param {*} conseiller la source pour la trouver
+   */
+  function _geolocaliserUnConseiller(geocoder, conseiller) {
+    return new Promise((resolve, reject) => {
+
+      // récupération de la citoyenneté
+      let citizenship = conseiller.citoyennete.split(',');
+      let address = citizenship[0].replace('(', '').replace(')', '');
+      
+      // essaye de trouver la geolocalisation  de cette adresse
+      geocoder.geocode({ 'address': address}, (results, status) => {
+        
+        // crée un objet qui permettra de créer un marqueur
+        let location = {};
+        location.name = conseiller.toString();
+        location.address = address;
+        
+        // on détermine la géolocalisation (trouvée ou de la capitale)
+        if (status === 'OK') {
+          location.latLng = results[0].geometry.location;
+        } else {
+          let capitale = mapCantons[conseiller.canton.abrev];
+          location.latLng = new google.maps.LatLng(capitale.lat, capitale.lng);
+        }
+
+        // résoud la promesse de découverte de la géolocalisation
+        resolve(location);
+      });
+    })
   }
 
+  /**
+   * Créer un tableau de "promesses" de geolocalisation de chaque conseiller d'une liste.
+   * Pourquoi "promesse", car c'est une opération asynchrone vers l'API de google qui nous
+   * fournit chaque géolocation (objet avec les 2 propriétés latitude-longitude).
+   * 
+   * @param {*} geocoder l'objet Google pour trouver une geolocalisation
+   * @param {*} conseillers une liste de conseillers
+   */
+  function _geolocaliserLesConseillers(geocoder, conseillers) {
+    let results = [];
+
+    // si la liste des conseillers est définie, on boucle sur ces conseillers
+    if (conseillers) {
+      for (let i = 0; i < conseillers.length; i++) {
+        let conseiller = new Conseiller(conseillers[i]);
+        results.push(_geolocaliserUnConseiller(geocoder, conseiller));
+      }
+    }
+    return results;
+  }
 
   /**
-   * Créer un marqueur pour un conseiller.
-   * Celui-ci est retourné, mais également poussé dans le tableau interne des marqueurs.
-   *
-   * @param {type} conseiller : un bean "conseiller"
-   * @returns {google.maps.Marker} : un marqueur
+   * Construit une fonction qui sera appelée après un clic sur un marqueur.
    */
-  function _creerMarqueurConseiller(geocoder, conseiller) {
+  function _infoFn(map, location) {
+    return function (e) {
+      let content =
+        // '<div>' +
+        '<div>' + location.name + '</div>' +
+        '<div>' + location.address + '</div>'
+        // '</div>';
+      infowindow.setContent(content);
+      infowindow.open(map);
+      infowindow.setPosition(location.latLng);
+    }
+  };
 
-    // on récupère un objet "latitude-longitude" de l'API GoogleMap
-    var latLng = getLatLng(geocoder, conseiller);
-
-    // on récupère la capitale avec le canton du conseiller
-    // var capitale = mapCantons[conseiller.canton.abrev];
-
-    // on crée un objet "latitude-longitude" de l'API GoogleMap pour la capitale trouvée
-    // var latLng = new google.maps.LatLng(capitale.lat, capitale.long);
-
-    // on crée un marqueur avec la classe google.maps.Marker
-    var marqueur = new google.maps.Marker({
-      position: latLng,
-      title: conseiller.toString(),
-      draggable: true,
-      animation: google.maps.Animation.DROP
+  /**
+   * Créer un objet google.maps.Marker grâce à l'objet localisation fourni.
+   * Exemple :  {"name":"Berset Alain (1972), FR, PSS","latLng":{"lat":46.8641022,"lng":7.084824499999968}}
+   * 
+   * @param {*} location un objet de localisation 
+   */
+  function _creerUnMarqueur(map, location, show) {
+    infowindow.close();
+    let marqueur = new google.maps.Marker({
+      title: location.name + "\n" + location.address,
+      position: location.latLng,
+      draggable: false,
+      animation: google.maps.Animation.DROP,
+      // label: {
+      //   color: 'Crimson',
+      //   fontWeight: 'bold',
+      //   fontSize: '8pt',
+      //   text: location.name,
+      // },
+      // icon: {
+      //   labelOrigin: new google.maps.Point(11, 50),
+      //   url: "images/marker_red.png",
+      //   size: new google.maps.Size(22, 40),
+      //   origin: new google.maps.Point(0, 0),
+      //   anchor: new google.maps.Point(11, 40),
+      // }
     });
 
-    // on pousse ce marqueur à la fin du tableau interne des marqueurs
+    // ajoute un écouteur pour afficher une popup
+    let fn = _infoFn(map, location);
+    google.maps.event.addListener(marqueur, 'click', fn);
+
+    if (show) {
+      fn(null);
+    }
+
+    // ajoute le marqueur à la liste interne
     marqueurs.push(marqueur);
 
-    // on retourne le marqueur
+    // retourne le marqueur
     return marqueur;
   }
 
-
-  /**
-   * Créer un tableau de marqueurs pour une liste de conseillers fournie.
-   * Ceux-ci sont retournés, mais également stockés dans le tableau interne des marqueurs.
-   *
-   * @param {type} conseiller : un bean "conseiller"
-   * @returns {google.maps.Marker} : un tableau de marqueurs
-   */
-  function _creerMarqueursConseillers(geocoder, conseillers) {
-  
-    // si la liste des conseillers est définie, on boucle sur ces conseillers
-    if (conseillers) {
-      for (var i = 0; i < conseillers.length; i++) {
-        var cons = new Conseiller(conseillers[i]);
-        marqueurs[i] = _creerMarqueurConseiller(geocoder, cons);
-      }
-    }
-
-    // on retourne la liste interne des marqueurs
-    return marqueurs;
-  }
 
 
   /**
@@ -144,10 +198,10 @@ var googleMapWrk = (function () {
    *
    * @returns {undefined} : pas de retour
    */
-  function _effacerTousLesMarqueurs() {
+  function _effacerLesMarqueurs() {
 
     // on boucle sur tous les marqueurs mémorisés
-    for (var i = 0; i < marqueurs.length; i++) {
+    for (let i = 0; i < marqueurs.length; i++) {
 
       // on met le marqueur à "null" sur la carte pour l'effacer
       marqueurs[i].setMap(null);
@@ -158,13 +212,12 @@ var googleMapWrk = (function () {
   }
 
 
-  // interface : definition des methodes publiques (a gauche)
+  // interface : définition des méthodes publiques (à gauche)
   return {
     construireOptionsCarte: _construireOptionsCarte,
-    creerMarqueurConseiller: _creerMarqueurConseiller,
-    creerMarqueursConseillers: _creerMarqueursConseillers,
-    effacerTousLesMarqueurs: _effacerTousLesMarqueurs
+    geolocaliserUnConseiller: _geolocaliserUnConseiller,
+    geolocaliserLesConseillers: _geolocaliserLesConseillers,
+    creerUnMarqueur: _creerUnMarqueur,
+    effacerLesMarqueurs: _effacerLesMarqueurs
   };
 })();
-
-

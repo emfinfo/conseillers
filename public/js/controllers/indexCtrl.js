@@ -6,12 +6,12 @@
 
 /* global httpServ */
 
-var indexCtrl = (function () {
+var indexCtrl = (() => {
 
   /*
    * 1. DOM PRET : chargement de la fenêtre de login
    */
-  $(document).ready(function () {
+  $(document).ready(() => {
     if (httpServ) {
       httpServ.centraliserErreursHttp(_afficherErreurHttp);
       httpServ.chargerVue("login");

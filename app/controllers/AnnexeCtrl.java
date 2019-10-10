@@ -37,7 +37,7 @@ public class AnnexeCtrl extends Controller {
   private <T> T wrap(Function<EntityManager, T> function) {
     return jpaApi.withTransaction(function);
   }
-  
+   
   /**
    * Renvoyer une liste des états civils.
    */

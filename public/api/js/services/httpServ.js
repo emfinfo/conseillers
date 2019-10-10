@@ -7,14 +7,14 @@
  */
 
 /* global browser */
-var httpServ = (function () {
-//  var serverURL = 'http://172.23.87.45:9000'; // EMF
-//  var serverURL = 'http://192.168.0.4:9000'; // maison
-//  var serverURL = 'http://192.168.0.5:9000'; // raspberry pi2
-//  var serverURL = 'http://localhost:9000'; // local
-//  var serverURL = 'http://conseillers.herokuapp.com';
+var httpServ = (() => {
+  
+  // récupération de la racine du nom de domaine du serveur
   var serverURL = browser.Url.getBaseUrl(); // si client et serveur au même endroit
-  console.info("serverURL: " + serverURL);
+  if (serverURL.includes('jcsinfo.ch')) {
+    serverURL += '/parlement';
+  }
+  console.log("server URL: "+serverURL);
 
   function _getBaseUrl() {
     return serverURL;
@@ -32,7 +32,6 @@ var httpServ = (function () {
     });
   }
 
-
   function _getCreateLoginInfo(successCallback, errorCallback) {
     var format = "json";
     var fullURL = serverURL + "/createLoginInfo";
@@ -46,7 +45,6 @@ var httpServ = (function () {
   }
 
 
-
   // définition des noms de methodes publiques
   return {
     getBaseUrl: _getBaseUrl,
@@ -55,5 +53,3 @@ var httpServ = (function () {
   };
 
 })();
-
-

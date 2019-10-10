@@ -1,13 +1,9 @@
-
 @(conseils: List[models.Conseil])
-<style>
-  h1, li {color:green}
-  li {font-family: monospace; list-style-type: none;}
-</style>
-<h1>Liste des conseils</h1>
-<ul>
-  @for(conseil <- conseils) {
-  <li>@conseil.getAbrev(5) @conseil.getNom()</li>
-  }
-</ul>
-
+@main(title = "Conseils") {
+  <h3>Liste des conseils</h3>
+  <ul>
+    @for(conseil <- conseils) {
+      <li>@conseil.getAbrev(5) @conseil.getNom()</li>
+    }
+  </ul>
+}

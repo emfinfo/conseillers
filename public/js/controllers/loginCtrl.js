@@ -5,13 +5,12 @@
  */
 
 /* global httpServ, localStorageWrk */
-
-var ctrl = (function () {
+var ctrl = (() => {
 
   /*
    * 1. DOM PRET : initialisations diverses
    */
-  $(document).ready(function () { // comme methode start en Java
+  $(document).ready(() => { // comme methode start en Java
     var login = localStorageWrk.lireLoginMemorise();
     _afficherLogin(login);
   });

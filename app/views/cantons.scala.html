@@ -1,13 +1,11 @@
 @(cantons: List[models.Canton])
-<style>
-  h1, li {color:green}
-  li {font-family: monospace; list-style-type: none;}
-</style>
-<h1>Liste des cantons</h1>
-<ul>
-  @for(canton <- cantons) {
-  <li>@canton.getAbrev(3) @canton.getNom()</li>
-  }
-</ul>
+@main(title = "Cantons") {
+  <h3>Liste des cantons</h3>
+  <ul>
+    @for(canton <- cantons) {
+      <li>@canton.getAbrev(3) @canton.getNom()</li>
+    }
+  </ul>
+}
 
 

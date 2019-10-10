@@ -1,49 +1,44 @@
 <!doctype html>
 <html lang="fr">
-  <head>
-    <title>Conseillers...</title>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="images/favicon.png" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css" />
-  </head>
-  <body>
-    <div id="conteneur" class="container">
-      <div class="col-sm-12">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <div class="panel-title">
-              <h3 style="display: inline-block; margin-top: 0.25em;">Parlement suisse REST-API
-              </h3>
-              <h6 style="display: inline-block" >
-                données au <span id="release-data"></span>
-              </h6>
-            </div>
-          </div>
-          <div class="panel-body" style="text-align:left">
-            <div id="data">
-            </div>
-          </div>
-          <div class="footnote"><span id="release-application"></span>&nbsp;sur serveur&nbsp;<span id="release-server">&nbsp;</span>
-          </div>
-        </div>
+
+<head>
+  <title>Conseillers...</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="card-header text-white bg-primary">
+        <h3>Parlement suisse REST-API<span class="special-small">&nbsp;données au&nbsp;<span id="release-data"></span></span></h3>
       </div>
+      <div class="card-body" style="text-align:left">
+        <div id="data"></div>
+      </div>
+      <div class="footnote"><span id="release-application"></span>&nbsp;sur serveur&nbsp;<span
+        id="release-server">&nbsp;</span>
+     </div>
     </div>
+  </div>
 
-    <!--- jquery --->
-    <script type="text/javascript" src="libs/jquery/jquery-1.10.2.min.js"></script>
+  <!--- jquery --->
+  <script type="text/javascript" src="libs/jquery/jquery-1.10.2.min.js"></script>
 
-    <!-- librairies Crypto  -->
-    <!-- https://code.google.com/archive/p/crypto-js/downloads -->
-    <script src="libs/crypto-js/aes.js"></script>
-    <script src="libs/crypto-js/pbkdf2.js"></script>
-    <script src="libs/crypto-js/enc-base64.js"></script>
+  <!-- librairies Crypto  -->
+  <!-- https://code.google.com/archive/p/crypto-js/downloads -->
+  <script src="libs/crypto-js/aes.js"></script>
+  <script src="libs/crypto-js/pbkdf2.js"></script>
+  <script src="libs/crypto-js/enc-base64.js"></script>
 
-    <!--- librairies de l'application -->
-    <script type="text/javascript" src="js/helpers/browser.js"></script>
-    <script type="text/javascript" src="js/helpers/date.js"></script>
-    <script type="text/javascript" src="js/helpers/aesutil.js"></script>
-    <script type="text/javascript" src="js/controllers/indexCtrl.js"></script>
-  </body>
+  <!--- librairies de l'application -->
+  <script type="text/javascript" src="js/helpers/browser.js"></script>
+  <script type="text/javascript" src="js/helpers/date.js"></script>
+  <script type="text/javascript" src="js/helpers/aesutil.js"></script>
+  <script type="text/javascript" src="js/controllers/indexCtrl.js"></script>
+</body>
+
 </html>
-

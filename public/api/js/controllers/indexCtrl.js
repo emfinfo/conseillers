@@ -1,15 +1,21 @@
+/*
+ * Contrôleur de la page API des conseillers.
+ *
+ * @author Jean-Claude Stritt
+ */
+
 /* global httpServ, AesUtil */
 
-var indexCtrl = (function () {
+var indexCtrl = (() => {
 
   /*
    * 1. DOM PRET : chargement des premières données dans la vue
    */
-  $(document).ready(function () {
+  $(document).ready(() => {
     console.debug("DOM ready !!!");
 
     // chargement de la couche de service et des premières données par HTTP
-    $.getScript("js/services/httpServ.js", function () {
+    $.getScript("js/services/httpServ.js", () => {
 //      console.log("httpServ.js chargé !");
       httpServ.getVersion(afficherVersion, afficherErreurHttp);
       _afficherRoutes();
@@ -22,9 +28,12 @@ var indexCtrl = (function () {
    * 2. METHODES D'AFFICHAGE
    */
   function _afficherUneRoute(url) {
-    var href = url;
     var baseUrl = httpServ.getBaseUrl();
-
+    if (baseUrl.includes('vps617676.ovh.net')) {
+      baseUrl += '/parlement';
+    }
+    var href = baseUrl + url;
+ 
     // noeud du DOM à modifier
     var divData = $('#data');
 
@@ -59,8 +68,8 @@ var indexCtrl = (function () {
   }
 
   function _afficherRoutes() {
-    var baseUrl = httpServ.getBaseUrl();
-    var divData = $('#data');
+    let baseUrl = httpServ.getBaseUrl();
+    let divData = $('#data');
     divData.html('');
 
     // versions
@@ -145,16 +154,16 @@ var indexCtrl = (function () {
    * 3. CALLBACKS (RETOUR DE SERVICE)
    */
   function afficherVersion(data, text, jqXHR) {
-    var infoComponent1 = $("#release-application");
+    let infoComponent1 = $("#release-application");
     infoComponent1.html(data["application"]);
-    var infoComponent2 = $("#release-data");
+    let infoComponent2 = $("#release-data");
     infoComponent2.html(data["data"]);
-    var infoComponent3 = $("#release-server");
+    let infoComponent3 = $("#release-server");
     infoComponent3.html(data["server"]);
   }
 
   function afficherErreurHttp(jqXHR, textStatus, errorThrown) {
-    var msg = textStatus + ": " + errorThrown + " " + jqXHR.responseText + " !";
+    let msg = textStatus + ": " + errorThrown + " " + jqXHR.responseText + " !";
     console.log(msg);
   }
 
