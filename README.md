@@ -10,7 +10,7 @@ A small Play 2 application with a MySQL DB (Swiss parliament).
   * You can test a running version here : http://parlement.jcsinfo.ch/
 
 * New in release 1.4.1 (september 2019) :
-  * You can test a running version here : http://parlement.jcsinfo.ch/
+  * Correct some small bugs
   
 * New in release 1.4.0 (august 2019) :
   * Full adapted to use of Play 2.7.x with no more use of deprecated methods.
