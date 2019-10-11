@@ -1,5 +1,6 @@
 # conseillers 1.4.2 - october 2019
 A small Play 2 application with a MySQL DB (Swiss parliament).
+You can test a running version here : http://parlement.jcsinfo.ch/
 
 * New in release 1.4.2 (october 2019) :
   * The client part now use geolocalisation to make markers.
@@ -7,7 +8,6 @@ A small Play 2 application with a MySQL DB (Swiss parliament).
   * If you click on a counselor, a marker with popup comes
   * The client part is now full responsive for screens, tablets and smartphones
   * The client part now use ES6 new things (googleMapWrk completly redesigned)
-  * You can test a running version here : http://parlement.jcsinfo.ch/
 
 * New in release 1.4.1 (september 2019) :
   * Correct some small bugs
