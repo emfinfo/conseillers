@@ -19,16 +19,17 @@ import workers.ConseillerWrk;
  */
 //@Security.Authenticated(PourProfs.class)
 public class ConseillerCtrl extends Controller {
-  private final HttpExecutionContext ec;
-  private final ConseillerWrk consWrk;
-  private final JPAApi jpaApi;
+  
+  private final HttpExecutionContext httpExCtx;
   private final DatabaseExecutionContext dbExCtx;
+  private final JPAApi jpaApi;
+  private final ConseillerWrk consWrk;
 
   @Inject
-  public ConseillerCtrl(HttpExecutionContext ec, JPAApi jpaApi, DatabaseExecutionContext dbExCtx, ConseillerWrk consWrk) {
-    this.ec = ec;
-    this.jpaApi = jpaApi;
+  public ConseillerCtrl(HttpExecutionContext httpExCtx, DatabaseExecutionContext dbExCtx, JPAApi jpaApi, ConseillerWrk consWrk) {
+    this.httpExCtx = httpExCtx;
     this.dbExCtx = dbExCtx;
+    this.jpaApi = jpaApi;
     this.consWrk = consWrk;
   }
 
@@ -100,7 +101,7 @@ public class ConseillerCtrl extends Controller {
 
       // on retourne le résultat
       return httpResult;
-    }, ec.current());
+    }, httpExCtx.current());
   }
 
 }
