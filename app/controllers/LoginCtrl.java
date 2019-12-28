@@ -5,7 +5,7 @@ import ch.emf.play.helpers.Utils;
 import ch.emf.play.helpers.SessionUtils;
 import com.google.inject.Inject;
 import java.util.Map;
-import static java.util.concurrent.CompletableFuture.supplyAsync;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Function;
 import javax.persistence.EntityManager;
@@ -40,8 +40,8 @@ public class LoginCtrl extends Controller {
 
   public CompletionStage<Result> login(Http.Request req, String data) {
  
-    // opération asynchrone avec la bd
-    return supplyAsync(() -> wrap(em -> {
+    // opération asynchrone
+    return CompletableFuture.supplyAsync(() -> wrap(em -> {
       
       // mémorisation de l'entity manager
       loginWrk.memoriser(em);
@@ -90,7 +90,8 @@ public class LoginCtrl extends Controller {
   
   public CompletionStage<Result> createLogin(Http.Request req) {
 
-    return supplyAsync(() -> wrap(em -> {
+    // opération asynchrone
+    return CompletableFuture.supplyAsync(() -> wrap(em -> {
 
       // mémorisation de l'entity manager
       loginWrk.memoriser(em);

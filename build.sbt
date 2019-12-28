@@ -10,12 +10,12 @@ val conf = ConfigFactory.parseFile(new File("conf/application.conf")).resolve()
 libraryDependencies += guice
 
 // pour récupérer conseillers-models dans le dépôt local Maven
-resolvers += "Local Maven Repository" at Path.userHome.asFile.toURI.toURL + ".m2/repository"
+ resolvers += "Local Maven Repository" at Path.userHome.asFile.toURI.toURL + ".m2/repository"
 
 // pour récupérer éventuellement basiclib et daolayer sur github (si pas dans .m2)
-resolvers += "EMF-info Repository" at "http://emfinfo.github.io/javalibs/releases"
+ resolvers += "EMF-info Repository" at "https://emfinfo.github.io/javalibs/releases"
 
-// dépendances (voir dernières versions sur http://mvnrepository.com )
+// dépendances (voir dernières versions sur https://mvnrepository.com )
 libraryDependencies ++= Seq(
   javaJpa,
   "commons-codec" % "commons-codec" % "1.7",
@@ -29,9 +29,9 @@ libraryDependencies ++= Seq(
   "ch.emf.info" % "daolayer" % "6.1.1",
   "ch.emf.info" % "daolayer" % "6.1.1" classifier "sources",
   "ch.emf.info" % "daolayer" % "6.1.1" classifier "javadoc",
-  "ch.emf.info" % "playlib" % "1.1.0",
-  "ch.emf.info" % "playlib" % "1.1.0" classifier "sources",
-  "ch.emf.info" % "playlib" % "1.1.0" classifier "javadoc",
+  "ch.emf.info" % "playlib" % "2.8.0",
+  "ch.emf.info" % "playlib" % "2.8.0" classifier "sources",
+  "ch.emf.info" % "playlib" % "2.8.0" classifier "javadoc",
   "ch.emf.info" % "conseillers-models" % "1.0.11",
   "ch.emf.info" % "conseillers-models" % "1.0.11" classifier "sources",
   "ch.emf.info" % "conseillers-models" % "1.0.11" classifier "javadoc"
@@ -40,7 +40,7 @@ libraryDependencies ++= Seq(
 // à cause d'une "warning" : class path contains multiple SLF4J bindings, on prend logback
 libraryDependencies ~= { _.map(_.exclude("org.slf4j", "slf4j-log4j12")) }
 
-// évite certaines warning
+// évite certaines warning à la mise à jour (compile) de l'application
 evictionWarningOptions in update := EvictionWarningOptions.default.withWarnTransitiveEvictions(false)
 
 // récupération du nom de l'application et de la version depuis le fichier conf

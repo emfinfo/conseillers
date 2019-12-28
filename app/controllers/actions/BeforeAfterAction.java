@@ -27,32 +27,31 @@ public class BeforeAfterAction extends Simple {
 
   public boolean isTimeout(Http.Request req) {
     long cTime = System.currentTimeMillis();
-    long sTime = Long.parseLong(req.session().getOptional(SESSION_TIMESTAMP).orElse("0"));
+    long sTime = Long.parseLong(req.session().get(SESSION_TIMESTAMP).orElse("0"));
 //    System.out.println("cTime: " + cTime + " sTime: " + sTime + " diff: " + (cTime-sTime));
     return (cTime - sTime) >= msTimeout;
   }
 
-  private void before(Http.Request req) {
-    req.getHeaders().addHeader("x-logtimestamp", "" + System.currentTimeMillis());
-  }
-
-  private void after(Http.Request req, Result result) {
+  private void after(Http.Request req, Result result, long ts) {
     Utils.validCrossDomainRequest(req, result);
-    Utils.logInfo(req);
+    Utils.logInfo(req, ts);
   }
 
   @Override
   public CompletionStage<Result> call(Http.Request req) {
-    before(req);
+    
+    // save a time stamp to compute the elapsed time of a request answer
+    long ts = System.currentTimeMillis();    
 
+    // check if timeout
     if (isTimeout(req)) {
       return delegate.call(req).thenApply(result -> {
-        after(req, result);
+        after(req, result, ts);
         return result.withNewSession();
       });
     } else {
       return delegate.call(req).thenApply(result -> {
-        after(req, result);
+        after(req, result, ts);
         return result.addingToSession(req, SESSION_TIMESTAMP, "" + System.currentTimeMillis());
       });
     }

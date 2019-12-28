@@ -32,15 +32,16 @@ public class ActionCreator implements play.http.ActionCreator {
       @Override
       public CompletionStage<Result> call(Http.Request req) {
   
-        // add q time stamp for the elapsed time in logger
-        req.getHeaders().addHeader("x-log-timestamp", "" + System.currentTimeMillis());
-
+        // save a time stamp for the elapsed time in logger
+        long timestamp = System.currentTimeMillis();
+        
         // did a session timeout occur
         boolean timeout = SessionUtils.isTimeout(req, msTimeout);
 
         // apply current action 
         return delegate.call(req).thenApply(result -> {
 
+          // change result if session timeout
           if (timeout && req.path().contains("/session/status")) {
             result = Utils.toJson("open", false);
           }
@@ -48,8 +49,8 @@ public class ActionCreator implements play.http.ActionCreator {
           // valid a cross domain request (add some headers for CORS)
           Utils.validCrossDomainRequest(req, result);
 
-          // display some info in log
-          Utils.logInfo(req);
+          // display some info into log file
+          Utils.logInfo(req, timestamp);
 
           // return final result
           if (timeout) {

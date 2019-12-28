@@ -3,14 +3,13 @@ package controllers;
 import ch.emf.play.helpers.DatabaseExecutionContext;
 import ch.emf.play.helpers.Utils;
 import com.google.inject.Inject;
-import static java.util.concurrent.CompletableFuture.supplyAsync;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Function;
 import javax.persistence.EntityManager;
 import play.db.jpa.JPAApi;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.*;
-import static play.mvc.Results.ok;
 import workers.ConseillerWrk;
 
 /**
@@ -39,11 +38,18 @@ public class ConseillerCtrl extends Controller {
 
   /**
    * Renvoyer une liste filtrée de conseillers.
+   *
+   * @param fmt le format des données pour le retour
+   * @param canton un canton pour un éventuel filtrage
+   * @param conseil le type de conseil pour un éventuel filtrage
+   * @param parti un parti pour un éventuel filtrage
+   * @param actif TRUE pour le filtrages des conseillers actifs uniquement
+   * @return une liste des conseillers recherchés
    */
   public CompletionStage<Result> chargerConseillers(String fmt, String canton, String conseil, String parti, String actif) {
  
     // opération asynchrone
-    return supplyAsync(() -> wrap(em -> {
+    return CompletableFuture.supplyAsync(() -> wrap(em -> {
 
       // mémorisation de l'entity manager
       consWrk.memoriser(em);
@@ -79,13 +85,13 @@ public class ConseillerCtrl extends Controller {
       try {
         switch (fmt.toUpperCase()) {
           case "XML":
-            httpResult = ok(views.xml.conseillers.render(conseillers)).as("application/xml");
+            httpResult = Results.ok(views.xml.conseillers.render(conseillers)).as("application/xml");
             break;
           case "JSON":
             httpResult = Utils.toJson(conseillers);
             break;
           default:
-            httpResult = ok(views.html.conseillers.render(canton.toUpperCase(), conseillers));
+            httpResult = Results.ok(views.html.conseillers.render(canton.toUpperCase(), conseillers));
             break;
         }
       } catch (Exception ex) {

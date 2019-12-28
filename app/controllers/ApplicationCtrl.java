@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import play.mvc.*;
 
 public class ApplicationCtrl extends Controller {
-  private ReleaseInfo releaseInfo;
+  private final ReleaseInfo releaseInfo;
   private final Logger logger;
 
   @Inject
@@ -36,7 +36,7 @@ public class ApplicationCtrl extends Controller {
   }
 
   public Result checkPreFlight(Http.Request req, String path) {
-    Result result = ok();
+    Result result = Results.ok();
     Utils.validCrossDomainRequest(req, result);
     return result;
   }

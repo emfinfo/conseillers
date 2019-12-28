@@ -78,9 +78,8 @@ var ctrl = (() => {
     // affiche la carte GoogleMap de la Suisse centree sur Berne
     _afficherCarteSuisse();
 
-    // maj la liste des conseillers
+    // maj de la liste des conseillers
     _majConseillers();
-
   });
 
 
@@ -102,7 +101,6 @@ var ctrl = (() => {
   function _majConseillers() {
     var divData = $('#data');
     divData.html('...');
-    httpServ.lireStatusSession(_okLireStatusSession);
     httpServ.chargerConseillers(format, canton, conseil, parti, actuels, _okChargerConseillers);
   }
 
@@ -179,6 +177,8 @@ var ctrl = (() => {
   function _okLireStatusSession(data, text, jqXHR) {
     let infoComponent1 = $("#sessionStatus");
     infoComponent1.html("" + data.open);
+    // _majConseillers();
+    // httpServ.chargerConseillers(format, canton, conseil, parti, actuels, _okChargerConseillers);
   }
 
   function _okChargerCantons(cantons, text, jqXHR) {
@@ -225,6 +225,7 @@ var ctrl = (() => {
     } else {
       _afficherLesConseillers(data);
       _afficherTousLesMarqueurs();
+      httpServ.lireStatusSession(_okLireStatusSession);
     }
   }
 
