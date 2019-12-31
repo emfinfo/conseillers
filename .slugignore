@@ -1,0 +1,5 @@
+clean-all.*
+README.md
+/data
+/nbproject
+/test

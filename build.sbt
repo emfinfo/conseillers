@@ -17,9 +17,10 @@ libraryDependencies += guice
 
 // dépendances (voir dernières versions sur https://mvnrepository.com )
 libraryDependencies ++= Seq(
-  javaJpa,
+  jdbc, javaJpa,
   "commons-codec" % "commons-codec" % "1.7",
-  "org.mariadb.jdbc" % "mariadb-java-client" % "2.3.0",
+//  "mysql" % "mysql-connector-java" % "5.1.48",
+  "org.mariadb.jdbc" % "mariadb-java-client" % "2.5.2", 
   "ch.emf.info" % "basiclib" % "1.3.4",
   "ch.emf.info" % "basiclib" % "1.3.4" classifier "sources",
   "ch.emf.info" % "basiclib" % "1.3.4" classifier "javadoc",

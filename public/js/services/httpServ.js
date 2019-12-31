@@ -1,7 +1,10 @@
 /*
  * Couche de services "httpServ" (worker) permettant de centraliser toutes
  * les requêtes HTTP à l'intention des contrôleurs. Comme un objet Java,
- * mais créé avec une "closure" exécutée immédiatement (IIFE).
+ * mais créé avec une "closure" exécutée immédiatement (IIFE).<br>
+ * <br>
+ * Cette version utilise maintenant des "promesses" pour retourner les résultats.
+ * Il s'en suit que les requêtes peuvent maintenant parfaitement être chainées.
  *
  * @author Jean-Claude Stritt
  */
@@ -20,43 +23,36 @@ var httpServ = (() => {
   }
   console.log("server URL: "+serverURL);
 
+  $.ajaxSetup({
+    // error: function (jqXHR, exception) {
+    //   var errIdx;
+    //   if (jqXHR.status === 500) {
+    //     errIdx = 0; // 500 - Internal server error
+    //   } else if (jqXHR.status === 0) {
+    //     errIdx = 1; // 503 - Service unavailable
+    //   } else if (jqXHR.status === 404) {
+    //     errIdx = 2; // 404 - Not found
+    //   } else if (exception === 'parsererror') {
+    //     errIdx = 3; // 401 - Parsing error
+    //   } else if (exception === 'timeout') {
+    //     errIdx = 4; // 408 - Timeout
+    //   } else if (exception === 'abort') {
+    //     errIdx = 5; // 413 - Aborted
+    //   } else {
+    //     errIdx = 6; // 400 - Bad request
+    //   }
+    //   httpErrorCallbackFn(errIdx);
+    // },
+    xhrFields: { // pour utiliser le cookie de session
+      withCredentials: true
+    },
+    cache: false
+  });
 
-  /*
-   * GESTION GLOBALE DES ERREURS HTTP
-   */
-  function _centraliserErreursHttp(httpErrorCallbackFn) {
-    $.ajaxSetup({
-      error: function (jqXHR, exception) {
-        var errIdx;
-        if (jqXHR.status === 500) {
-          errIdx = 0; // 500 - Internal server error
-        } else if (jqXHR.status === 0) {
-          errIdx = 1; // 503 - Service unavailable
-        } else if (jqXHR.status === 404) {
-          errIdx = 2; // 404 - Not found
-        } else if (exception === 'parsererror') {
-          errIdx = 3; // 401 - Parsing error
-        } else if (exception === 'timeout') {
-          errIdx = 4; // 408 - Timeout
-        } else if (exception === 'abort') {
-          errIdx = 5; // 413 - Aborted
-        } else {
-          errIdx = 6; // 400 - Bad request
-        }
-        httpErrorCallbackFn(errIdx);
-      },
-      xhrFields: { // pour utiliser le cookie de session
-        withCredentials: true
-      },
-      cache: false
-    });
-  }
-
-
+ 
   /*
    * CHARGEMENT D'UNE SOUS-VUE (HTTP GET)
    */
-
   function _chargerVue(nomVue) {
     var nomFichierHtml = 'views/' + nomVue + '.html';
     var nomFichierCtrl = 'js/controllers/' + nomVue + 'Ctrl.js';
@@ -108,23 +104,35 @@ var httpServ = (() => {
   /*
    * OPERATIONS GENERIQUES
    */
-  function _lireVersion(successCallbackFn) {
-    var fullURL = serverURL + "/version";
-    $.ajax({
-      type: "GET",
-      dataType: JSON_TYPE,
-      url: fullURL,
-      success: successCallbackFn
+  function _lireVersion() {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        type: "GET",
+        dataType: JSON_TYPE,
+        url: serverURL + "/version",
+        success: function (data) {
+          resolve(data)
+        },
+        error: function (error) {
+          reject(error)
+        }
+      });
     });
   }
 
-  function _lireStatusSession(successCallbackFn) {
-    var fullURL = serverURL + "/session/status";
-    $.ajax({
-      type: "GET",
-      dataType: JSON_TYPE,
-      url: fullURL,
-      success: successCallbackFn
+  function _lireStatusSession() {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        type: "GET",
+        dataType: JSON_TYPE,
+        url: serverURL + "/session/status",
+        success: function (data) {
+          resolve(data)
+        },
+        error: function (error) {
+          reject(error)
+        }
+      });
     });
   }
 
@@ -132,111 +140,143 @@ var httpServ = (() => {
   /*
    * OPERATIONS "METIER" CONCERNANT LA GESTION DU LOGIN ET LA CREATION DE COMPTE
    */
-  function _effectuerLogin(login, successCallbackFn) {
-    var data = login.nom + SEPARATOR + login.domaine + SEPARATOR +
-      login.motDePasse + SEPARATOR + Date.now();
-    var encData = AesUtil.encrypt(data);
-    var fullURL = serverURL + "/session/login/" + encData;
-    $.ajax({
-      type: "GET",
-      dataType: JSON_TYPE,
-      url: fullURL,
-      success: successCallbackFn
+  function _effectuerLogin(login) {
+    return new Promise((resolve, reject) => {
+      let data = login.nom + SEPARATOR + login.domaine + SEPARATOR +
+        login.motDePasse + SEPARATOR + Date.now();
+      let encData = AesUtil.encrypt(data);
+      $.ajax({
+        type: "GET",
+        dataType: JSON_TYPE,
+        url: serverURL + "/session/login/" + encData,
+        success: function (data) {
+          resolve(data)
+        },
+        error: function (error) {
+          reject(error)
+        }
+      });
     });
   }
 
-  function _effectuerLogout(successCallbackFn) {
-    var fullURL = serverURL + "/session/logout";
-    $.ajax({
-      type: "GET",
-      dataType: JSON_TYPE,
-      url: fullURL,
-      success: successCallbackFn
+  function _effectuerLogout() {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        type: "GET",
+        dataType: JSON_TYPE,
+        url: serverURL + "/session/logout",
+        success: function (data) {
+          resolve(data)
+        },
+        error: function (error) {
+          reject(error)
+        }
+      });
     });
   }
 
-  function _creerCompte(compte, successCallbackFn) {
-    var data =
-      compte.nom + SEPARATOR + compte.domaine + SEPARATOR + compte.motDePasse +
-      SEPARATOR + Date.now() +
-      SEPARATOR + compte.profil + SEPARATOR + compte.email +
-      SEPARATOR + compte.initiales + SEPARATOR + compte.langue;
-    var encData = AesUtil.encrypt(data);
-    // json = "{data: " + encData + "}";
-    // $.ajax({
-    //   type: "POST",
-    //   dataType: JSON_TYPE,
-    //   url: SERVER_URL + "/createLogin",
-    //   data: json,
-    //   contentType: "application/json; CHARSET=UTF-8",
-    //   success: successCallbackFn
-    // });
-    $.ajax({
-      type: "POST",
-      dataType: TEXT_TYPE,
-      url: serverURL + "/createLogin",
-      data: encData,
-      contentType: "text/plain; CHARSET=UTF-8",
-      success: successCallbackFn
+  function _creerCompte(compte) {
+    return new Promise((resolve, reject) => {
+      let data =
+        compte.nom + SEPARATOR + compte.domaine + SEPARATOR + compte.motDePasse +
+        SEPARATOR + Date.now() +
+        SEPARATOR + compte.profil + SEPARATOR + compte.email +
+        SEPARATOR + compte.initiales + SEPARATOR + compte.langue;
+      let encData = AesUtil.encrypt(data);
+      $.ajax({
+        type: "POST",
+        dataType: TEXT_TYPE,
+        url: serverURL + "/createLogin",
+        data: encData,
+        contentType: "text/plain; CHARSET=UTF-8",
+        success: function (data) {
+          resolve(data)
+        },
+        error: function (error) {
+          reject(error)
+        }
+      });
     });
-
-
   }
 
 
   /*
    * OPERATIONS "METIER" SUR LA GESTION DES CONSEILLERS
    */
-  function _chargerCantons(successCallbackFn) {
-    var fullURL = browser.Url.buildUrl(serverURL, "cantons", JSON_TYPE);
-    $.ajax({
-      type: "GET",
-      dataType: JSON_TYPE,
-      url: fullURL,
-      success: successCallbackFn
+  function _chargerCantons() {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        type: "GET",
+        dataType: JSON_TYPE,
+        url: browser.Url.buildUrl(serverURL, "cantons", JSON_TYPE),
+        success: function (data) {
+          resolve(data)
+        },
+        error: function (error) {
+          reject(error)
+        }
+      });
     });
   }
 
-  function _chargerConseils(successCallbackFn) {
-    var fullURL = browser.Url.buildUrl(serverURL, "conseils", JSON_TYPE);
-    $.ajax({
-      type: "GET",
-      dataType: JSON_TYPE,
-      url: fullURL,
-      success: successCallbackFn
+  function _chargerConseils() {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        type: "GET",
+        dataType: JSON_TYPE,
+        url: browser.Url.buildUrl(serverURL, "conseils", JSON_TYPE),
+        success: function (data) {
+          resolve(data)
+        },
+        error: function (error) {
+          reject(error)
+        }
+      });
     });
   }
 
-  function _chargerPartis(successCallbackFn) {
-    var fullURL = browser.Url.buildUrl(serverURL, "partis", JSON_TYPE);
-    $.ajax({
-      type: "GET",
-      dataType: JSON_TYPE,
-      url: fullURL,
-      success: successCallbackFn
+  function _chargerPartis() {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        type: "GET",
+        dataType: JSON_TYPE,
+        url: browser.Url.buildUrl(serverURL, "partis", JSON_TYPE),
+        success: function (data) {
+          resolve(data)
+        },
+        error: function (error) {
+          reject(error)
+        }
+      });
     });
   }
 
-  function _chargerConseillers(fmt, canton, conseil, parti, actuels, successCallbackFn) {
-    var format = fmt.toLowerCase();
-    var fullURL = browser.Url.buildUrl(serverURL, "conseillers", format);
-    fullURL += "/" + canton;
-    fullURL += "/" + conseil;
-    fullURL += "/" + parti;
-    fullURL += "/" + actuels;
-    // console.log('chargerConseillers: ' + fullURL);
-    $.ajax({
-      type: "GET",
-      dataType: format,
-      url: fullURL,
-      success: successCallbackFn
+  function _chargerConseillers(fmt, canton, conseil, parti, actuels) {
+    return new Promise((resolve, reject) => {
+      let format = fmt.toLowerCase();
+      let fullURL = browser.Url.buildUrl(serverURL, "conseillers", format);
+      fullURL += "/" + canton;
+      fullURL += "/" + conseil;
+      fullURL += "/" + parti;
+      fullURL += "/" + actuels;
+      // console.log('chargerConseillers: ' + fullURL);
+      $.ajax({
+        type: "GET",
+        dataType: format,
+        url: fullURL,
+        success: function (data) {
+          resolve(data)
+        },
+        error: function (error) {
+          reject(error)
+        }
+      });
     });
   }
 
 
   // interface : définition des méthodes publiques
   return {
-    centraliserErreursHttp: _centraliserErreursHttp,
     chargerVue: _chargerVue,
     effectuerLogin: _effectuerLogin,
     effectuerLogout: _effectuerLogout,

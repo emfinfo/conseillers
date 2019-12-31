@@ -55,31 +55,24 @@ var ctrl = (() => {
 
 
   /*
-   * 3. CALLBACKS (RETOUR DE REQUETES HTTP)
-   */
-  function _okEffectuerLogin(data, text, jqXHR) {
-  //  console.info("data: " + JSON.stringify(data));
-    if (data.nom) {
-
-      // on mémorise le login dans le localstorage
-      var login = _lireInfosLogin();
-      localStorageWrk.memoriserLogin(login);
-
-      // on charge une nouvelle vue
-      httpServ.chargerVue('conseillers');
-    } else {
-      swal("Accès à l'application refusé !", "Veuillez introduire des données valides svp", "warning");
-    }
-  }
-
-
-  /*
-   * 4. METHODES NECESSAIRES AUX ACTIONS DANS LA VUE
+   * 3. METHODES NECESSAIRES AUX ACTIONS DANS LA VUE
    */
   function _effectuerLogin() {
     var login = _lireInfosLogin();
     // console.info("_effectuerLogin: " + JSON.stringify(login));
-    httpServ.effectuerLogin(login, _okEffectuerLogin);
+    httpServ.effectuerLogin(login).then(data => {
+      if (data.nom) {
+
+        // on mémorise le login dans le localstorage
+        var login = _lireInfosLogin();
+        localStorageWrk.memoriserLogin(login);
+  
+        // on charge une nouvelle vue
+        httpServ.chargerVue('conseillers');
+      } else {
+        swal("Accès à l'application refusé !", "Veuillez introduire des données valides svp", "warning");
+      }
+    });
   }
 
   function _creerCompte() {
