@@ -27,15 +27,15 @@ libraryDependencies ++= Seq(
   "ch.jcsinfo.libs" % "cypherlib" % "1.2.1",
   "ch.jcsinfo.libs" % "cypherlib" % "1.2.1" classifier "sources",
   "ch.jcsinfo.libs" % "cypherlib" % "1.2.1" classifier "javadoc",
+  "ch.jcsinfo.libs" % "playlib" % "2.8.1",
+  "ch.jcsinfo.libs" % "playlib" % "2.8.1" classifier "sources",
+  "ch.jcsinfo.libs" % "playlib" % "2.8.1" classifier "javadoc",
   "ch.emf.info" % "daolayer" % "6.1.1",
   "ch.emf.info" % "daolayer" % "6.1.1" classifier "sources",
   "ch.emf.info" % "daolayer" % "6.1.1" classifier "javadoc",
-  "ch.emf.info" % "playlib" % "2.8.0",
-  "ch.emf.info" % "playlib" % "2.8.0" classifier "sources",
-  "ch.emf.info" % "playlib" % "2.8.0" classifier "javadoc",
-  "ch.emf.info" % "conseillers-models" % "1.0.11",
-  "ch.emf.info" % "conseillers-models" % "1.0.11" classifier "sources",
-  "ch.emf.info" % "conseillers-models" % "1.0.11" classifier "javadoc"
+  "ch.jcsinfo.models" % "conseillers-models" % "1.0.12",
+  "ch.jcsinfo.models" % "conseillers-models" % "1.0.12" classifier "sources",
+  "ch.jcsinfo.models" % "conseillers-models" % "1.0.12" classifier "javadoc"
 ).map(_.force())
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings, on prend logback
