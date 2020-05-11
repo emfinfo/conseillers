@@ -3,7 +3,7 @@ A small Play 2 application with a MySQL DB (Swiss parliament).
 You can test a running version here : 
 <br>
 <a href="http://parlement.jcsinfo.ch/" target="_blank">parlement.jcsinfo.ch</a><br>
-[parlement.jcsinfo.ch](http://parlement.jcsinfo.ch?target=_blank) <br>
+[parlement.jcsinfo.ch](http://parlement.jcsinfo.ch){:target=_blank} <br>
 
 * New in release 1.4.5 (may 2020) :
   * Updated to Play 2.8.1
