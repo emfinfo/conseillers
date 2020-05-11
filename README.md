@@ -1,6 +1,9 @@
 # conseillers 1.4.5 - may 2020
 A small Play 2 application with a MySQL DB (Swiss parliament).
-You can test a running version here : <a href="http://parlement.jcsinfo.ch/" target="_blank">parlement.jcsinfo.ch</a>
+You can test a running version here : 
+<br>
+<a href="http://parlement.jcsinfo.ch/" target="_blank">parlement.jcsinfo.ch</a><br>
+[link](parlement.jcsinfo.ch){:target="_blank"} <br>
 
 * New in release 1.4.5 (may 2020) :
   * Updated to Play 2.8.1
