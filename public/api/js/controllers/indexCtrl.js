@@ -29,7 +29,7 @@ var indexCtrl = (() => {
    */
   function _afficherUneRoute(url) {
     var baseUrl = httpServ.getBaseUrl();
-    if (baseUrl.includes('jcsinfo.ch')) {
+    if (baseUrl.includes('vps617676.ovh.net')) {
       baseUrl += '/parlement';
     }
     var href = baseUrl + url;
