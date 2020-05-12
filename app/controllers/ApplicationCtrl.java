@@ -1,7 +1,7 @@
 package controllers;
 
-import ch.emf.play.helpers.Utils;
-import ch.emf.play.models.ReleaseInfo;
+import ch.jcsinfo.play.helpers.Utils;
+import ch.jcsinfo.play.models.ReleaseInfo;
 import com.google.inject.Inject;
 import com.typesafe.config.Config;
 import org.slf4j.Logger;

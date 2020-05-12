@@ -1,7 +1,7 @@
 package controllers.actions;
 
-import ch.emf.play.helpers.Utils;
-import ch.emf.play.helpers.SessionUtils;
+import ch.jcsinfo.play.helpers.Utils;
+import ch.jcsinfo.play.helpers.SessionUtils;
 import com.google.inject.Inject;
 import com.typesafe.config.Config;
 import java.lang.reflect.Method;

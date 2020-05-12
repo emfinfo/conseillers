@@ -2,8 +2,8 @@ package workers;
 
 import ch.emf.dao.JpaDaoAPI;
 import ch.emf.dao.filtering.Search;
-import ch.emf.cypher.helpers.Generate;
-import ch.emf.cypher.helpers.Utils;
+import ch.jcsinfo.cypher.helpers.Generate;
+import ch.jcsinfo.cypher.AesUtil;
 import java.sql.Timestamp;
 import java.util.Date;
 import com.google.inject.Inject;
@@ -86,7 +86,7 @@ public class LoginWrk extends Worker {
    */
   public Login extraire(String data) {
     Login login = new Login();
-    String[] t = Utils.extractParameters(data);
+    String[] t = AesUtil.extractParameters(data);
     if (t.length >= 4) {
       login.setNom(t[0]);
       login.setDomaine(t[1]);

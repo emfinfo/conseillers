@@ -13,16 +13,15 @@
     <title>@title</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 
-    <!--<link rel="shortcut icon" type="image/png" href='@routes.Assets.versioned("parlement/api/images/favicon.png")' />-->
-    <!--<link rel="stylesheet" href='@routes.Assets.versioned("parlement/api/css/listes.css")' />-->
-
-    <!--<link rel="shortcut icon" type="image/png" href="/assets/api/images/favicon.png" />-->
-    <!--<link rel="stylesheet" href="/assets/api/css/listes.css" />-->
-
-    <link rel="shortcut icon" type="image/png" href="/parlement/assets/api/images/favicon.png" />    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/parlement/assets/api/css/listes.css" />
+    <script>
+      var url = window.location.href;
+      var prefix = (url.includes('jcsinfo.ch')) ? "/parlement" : "";
+      document.write('<link rel="stylesheet" href="' + prefix + '/assets/api/css/listes.css" />');
+      document.write('<link rel="shortcut icon" type="image/png" href="' + prefix + '/assets/api/images/favicon.png" />');
+    </script>
+    
   </head>
   
   <body>

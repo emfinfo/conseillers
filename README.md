@@ -4,6 +4,7 @@ You can test a running version here : <a href="http://parlement.jcsinfo.ch/">par
 
 * New in release 1.4.5 (may 2020) :
   * Updated to Play 2.8.1
+  * Use of PlayLib 2.8.1
 
 * New in release 1.4.4 (december 2019) :
   * The client part now use ES6 promises to chain HTTP requests

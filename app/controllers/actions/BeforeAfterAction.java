@@ -1,7 +1,7 @@
 package controllers.actions;
 
-import ch.emf.play.helpers.Utils;
-import static ch.emf.play.helpers.SessionUtils.SESSION_TIMESTAMP;
+import ch.jcsinfo.play.helpers.Utils;
+import static ch.jcsinfo.play.helpers.SessionUtils.SESSION_TIMESTAMP;
 import com.google.inject.Inject;
 import com.typesafe.config.Config;
 import java.util.concurrent.CompletionStage;

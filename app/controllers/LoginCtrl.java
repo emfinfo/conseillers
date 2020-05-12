@@ -1,8 +1,8 @@
 package controllers;
 
-import ch.emf.play.helpers.DatabaseExecutionContext;
-import ch.emf.play.helpers.Utils;
-import ch.emf.play.helpers.SessionUtils;
+import ch.jcsinfo.play.helpers.DatabaseExecutionContext;
+import ch.jcsinfo.play.helpers.Utils;
+import ch.jcsinfo.play.helpers.SessionUtils;
 import com.google.inject.Inject;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;

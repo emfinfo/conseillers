@@ -1,7 +1,7 @@
 package controllers;
 
-import ch.emf.play.helpers.DatabaseExecutionContext;
-import ch.emf.play.helpers.Utils;
+import ch.jcsinfo.play.helpers.DatabaseExecutionContext;
+import ch.jcsinfo.play.helpers.Utils;
 import com.google.inject.Inject;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
