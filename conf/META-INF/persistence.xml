@@ -12,6 +12,7 @@
     <class>models.Parti</class>
     <class>models.Login</class>
     <shared-cache-mode>NONE</shared-cache-mode>
+    <validation-mode>NONE</validation-mode>
     <properties>
       <!-- Logging configuration. -->
       <property name="eclipselink.logging.parameters" value="true"/>
