@@ -22,21 +22,21 @@ libraryDependencies ++= Seq(
 //  "mysql" % "mysql-connector-java" % "5.1.48"
 //  ATTENTION mariadb connector > 2.3.0 et <= 2.6.0 provoque un bug de SEQUENCE avec jpa tag @Identity
   "org.mariadb.jdbc" % "mariadb-java-client" % "2.3.0", 
-  "ch.jcsinfo.libs" % "basiclib" % "1.5.0",
-  "ch.jcsinfo.libs" % "basiclib" % "1.5.0" classifier "sources",
-  "ch.jcsinfo.libs" % "basiclib" % "1.5.0" classifier "javadoc",
+  "ch.jcsinfo.libs" % "basiclib" % "1.5.1",
+  "ch.jcsinfo.libs" % "basiclib" % "1.5.1" classifier "sources",
+  "ch.jcsinfo.libs" % "basiclib" % "1.5.1" classifier "javadoc",
   "ch.jcsinfo.libs" % "cypherlib" % "1.2.1",
   "ch.jcsinfo.libs" % "cypherlib" % "1.2.1" classifier "sources",
   "ch.jcsinfo.libs" % "cypherlib" % "1.2.1" classifier "javadoc",
-  "ch.jcsinfo.libs" % "playlib" % "2.8.1",
-  "ch.jcsinfo.libs" % "playlib" % "2.8.1" classifier "sources",
-  "ch.jcsinfo.libs" % "playlib" % "2.8.1" classifier "javadoc",
-  "ch.emf.info" % "daolayer" % "6.1.1",
-  "ch.emf.info" % "daolayer" % "6.1.1" classifier "sources",
-  "ch.emf.info" % "daolayer" % "6.1.1" classifier "javadoc",
-  "ch.jcsinfo.models" % "conseillers-models" % "1.0.12",
-  "ch.jcsinfo.models" % "conseillers-models" % "1.0.12" classifier "sources",
-  "ch.jcsinfo.models" % "conseillers-models" % "1.0.12" classifier "javadoc"
+  "ch.jcsinfo.libs" % "playlib" % "2.8.2",
+  "ch.jcsinfo.libs" % "playlib" % "2.8.2" classifier "sources",
+  "ch.jcsinfo.libs" % "playlib" % "2.8.2" classifier "javadoc",
+  "ch.emf.info" % "daolayer" % "6.1.2",
+  "ch.emf.info" % "daolayer" % "6.1.2" classifier "sources",
+  "ch.emf.info" % "daolayer" % "6.1.2" classifier "javadoc",
+  "ch.jcsinfo.models" % "conseillers-models" % "1.0.13",
+  "ch.jcsinfo.models" % "conseillers-models" % "1.0.13" classifier "sources",
+  "ch.jcsinfo.models" % "conseillers-models" % "1.0.13" classifier "javadoc"
 ).map(_.force())
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings, on prend logback
