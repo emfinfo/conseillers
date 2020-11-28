@@ -1,32 +1,35 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Conseillers...</title>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="images/favicon.png" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css" />
-    <style>
-      p {padding: 0em;}
-    </style>
-  </head>
-  <body>
-    <div id="conteneur" class="container">
-      <div class="col-sm-12">
-        <div class="panel panel-primary">
-          <div class="panel-body" style="text-align:left">
-            <h4>Cette route doit s'utiliser en POST ...</h4>
-            <p>
-              La route createLogin nécessite une méthode HTTP de type POST pour créer un nouveau compte utilisateur.
-              Cela nécessite d'envoyer un objet JSON stringifié dans le corps (body) du message HTTP.
-              Exemple d'objet JSON&nbsp;: <code>{data: "..."}</code>
-            </p>
-            <p>
-              Comme pour le login, le contenu de <code>data</code> (les ...) doit être encrypté AES et encodé en hexadécimal avec la méthode
-              AesUtil.encrypt(data) de la librairie <code>aesutil.js</code> (voir dans le 2ème exemple ci-dessous). Elle-même utilise des composants de la librairie <code>CryptoJS</code>).
-              Le chargement des librairies dans index.html pourrait être le suivant&nbsp;:
-            </p>
-            <pre>
+<html lang="fr">
+
+<head>
+  <title>Conseillers...</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://www.jcsinfo.ch/css/main.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="card-header text-white bg-primary">
+        <h3>Cette route doit s'utiliser en POST ...</h3>
+      </div>
+      <div class="card-body" style="text-align:left">
+        <p>
+          La route createLogin nécessite une méthode HTTP de type POST pour créer un nouveau compte utilisateur.
+          Cela nécessite d'envoyer un objet JSON stringifié dans le corps (body) du message HTTP.
+          Exemple d'objet JSON&nbsp;: <code>{data: "..."}</code>
+        </p>
+        <p>
+          Comme pour le login, le contenu de <code>data</code> (les ...) doit être encrypté AES et encodé en hexadécimal
+          avec la méthode
+          AesUtil.encrypt(data) de la librairie <code>aesutil.js</code> (voir dans le 2ème exemple ci-dessous).
+          Elle-même utilise des composants de la librairie <code>CryptoJS</code>).
+          Le chargement des librairies dans index.html pourrait être le suivant&nbsp;:
+        </p>
+        <pre>
 &lt;!-- librairies CryptoJS --&gt;
 &lt;!-- https://code.google.com/archive/p/crypto-js/downloads --&gt;
 &lt;script src="libs/crypto-js/aes.js"&gt;&lt;/script&gt;
@@ -39,11 +42,11 @@
 &lt;script&gt; src="js/helpers/date.js"&gt;&lt;/script&gt;
 &lt;script&gt; src="js/helpers/aesutil.js"&gt;&lt;/script&gt;
             </pre>
-            <p>
-              Si viewModel représente le modèle des données de la vue,
-              voici un code JS qui devrait fonctionner&nbsp;:
-            </p>
-            <pre>
+        <p>
+          Si viewModel représente le modèle des données de la vue,
+          voici un code JS qui devrait fonctionner&nbsp;:
+        </p>
+        <pre>
 // préparation des données obligatoires de la requête
 var data = viewModel.loginName.trim()
    + '/' + viewModel.domain.trim()
@@ -70,9 +73,9 @@ $http({
   withCredentials: false
 }).success(successCallback);
             </pre>
-          </div>
-        </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
