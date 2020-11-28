@@ -2,6 +2,9 @@
 A small Play 2 application with a MySQL DB (Swiss parliament).
 You can test a running version here : <a href="http://parlement.jcsinfo.ch/">parlement.jcsinfo.ch</a>
 
+* New in release 1.4.6 (november 2020) :
+  * Adapted to Play 2.8.5
+
 * New in release 1.4.5 (may 2020) :
   * Updated to Play 2.8.1
   * Use of PlayLib 2.8.1
