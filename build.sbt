@@ -20,9 +20,8 @@ libraryDependencies ++= Seq(
   jdbc, javaJpa,
   "commons-codec" % "commons-codec" % "1.7",
 //  "mysql" % "mysql-connector-java" % "5.1.48"
-//  ATTENTION mariadb connector > 2.3.0 et <= 2.6.0 provoque un bug de SEQUENCE avec jpa tag @Identity
-//  "org.mariadb.jdbc" % "mariadb-java-client" % "2.3.0", 
-  "org.mariadb.jdbc" % "mariadb-java-client" % "2.7.1", 
+//  ATTENTION mariadb connector > 2.3.0 et <= 2.7.1 provoque un bug de SEQUENCE avec jpa tag @Identity
+  "org.mariadb.jdbc" % "mariadb-java-client" % "2.3.0", 
   "ch.jcsinfo.libs" % "basiclib" % "1.5.2",
   "ch.jcsinfo.libs" % "basiclib" % "1.5.2" classifier "sources",
   "ch.jcsinfo.libs" % "basiclib" % "1.5.2" classifier "javadoc",
