@@ -18,7 +18,7 @@ libraryDependencies += guice
 // dépendances (voir dernières versions sur https://mvnrepository.com )
 libraryDependencies ++= Seq(
   jdbc, javaJpa,
-  "commons-codec" % "commons-codec" % "1.7",
+  "commons-codec" % "commons-codec" % "1.15",
 //  "mysql" % "mysql-connector-java" % "5.1.48"
 //  ATTENTION mariadb connector > 2.3.0 et <= 2.7.1 provoque un bug de SEQUENCE avec jpa tag @Identity
   "org.mariadb.jdbc" % "mariadb-java-client" % "2.3.0", 
@@ -28,22 +28,23 @@ libraryDependencies ++= Seq(
   "ch.jcsinfo.libs" % "cypherlib" % "1.2.2",
   "ch.jcsinfo.libs" % "cypherlib" % "1.2.2" classifier "sources",
   "ch.jcsinfo.libs" % "cypherlib" % "1.2.2" classifier "javadoc",
-  "ch.jcsinfo.libs" % "playlib" % "2.8.5",
-  "ch.jcsinfo.libs" % "playlib" % "2.8.5" classifier "sources",
-  "ch.jcsinfo.libs" % "playlib" % "2.8.5" classifier "javadoc",
-  "ch.emf.info" % "daolayer" % "6.1.3",
-  "ch.emf.info" % "daolayer" % "6.1.3" classifier "sources",
-  "ch.emf.info" % "daolayer" % "6.1.3" classifier "javadoc",
-  "ch.jcsinfo.models" % "conseillers-models" % "1.0.14",
-  "ch.jcsinfo.models" % "conseillers-models" % "1.0.14" classifier "sources",
-  "ch.jcsinfo.models" % "conseillers-models" % "1.0.14" classifier "javadoc"
+  "ch.jcsinfo.libs" % "playlib" % "2.8.7",
+  "ch.jcsinfo.libs" % "playlib" % "2.8.7" classifier "sources",
+  "ch.jcsinfo.libs" % "playlib" % "2.8.7" classifier "javadoc",
+  "ch.emf.info" % "daolayer" % "6.1.4",
+  "ch.emf.info" % "daolayer" % "6.1.4" classifier "sources",
+  "ch.emf.info" % "daolayer" % "6.1.4" classifier "javadoc",
+  "ch.jcsinfo.models" % "conseillers-models" % "1.0.15",
+  "ch.jcsinfo.models" % "conseillers-models" % "1.0.15" classifier "sources",
+  "ch.jcsinfo.models" % "conseillers-models" % "1.0.15" classifier "javadoc"
 ).map(_.force())
 
 // à cause d'une "warning" : class path contains multiple SLF4J bindings, on prend logback
 libraryDependencies ~= { _.map(_.exclude("org.slf4j", "slf4j-log4j12")) }
 
 // évite certaines warning à la mise à jour (compile) de l'application
-evictionWarningOptions in update := EvictionWarningOptions.default.withWarnTransitiveEvictions(false)
+// evictionWarningOptions in update := EvictionWarningOptions.default.withWarnTransitiveEvictions(false)
+evictionWarningOptions in update := EvictionWarningOptions.default.withWarnTransitiveEvictions(false).withWarnDirectEvictions(false).withWarnScalaVersionEviction(false)
 
 // récupération du nom de l'application et de la version depuis le fichier conf
 lazy val commonSettings = Seq(
