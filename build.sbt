@@ -1,6 +1,6 @@
 import com.typesafe.config._
 
-// pour les routes, utilise l'ibjection de dépendances
+// pour les routes, utilise l'injection de dépendances
 routesGenerator := InjectedRoutesGenerator
 
 // objet permettant l'accès aux variables du fichier ".conf"
@@ -18,7 +18,7 @@ libraryDependencies += guice
 // dépendances (voir dernières versions sur https://mvnrepository.com )
 libraryDependencies ++= Seq(
   jdbc, javaJpa,
-  "commons-codec" % "commons-codec" % "1.15",
+  "commons-codec" % "commons-codec" % "20041127.091804",
 //  "mysql" % "mysql-connector-java" % "5.1.48"
 //  ATTENTION mariadb connector > 2.3.0 et <= 2.7.1 provoque un bug de SEQUENCE avec jpa tag @Identity
   "org.mariadb.jdbc" % "mariadb-java-client" % "2.3.0", 
@@ -28,9 +28,9 @@ libraryDependencies ++= Seq(
   "ch.jcsinfo.libs" % "cypherlib" % "1.2.2",
   "ch.jcsinfo.libs" % "cypherlib" % "1.2.2" classifier "sources",
   "ch.jcsinfo.libs" % "cypherlib" % "1.2.2" classifier "javadoc",
-  "ch.jcsinfo.libs" % "playlib" % "2.8.7",
-  "ch.jcsinfo.libs" % "playlib" % "2.8.7" classifier "sources",
-  "ch.jcsinfo.libs" % "playlib" % "2.8.7" classifier "javadoc",
+  "ch.jcsinfo.libs" % "playlib" % "2.8.8",
+  "ch.jcsinfo.libs" % "playlib" % "2.8.8" classifier "sources",
+  "ch.jcsinfo.libs" % "playlib" % "2.8.8" classifier "javadoc",
   "ch.emf.info" % "daolayer" % "6.1.4",
   "ch.emf.info" % "daolayer" % "6.1.4" classifier "sources",
   "ch.emf.info" % "daolayer" % "6.1.4" classifier "javadoc",

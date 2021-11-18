@@ -2,7 +2,7 @@
 logLevel := Level.Warn
 
 // use the last Play sbt plugin for Play projects (07.02.2021) https://www.playframework.com/
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.8.7")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.8.8")
 
 // add eclipse-plugin (17.11.2017) https://github.com/sbt/sbteclipse/releases
 addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "5.2.4")

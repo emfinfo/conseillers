@@ -19,8 +19,12 @@
       <property name="eclipselink.logging.level" value="WARNING"/>
       <property name="eclipselink.logging.sql" value="WARNING"/>
       <property name="eclipselink.logging.level.sql" value="WARNING"/>
+
       <!-- see http://blogs.nologin.es/rickyepoderi/index.php?/archives/95-Weaving-Problem-in-EclipseLink.html -->
       <property name="eclipselink.weaving.internal" value="false"/>
+
+      <!-- next line because mariadb connector > 2.3.0 and <= 2.7.1 cause a SEQUENCE bug with JPA and @Identity tag"/> -->
+      <property name="eclipselink.target-database" value="MySQL"/>
     </properties>
   </persistence-unit>
 </persistence>

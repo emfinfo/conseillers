@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sbt: com.typesafe.play:play-exceptions:2.8.8:jar">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/typesafe/play/play-exceptions/2.8.8/play-exceptions-2.8.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

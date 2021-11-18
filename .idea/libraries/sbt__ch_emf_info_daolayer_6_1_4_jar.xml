@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="sbt: ch.emf.info:daolayer:6.1.4:jar">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/ch/emf/info/daolayer/6.1.4/daolayer-6.1.4-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/ch/emf/info/daolayer/6.1.4/daolayer-6.1.4-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/ch/emf/info/daolayer/6.1.4/daolayer-6.1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/ch/emf/info/daolayer/6.1.4/daolayer-6.1.4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/ch/emf/info/daolayer/6.1.4/daolayer-6.1.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -27,6 +27,8 @@
       <!--      <property name="eclipselink.logging.sql" value="OFF"/>
       <property name="eclipselink.logging.level.sql" value="OFF"/>-->
 
+      <!-- next line because mariadb connector > 2.3.0 and <= 2.7.1 cause a SEQUENCE bug with JPA and @Identity tag"/> -->
+      <property name="eclipselink.target-database" value="MySQL"/>
     </properties>
   </persistence-unit>
 </persistence>

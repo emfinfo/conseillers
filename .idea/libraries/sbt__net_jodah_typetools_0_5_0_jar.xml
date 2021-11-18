@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sbt: net.jodah:typetools:0.5.0:jar">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/jodah/typetools/0.5.0/typetools-0.5.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

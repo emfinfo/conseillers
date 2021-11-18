@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="sbt: ch.jcsinfo.models:conseillers-models:1.0.15:jar">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/ch/jcsinfo/models/conseillers-models/1.0.15/conseillers-models-1.0.15-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/ch/jcsinfo/models/conseillers-models/1.0.15/conseillers-models-1.0.15-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/ch/jcsinfo/models/conseillers-models/1.0.15/conseillers-models-1.0.15.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/ch/jcsinfo/models/conseillers-models/1.0.15/conseillers-models-1.0.15-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/ch/jcsinfo/models/conseillers-models/1.0.15/conseillers-models-1.0.15-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
